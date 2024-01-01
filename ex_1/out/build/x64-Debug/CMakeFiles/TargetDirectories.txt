@@ -1,0 +1,15 @@
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/CMakeFiles/oop1_ex01.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/CMakeFiles/Zip.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/CMakeFiles/ZipBackup.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/CMakeFiles/package.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/CMakeFiles/package_source.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/include/CMakeFiles/package.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/include/CMakeFiles/package_source.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/include/CMakeFiles/edit_cache.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/include/CMakeFiles/rebuild_cache.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/src/CMakeFiles/package.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/src/CMakeFiles/package_source.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/src/CMakeFiles/edit_cache.dir
+C:/Users/Alex/Desktop/תכנות מונחה עצמים/Exercises/OPP_ex/ex_1/out/build/x64-Debug/src/CMakeFiles/rebuild_cache.dir
