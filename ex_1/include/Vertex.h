@@ -12,6 +12,7 @@ struct Vertex
 
     bool isHigherThan(const Vertex& other) const;
     bool isToTheRightOf(const Vertex& other) const;
+    bool isSameHeightAs(const Vertex& other) const;
     bool isValid() const;
 };
 
