@@ -1,6 +1,6 @@
 // Declaration of class Rectangle.
 
-#include <vertex.h>
+#include <Vertex.h>
 #include <Utilities.h>
 
 // prevent multiple inclusions of header file
@@ -21,10 +21,11 @@ public:
 	Vertex getTopRight() const;
 	double getWidth() const;
 	double getHeight() const;
-	bool isValidRectangle(Vertex bottomLeft, Vertex topRight) const;
 
 private:
 	Vertex m_bottomLeft;
 	Vertex m_topRight;
+
+	bool isValidRectangle(Vertex bottomLeft, Vertex topRight) const;
 
 }; // end class Rectangle
