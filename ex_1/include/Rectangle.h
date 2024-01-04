@@ -2,6 +2,7 @@
 
 #include <vertex.h>
 #include <Utilities.h>
+#include <Board.h>
 
 // prevent multiple inclusions of header file
 #pragma once
@@ -18,10 +19,18 @@ public:
 	
 	// functions
 	Vertex getBottomLeft() const;
+	Vertex getBottomRight() const;
+	Vertex getTopLeft() const;
 	Vertex getTopRight() const;
 	double getWidth() const;
 	double getHeight() const;
 	bool isValidRectangle(Vertex bottomLeft, Vertex topRight) const;
+	void draw(Board& board) const;
+	Rectangle getBoundingRectangle() const;
+	double getArea() const;
+	double getPerimeter() const;
+	Vertex getCenter() const;
+	bool scale(double factor);
 
 private:
 	Vertex m_bottomLeft;
