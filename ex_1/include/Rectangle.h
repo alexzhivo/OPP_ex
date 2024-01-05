@@ -1,11 +1,10 @@
-// Declaration of class Rectangle.
+// prevent multiple inclusions of header file
+#pragma once
 
+// Declaration of class Rectangle.
 #include <Vertex.h>
 #include <Utilities.h>
 #include <Board.h>
-
-// prevent multiple inclusions of header file
-#pragma once
 
 // Rectangle definition
 class Rectangle {
@@ -19,12 +18,9 @@ public:
 	
 	// functions
 	Vertex getBottomLeft() const;
-	Vertex getBottomRight() const;
-	Vertex getTopLeft() const;
 	Vertex getTopRight() const;
 	double getWidth() const;
 	double getHeight() const;
-	bool isValidRectangle(Vertex bottomLeft, Vertex topRight) const;
 	void draw(Board& board) const;
 	Rectangle getBoundingRectangle() const;
 	double getArea() const;
@@ -35,5 +31,7 @@ public:
 private:
 	Vertex m_bottomLeft;
 	Vertex m_topRight;
-
+	Vertex getBottomRight() const;
+	Vertex getTopLeft() const;
+	bool isValidRectangle(Vertex bottomLeft, Vertex topRight) const;
 }; // end class Rectangle
