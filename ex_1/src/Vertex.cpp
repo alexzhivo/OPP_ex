@@ -15,7 +15,7 @@ bool Vertex::isToTheRightOf(const Vertex& other) const
 
 bool Vertex::isSameHeightAs(const Vertex& other) const
 {
-    return ((other.m_row - m_row) < 0.5);
+    return m_row == other.m_row;
 }
 
 bool Vertex::isValid() const
