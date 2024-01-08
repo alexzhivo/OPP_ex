@@ -9,7 +9,7 @@
 
 #define RECTANGLE   1
 #define TRIANGLE    0
-#define WINDOW      0
+#define WINDOW      1
 #define HEXAGRAM    0
 
 #if RECTANGLE

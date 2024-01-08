@@ -29,8 +29,11 @@ public:
 	bool scale(double factor);
 
 private:
+	// members
 	Vertex m_bottomLeft;
 	Vertex m_topRight;
+
+	// helper functions
 	Vertex getBottomRight() const;
 	Vertex getTopLeft() const;
 	bool isValidRectangle(Vertex bottomLeft, Vertex topRight) const;

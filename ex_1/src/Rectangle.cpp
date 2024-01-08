@@ -23,12 +23,6 @@ Rectangle::Rectangle(double x0, double y0, double x1, double y1)
 Rectangle::Rectangle(const Vertex& start, double width, double height)
 	: Rectangle(start, Vertex(start.m_col + width, start.m_row + height))
 {
-	if (width < 0 || height < 0)
-	{
-		// If either width or height is negative, set default values
-		m_bottomLeft = Vertex(20,10);
-		m_topRight = Vertex(30,20);
-	}
 }
 
 bool Rectangle::isValidRectangle(Vertex bottomLeft, Vertex topRight) const
