@@ -106,8 +106,8 @@ bool Rectangle::scale(double factor)
 
 	bottomLeft.m_col = center.m_col - ((center.m_col - m_bottomLeft.m_col) * factor);
 	bottomLeft.m_row = center.m_row - ((center.m_row - m_bottomLeft.m_row) * factor);
-	topRight.m_col = center.m_col - ((center.m_col - m_topRight.m_col) * factor);
-	topRight.m_row = center.m_row - ((center.m_row - m_topRight.m_row) * factor);
+	topRight.m_col = center.m_col + ((center.m_col - m_topRight.m_col) * factor);
+	topRight.m_row = center.m_row + ((center.m_row - m_topRight.m_row) * factor);
 
 	if (!isValidRectangle(bottomLeft,topRight))
 	{
