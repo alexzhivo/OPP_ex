@@ -49,7 +49,7 @@ void printGenericInfo(const Shape& shape, std::string_view shapeName);
 
 int main()
 {
-    Vertex v_arr[] = { {6,3},{7,5},{9,2} };
+    Vertex v_arr[] = { {1,1},{1.5,sqrt(3)/2},{2,1}};
 
     Triangle t1(v_arr);
 
@@ -58,7 +58,8 @@ int main()
     std::cout << t1.getVertex(2) << std::endl;
     std::cout << t1.getLength() << std::endl;
     std::cout << t1.getHeight() << std::endl;
-
+    std::cout << t1.getCenter() << std::endl;
+    std::cout << t1.scale(2) << std::endl;
 
 #if RECTANGLE
     {

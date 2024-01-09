@@ -50,7 +50,31 @@ Vertex Triangle::getCenter() const
 	return Vertex(center_x, center_y);
 }
 
-// bool Triangle::scale(double factor) {}
+bool Triangle::scale(double factor)
+{
+	if (factor < 0)
+		return false;
+
+	Vertex centerV = getCenter();
+	Vertex newVertices[3];
+
+	for (int i = 0; i < 3; i++) {
+		double disX = m_vertices[i].m_col - centerV.m_col;
+		double disY = m_vertices[i].m_row - centerV.m_row;
+		newVertices[i].m_col = centerV.m_col + (disX * factor);
+		newVertices[i].m_row = centerV.m_row + (disY * factor);
+
+		if (!newVertices[i].isValid()) {
+			return false;
+		}
+	}
+
+	for (int i = 0; i < 3; i++) {
+		m_vertices[i] = newVertices[i];
+	}
+
+	return true;
+}
 
 // accessor functions
 Vertex Triangle::getVertex(int index) const
