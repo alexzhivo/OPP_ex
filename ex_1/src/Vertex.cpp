@@ -13,11 +13,6 @@ bool Vertex::isToTheRightOf(const Vertex& other) const
     return m_col > other.m_col;
 }
 
-bool Vertex::isSameHeightAs(const Vertex& other) const
-{
-    return m_row == other.m_row;
-}
-
 bool Vertex::isValid() const
 {
     return m_col >= 0 && m_col <= MAX_COL && m_row >= 0 && m_row <= MAX_ROW;

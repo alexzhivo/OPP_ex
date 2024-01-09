@@ -7,11 +7,8 @@
 #include "Vertex.h"
 #include "Board.h"
 
-#define RECTANGLE   0
-#define TRIANGLE    0
-
-#include "Triangle.h"
-
+#define RECTANGLE   1
+#define TRIANGLE    1
 #define WINDOW      0
 #define HEXAGRAM    0
 
@@ -49,18 +46,6 @@ void printGenericInfo(const Shape& shape, std::string_view shapeName);
 
 int main()
 {
-    Vertex v_arr[] = { {1,1},{1.5,sqrt(3)/2},{2,1}};
-
-    Triangle t1(v_arr);
-
-    std::cout << t1.getVertex(0) << std::endl;
-    std::cout << t1.getVertex(1) << std::endl;
-    std::cout << t1.getVertex(2) << std::endl;
-    std::cout << t1.getLength() << std::endl;
-    std::cout << t1.getHeight() << std::endl;
-    std::cout << t1.getCenter() << std::endl;
-    std::cout << t1.scale(2) << std::endl;
-
 #if RECTANGLE
     {
         static constexpr auto shapeName = std::string_view("rectangle");
