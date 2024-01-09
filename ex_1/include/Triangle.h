@@ -7,7 +7,7 @@
 class Triangle {
 public:
 	Triangle(const Vertex vertices[3]);
-	// Triangle(const Vertex& left, const Vertex& right, double height);
+	Triangle(const Vertex& left, const Vertex& right, double height);
 
 	Vertex getVertex(int index) const;
 	double getLength() const;
@@ -18,12 +18,11 @@ public:
 	double getArea() const;
 	double getPerimeter() const;
 	Vertex getCenter() const;
-	// bool scale(double factor);
+	bool scale(double factor);
 
 private:
 	Vertex m_vertices[3];
-
-	double edgeLength(const Vertex& v1, const Vertex& v2) const;
-	bool isValid() const;
+	void setDefaultValues(const Vertex vertices[3]);
+	bool isValid(const Vertex vertices[3]) const;
 	bool isStanding() const;
 };

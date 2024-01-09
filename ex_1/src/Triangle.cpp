@@ -1,5 +1,6 @@
 #include "Triangle.h"
 #include "Vertex.h"
+#include "Utilities.h"
 #include "Board.h"
 #include "cmath"
 
@@ -7,14 +8,14 @@
 Triangle::Triangle(const Vertex vertices[3])
 	: m_vertices{ vertices[0], vertices[1] , vertices[2] }
 {
-	if (!isValid()) {
-		m_vertices[0] = Vertex(20, 20);
-		m_vertices[1] = Vertex(25, 20 + sqrt(75));
-		m_vertices[2] = Vertex(30, 20);
-	}
+	setDefaultValues(vertices);
 }
 
-// Triangle::Triangle(const Vertex& left, const Vertex& right, double height) {}
+Triangle::Triangle(const Vertex& left, const Vertex& right, double height)
+	: m_vertices{left, Vertex((left.m_col + right.m_col) / 2, left.m_row + height), right}
+{
+	setDefaultValues(m_vertices);
+}
 
 // all classes functions
 void Triangle::draw(Board& board) const
@@ -44,13 +45,30 @@ double Triangle::getPerimeter() const
 
 Vertex Triangle::getCenter() const
 {
-	double center_x = (m_vertices[2].m_col + m_vertices[0].m_col) / 2;
-	double center_y = (m_vertices[1].m_row + m_vertices[0].m_row) / 2;
+	double center_x = (m_vertices[0].m_col + m_vertices[1].m_col + m_vertices[2].m_col) / 3;
+	double center_y = (m_vertices[0].m_row + m_vertices[1].m_row + m_vertices[2].m_row) / 3;
 
 	return Vertex(center_x, center_y);
 }
 
-// bool Triangle::scale(double factor) {}
+bool Triangle::scale(double factor) 
+{
+
+	if (factor < 0)
+	{
+		return false;
+	}
+	Vertex vertex0, vertex1, vertex2, center;
+
+	center = getCenter();
+
+	vertex0.m_col = center.m_col - ((center.m_col - m_vertices[0].m_col) * factor);
+	vertex0.m_row = center.m_row - ((center.m_row - m_vertices[0].m_row) * factor);
+	
+	vertex1.m_col = m_vertices[0].m_col;
+	vertex1.m_row = center.m_row + ((m_vertices[1].m_row - center.m_row) * factor);
+	
+}
 
 // accessor functions
 Vertex Triangle::getVertex(int index) const
@@ -60,7 +78,7 @@ Vertex Triangle::getVertex(int index) const
 
 double Triangle::getLength() const
 {
-	return edgeLength(m_vertices[0],m_vertices[2]);
+	return distance(m_vertices[0],m_vertices[2]);
 }
 
 double Triangle::getHeight() const
@@ -69,29 +87,32 @@ double Triangle::getHeight() const
 }
 
 // utility functions
-bool Triangle::isValid() const
+bool Triangle::isValid(const Vertex vertices[3]) const
 {
-	if (m_vertices[0].isValid() && m_vertices[2].isValid() &&
-		m_vertices[1].isValid() && m_vertices[0].isSameHeightAs(m_vertices[2]) &&
-		m_vertices[2].isToTheRightOf(m_vertices[1]) &&
-		m_vertices[1].isToTheRightOf(m_vertices[0]) &&
-		(edgeLength(m_vertices[0], m_vertices[2]) ==
-			edgeLength(m_vertices[0], m_vertices[1]) ==
-			edgeLength(m_vertices[1], m_vertices[2])))
+	if (vertices[0].isValid() && vertices[2].isValid() &&
+		vertices[1].isValid() && sameRow(vertices[0], vertices[2]) &&
+		vertices[2].isToTheRightOf(vertices[1]) &&
+		vertices[1].isToTheRightOf(vertices[0]) &&
+		doubleEqual(distance(vertices[0], vertices[2]), distance(vertices[1], vertices[2])) &&
+		doubleEqual(distance(vertices[0], vertices[2]), distance(vertices[0], vertices[1])))
 		return true;
 	else
 		return false;
 }
 
-double Triangle::edgeLength(const Vertex& v1, const Vertex& v2) const
+void Triangle::setDefaultValues(const Vertex vertices[3])
 {
-	return sqrt(pow(v2.m_col - v1.m_col,2) + pow(v2.m_row - v1.m_row,2));
+	if (!isValid(m_vertices)) {
+		m_vertices[0] = Vertex(20, 20);
+		m_vertices[1] = Vertex(25, 20 + sqrt(75));
+		m_vertices[2] = Vertex(30, 20);
+	}
 }
 
 bool Triangle::isStanding() const
 {
-	if (m_vertices[1].m_row > m_vertices[0].m_row)
+	if (m_vertices[1].isHigherThan(m_vertices[0]))
 		return true;
 	else
 		return false;
-}
+}        
