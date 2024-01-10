@@ -125,8 +125,3 @@ bool Rectangle::scale(double factor)
 	m_topRight = topRight;
 	return true;
 }
-
-
-
-
-

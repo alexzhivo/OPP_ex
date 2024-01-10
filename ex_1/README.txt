@@ -1,31 +1,31 @@
-OOP_ex1
+oop1_ex01
 =====================================================================
 			                   SHAPES
 =====================================================================
 
-Authors: Thai Ben Hamo & Alex Zhivotovsky.
+Authors: Thai Ben Hamo , Alex Zhivotovsky.
 Id: Thai - 315218396 , Alex - 319257903.
 
 =====================================================================
                             Description
 ===================================================================== 	 
 
-Build the following shapes:
+In the exercise we will build simple objects of geometric shapes.
+We will build 4 objects:
 
 1. Rectangle
-2. Triangle
+2. and equilateral Triangle
 3. Window
 4. Hexagram
 
-Those 4 objects displayed in terminal with the support of 
-the classes we have been given.
-Every class represent a different shape.
+In the data files there is a function program (main.cpp) that uses 
+these objects and draws them on the screen.
 
 =====================================================================
                            Included files
 =====================================================================
 
-the files inside include directory:
+the files added inside include directory:
 
 - Rectangle.h
     Contains the definition of the Rectangle class.
@@ -36,7 +36,7 @@ the files inside include directory:
 - Hexagram.h
     Contains the definition of the Hexagram class.
 
-the files inside src directory:
+the files added inside src directory:
 
 - Rectangle.cpp
     Contains the implementation of the functions of the

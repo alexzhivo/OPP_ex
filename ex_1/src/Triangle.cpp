@@ -1,8 +1,4 @@
 #include "Triangle.h"
-#include "Vertex.h"
-#include "Utilities.h"
-#include "Board.h"
-#include "cmath"
 
 // ------------------- constructors ------------------------
 Triangle::Triangle(const Vertex vertices[3])
@@ -26,7 +22,6 @@ void Triangle::draw(Board& board) const
 	board.drawLine(m_vertices[1], m_vertices[2]);
 	board.drawLine(m_vertices[0], m_vertices[2]);
 }
-
 
 Rectangle Triangle::getBoundingRectangle() const
 {

@@ -1,8 +1,6 @@
 #include "Hexagram.h"
-#include "Vertex.h"
 
 // constructors
-
 Hexagram::Hexagram(Vertex firstTriangle[3], Vertex secondTriangle[3])
 	: m_firstTriangle(Triangle(firstTriangle)),m_secondTriangle(Triangle(secondTriangle))
 {
@@ -16,7 +14,6 @@ Hexagram::Hexagram(const Triangle& t1, const Triangle& t2)
 }
 
 // all classes functions
-
 void Hexagram::draw(Board& board) const
 {
 	m_firstTriangle.draw(board);

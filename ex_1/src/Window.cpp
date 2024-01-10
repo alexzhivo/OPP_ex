@@ -1,5 +1,6 @@
 #include <Window.h>
 
+// constructors
 Window::Window(const Rectangle& outer, const Rectangle& inner) 
 	:m_outer(outer), m_inner(inner)
 {
@@ -23,6 +24,7 @@ Window::Window(const Rectangle& outer, double verticalThickness, double horizont
 	}
 }
 
+// functions
 bool Window::isValidWindow(const Rectangle outer, const Rectangle inner) const
 {
 	Vertex innerCenter, outerCenter;
@@ -109,5 +111,3 @@ bool Window::scale(double factor)
 	// If scaling was successful, return true
 	return true;
 }
-
-
