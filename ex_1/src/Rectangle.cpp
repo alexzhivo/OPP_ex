@@ -1,30 +1,36 @@
 #include "Rectangle.h"
 
-Rectangle::Rectangle(const Vertex& bottomLeft, const Vertex& topRight) 
+// Constructor using bottom-left and top-right vertices
+Rectangle::Rectangle(const Vertex& bottomLeft, const Vertex& topRight)
 	: m_bottomLeft(bottomLeft), m_topRight(topRight)
 {
+	// Check if the provided rectangle is valid; otherwise, set default values
 	if (!isValidRectangle(bottomLeft, topRight))
 	{
-		m_bottomLeft= Vertex(20,10);
-		m_topRight = Vertex(30,20);
+		m_bottomLeft = Vertex(20, 10);
+		m_topRight = Vertex(30, 20);
 	}
 }
 
+// Constructor using an array of two vertices
 Rectangle::Rectangle(const Vertex vertices[2])
 	: Rectangle(vertices[0], vertices[1])
 {
 }
 
+// Constructor using coordinates of bottom-left and top-right vertices
 Rectangle::Rectangle(double x0, double y0, double x1, double y1)
 	: Rectangle(Vertex(x0, y0), Vertex(x1, y1))
 {
 }
 
+// Constructor using a starting vertex and width/height
 Rectangle::Rectangle(const Vertex& start, double width, double height)
 	: Rectangle(start, Vertex(start.m_col + width, start.m_row + height))
 {
 }
 
+// Check if a given rectangle is valid
 bool Rectangle::isValidRectangle(Vertex bottomLeft, Vertex topRight) const
 {
 	return ((bottomLeft.isValid() && topRight.isValid()) &&
@@ -93,6 +99,7 @@ Vertex Rectangle::getCenter() const
 	return(Vertex(m_bottomLeft.m_col + middleWidth, m_bottomLeft.m_row + middleHeight));
 }
 
+// Scale the rectangle by a given factor
 bool Rectangle::scale(double factor)
 {
 	if (factor < 0)
@@ -106,10 +113,11 @@ bool Rectangle::scale(double factor)
 
 	bottomLeft.m_col = center.m_col - ((center.m_col - m_bottomLeft.m_col) * factor);
 	bottomLeft.m_row = center.m_row - ((center.m_row - m_bottomLeft.m_row) * factor);
-	topRight.m_col = center.m_col + ((center.m_col - m_topRight.m_col) * factor);
-	topRight.m_row = center.m_row + ((center.m_row - m_topRight.m_row) * factor);
+	topRight.m_col = center.m_col - ((center.m_col - m_topRight.m_col) * factor);
+	topRight.m_row = center.m_row - ((center.m_row - m_topRight.m_row) * factor);
 
-	if (!isValidRectangle(bottomLeft,topRight))
+	// Check if the scaled rectangle is valid; otherwise, return false
+	if (!isValidRectangle(bottomLeft, topRight))
 	{
 		return false;
 	}
@@ -117,6 +125,8 @@ bool Rectangle::scale(double factor)
 	m_topRight = topRight;
 	return true;
 }
+
+
 
 
 

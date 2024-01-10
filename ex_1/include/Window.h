@@ -33,5 +33,5 @@ private:
 
 	// helper functions
 	bool isValidWindow(const Rectangle outer, const Rectangle inner) const;
-	bool isValidThickness(Rectangle outer, double verticalThickness, double horizonalThickness) const;
+	bool isValidThickness(Rectangle outer) const;
 }; // end class Window

@@ -22,7 +22,7 @@ public:
 
 private:
 	Vertex m_vertices[3];
-	void setDefaultValues(const Vertex vertices[3]);
+	void setDefaultValues();
 	bool isValid(const Vertex vertices[3]) const;
 	bool isStanding() const;
 };

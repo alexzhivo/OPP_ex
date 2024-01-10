@@ -16,7 +16,7 @@ Window::Window(const Rectangle& outer, double verticalThickness, double horizont
 							 Vertex(m_outer.getTopRight().m_col - horizontalThickness,
 									m_outer.getTopRight().m_row - verticalThickness)))
 {
-	if (!isValidThickness(outer, verticalThickness, horizontalThickness))
+	if (!isValidThickness(outer))
 	{
 		m_inner = Rectangle(Vertex(20, 10), Vertex(30, 20));
 		m_outer = Rectangle(Vertex(20, 10), Vertex(30, 20));
@@ -34,7 +34,7 @@ bool Window::isValidWindow(const Rectangle outer, const Rectangle inner) const
 		doubleEqual(innerCenter.m_row, outerCenter.m_row));
 }
 
-bool Window::isValidThickness(Rectangle outer, double verticalThickness, double horizontalThickness) const 
+bool Window::isValidThickness(Rectangle outer) const 
 {
 	return((getVerticalThickness() < (outer.getHeight() / 2) ||
 			doubleEqual(getVerticalThickness(), (outer.getHeight() / 2))) &&
@@ -76,12 +76,12 @@ Rectangle Window::getBoundingRectangle() const
 
 double Window::getArea() const
 {
-	return m_outer.getArea();
+	return m_outer.getArea() - m_inner.getArea();
 }
 
 double Window::getPerimeter() const
 {
-	return m_outer.getPerimeter();
+	return m_outer.getPerimeter() + m_outer.getPerimeter();
 }
 
 Vertex Window::getCenter() const
