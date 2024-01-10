@@ -8,19 +8,23 @@
 class Hexagram {
 public:
 	Hexagram(Vertex firstTriangle[3], Vertex secondTriangle[3]);
-	// Hexagram(const Triangle& t1, const Triangle& t2);
+	Hexagram(const Triangle& t1, const Triangle& t2);
 
 	double getTotalHeight() const;
 	double getLength() const;
 
-	// void draw(Board& board) const;
-	// Rectangle getBoundingRectangle() const;
-	// double getArea() const;
-	// double getPerimeter() const;
-	// Vertex getCenter() const;
-	// bool scale(double factor);
+	void draw(Board& board) const;
+	Rectangle getBoundingRectangle() const;
+	double getArea() const;
+	double getPerimeter() const;
+	Vertex getCenter() const;
+	bool scale(double factor);
 
 private:
-	Vertex m_firstTriangle[3];
-	Vertex m_secondTriangle[3];
+	Triangle m_firstTriangle;
+	Triangle m_secondTriangle;
+
+	void setDefaultValues(const Triangle& t1, const Triangle& t2);
+	bool isTrianglesOpposites(const Triangle& t1, const Triangle& t2) const;
+	bool isStanding(const Triangle& t1) const;
 };
