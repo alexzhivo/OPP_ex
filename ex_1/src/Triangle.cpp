@@ -4,26 +4,29 @@
 #include "Board.h"
 #include "cmath"
 
-// constructors
+// ------------------- constructors ------------------------
 Triangle::Triangle(const Vertex vertices[3])
 	: m_vertices{ vertices[0], vertices[1] , vertices[2] }
 {
-	setDefaultValues(vertices);
+	setDefaultValues();
 }
 
 Triangle::Triangle(const Vertex& left, const Vertex& right, double height)
 	: m_vertices{left, Vertex((left.m_col + right.m_col) / 2, left.m_row + height), right}
 {
-	setDefaultValues(m_vertices);
+	setDefaultValues();
 }
 
-// all classes functions
+// ---------------- all classes functions -------------------
+ 
+// Draw the triangle on the board by drawing its three sides.
 void Triangle::draw(Board& board) const
 {
 	board.drawLine(m_vertices[0], m_vertices[1]);
 	board.drawLine(m_vertices[1], m_vertices[2]);
 	board.drawLine(m_vertices[0], m_vertices[2]);
 }
+
 
 Rectangle Triangle::getBoundingRectangle() const
 {
@@ -51,6 +54,7 @@ Vertex Triangle::getCenter() const
 	return Vertex(center_x, center_y);
 }
 
+// Scale the triangle by a given factor.
 bool Triangle::scale(double factor)
 {
 	if (factor < 0)
@@ -59,6 +63,7 @@ bool Triangle::scale(double factor)
 	Vertex centerV = getCenter();
 	Vertex newVertices[3];
 
+	// Calculate new vertices after scaling.
 	for (int i = 0; i < 3; i++) {
 		double disX = m_vertices[i].m_col - centerV.m_col;
 		double disY = m_vertices[i].m_row - centerV.m_row;
@@ -70,6 +75,7 @@ bool Triangle::scale(double factor)
 		}
 	}
 
+	// Update the triangle with the new vertices.
 	for (int i = 0; i < 3; i++) {
 		m_vertices[i] = newVertices[i];
 	}
@@ -77,7 +83,6 @@ bool Triangle::scale(double factor)
 	return true;
 }
 
-// accessor functions
 Vertex Triangle::getVertex(int index) const
 {
 	return m_vertices[index];
@@ -93,7 +98,9 @@ double Triangle::getHeight() const
 	return abs(m_vertices[1].m_row - m_vertices[0].m_row);
 }
 
-// utility functions
+// ----------------- accessor functions ---------------------
+// 
+// Check if the given vertices form a valid triangle.
 bool Triangle::isValid(const Vertex vertices[3]) const
 {
 	if (vertices[0].isValid() && vertices[2].isValid() &&
@@ -107,7 +114,8 @@ bool Triangle::isValid(const Vertex vertices[3]) const
 		return false;
 }
 
-void Triangle::setDefaultValues(const Vertex vertices[3])
+// Set default values for the triangle if the provided vertices are not valid.
+void Triangle::setDefaultValues()
 {
 	if (!isValid(m_vertices)) {
 		m_vertices[0] = Vertex(20, 20);
@@ -116,6 +124,7 @@ void Triangle::setDefaultValues(const Vertex vertices[3])
 	}
 }
 
+// Check if the triangle is standing (pointing upwards) or not.
 bool Triangle::isStanding() const
 {
 	if (m_vertices[1].isHigherThan(m_vertices[0]))

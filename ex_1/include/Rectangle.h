@@ -2,9 +2,10 @@
 #pragma once
 
 // Declaration of class Rectangle.
+#include <Board.h>
 #include <Vertex.h>
 #include <Utilities.h>
-#include <Board.h>
+
 
 class Rectangle {
 public:
