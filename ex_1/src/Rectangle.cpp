@@ -1,5 +1,7 @@
 #include "Rectangle.h"
 
+// ------------------- constructors ------------------------
+
 // Constructor using bottom-left and top-right vertices
 Rectangle::Rectangle(const Vertex& bottomLeft, const Vertex& topRight)
 	: m_bottomLeft(bottomLeft), m_topRight(topRight)
@@ -30,27 +32,11 @@ Rectangle::Rectangle(const Vertex& start, double width, double height)
 {
 }
 
-// Check if a given rectangle is valid
-bool Rectangle::isValidRectangle(Vertex bottomLeft, Vertex topRight) const
-{
-	return ((bottomLeft.isValid() && topRight.isValid()) &&
-		(topRight.isToTheRightOf(bottomLeft) || sameRow(bottomLeft, topRight)) &&
-		(topRight.isHigherThan(bottomLeft) || sameCol(bottomLeft, topRight)));
-}
+// ------------------------ functions ------------------------
 
 Vertex Rectangle::getBottomLeft() const
 {
 	return m_bottomLeft;
-}
-
-Vertex Rectangle::getBottomRight() const
-{
-	return (Vertex(m_topRight.m_col, m_bottomLeft.m_row));
-}
-
-Vertex Rectangle::getTopLeft() const
-{
-	return (Vertex(m_bottomLeft.m_col, m_topRight.m_row));
 }
 
 Vertex Rectangle::getTopRight() const
@@ -124,6 +110,26 @@ bool Rectangle::scale(double factor)
 	m_bottomLeft = bottomLeft;
 	m_topRight = topRight;
 	return true;
+}
+
+// ------------------ accessor functions ---------------------
+
+// Check if a given rectangle is valid
+bool Rectangle::isValidRectangle(Vertex bottomLeft, Vertex topRight) const
+{
+	return ((bottomLeft.isValid() && topRight.isValid()) &&
+		(topRight.isToTheRightOf(bottomLeft) || sameCol(bottomLeft, topRight)) &&
+		(topRight.isHigherThan(bottomLeft) || sameRow(bottomLeft, topRight)));
+}
+
+Vertex Rectangle::getBottomRight() const
+{
+	return (Vertex(m_topRight.m_col, m_bottomLeft.m_row));
+}
+
+Vertex Rectangle::getTopLeft() const
+{
+	return (Vertex(m_bottomLeft.m_col, m_topRight.m_row));
 }
 
 

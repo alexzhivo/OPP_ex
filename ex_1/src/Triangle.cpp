@@ -1,12 +1,10 @@
 #include "Triangle.h"
-#include "Vertex.h"
-#include "Utilities.h"
-#include "Board.h"
-#include "cmath"
+#include <cmath>
 
 // ------------------- constructors ------------------------
+
 Triangle::Triangle(const Vertex vertices[3])
-	: m_vertices{ vertices[0], vertices[1] , vertices[2] }
+	: m_vertices{vertices[0], vertices[1] , vertices[2]}
 {
 	setDefaultValues();
 }
@@ -17,7 +15,7 @@ Triangle::Triangle(const Vertex& left, const Vertex& right, double height)
 	setDefaultValues();
 }
 
-// ---------------- all classes functions -------------------
+// ------------------------ functions ------------------------
  
 // Draw the triangle on the board by drawing its three sides.
 void Triangle::draw(Board& board) const
@@ -26,7 +24,6 @@ void Triangle::draw(Board& board) const
 	board.drawLine(m_vertices[1], m_vertices[2]);
 	board.drawLine(m_vertices[0], m_vertices[2]);
 }
-
 
 Rectangle Triangle::getBoundingRectangle() const
 {
@@ -98,8 +95,8 @@ double Triangle::getHeight() const
 	return abs(m_vertices[1].m_row - m_vertices[0].m_row);
 }
 
-// ----------------- accessor functions ---------------------
-// 
+// ------------------ accessor functions ---------------------
+
 // Check if the given vertices form a valid triangle.
 bool Triangle::isValid(const Vertex vertices[3]) const
 {

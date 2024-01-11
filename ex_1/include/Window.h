@@ -2,9 +2,10 @@
 #pragma once
 
 // Declaration of class Window.
-#include <Rectangle.h>
-#include <Vertex.h>
-#include <Utilities.h>
+#include "Rectangle.h"
+#include "Vertex.h"
+#include "Utilities.h"
+#include "board.h"
 
 // Window definition
 class Window {
@@ -32,6 +33,6 @@ private:
 	Rectangle m_outer;
 
 	// helper functions
-	bool isValidWindow(const Rectangle outer, const Rectangle inner) const;
-	bool isValidThickness(Rectangle outer) const;
+	bool isValidWindow(const Rectangle& outer, const Rectangle& inner) const;
+	bool isValidThickness(const Rectangle& outer) const;
 }; // end class Window
