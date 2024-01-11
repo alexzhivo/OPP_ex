@@ -1,4 +1,3 @@
-// prevent multiple inclusions of header file
 #pragma once
 
 // Declaration of class Window.
@@ -7,7 +6,6 @@
 #include "Utilities.h"
 #include "board.h"
 
-// Window definition
 class Window {
 
 public:
@@ -20,6 +18,7 @@ public:
 	Vertex getTopRight() const;
 	double getVerticalThickness() const;
 	double getHorizontalThickness() const;
+
 	void draw(Board& board) const;
 	Rectangle getBoundingRectangle() const;
 	double getArea() const;

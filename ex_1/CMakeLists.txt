@@ -1,7 +1,7 @@
 cmake_minimum_required (VERSION 3.26)
 
 project (oop1_ex01)
-set (MY_AUTHORS "Alex_Zhivotovsky-Thai_Ben_Hamo")
+set (MY_AUTHORS "Thai_Ben_Hamo-Alex_Zhivotovsky")
 
 include (cmake/CompilerSettings.cmake)
 
