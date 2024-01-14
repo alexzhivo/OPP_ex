@@ -6,5 +6,6 @@ finished and submited.
 //=========================//
 
 //===== ex_2 : Cat and Mouse =====//
-not yet started.
+- added stage to terminal
+- next add characters to stage
 //=========================//
