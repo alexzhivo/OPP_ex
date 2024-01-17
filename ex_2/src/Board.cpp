@@ -26,7 +26,6 @@ Board::Board(std::string fileName)
 			m_playersLoc[i][j] = stoi(x);
 		}
 	}
-
 }
 
 size_t Board::getBoardSize()

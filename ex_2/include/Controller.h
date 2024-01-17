@@ -15,6 +15,10 @@ public:
 
 private:
 	void resetScreen();
+	void handleKey();
+	bool handleRegularKey(int c);
+	void handleSpecialKey();
+	void movePlayer(auto& player, const Location& direction);
 	Location getCharacterLocation(Characters requestedCharacter);
 	Board m_board;
 	int m_level;
