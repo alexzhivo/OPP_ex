@@ -16,16 +16,7 @@ Board::Board(std::string fileName)
 		std::getline(file, line);
 	}
 
-	//Read to a matrix the locations of the players
-	for (int i = 0; i < 1; i++)
-	{
-		for (int j = 0; j < 2; j++)
-		{
-			auto x = std::string();
-			file >> x;
-			m_playersLoc[i][j] = stoi(x);
-		}
-	}
+	file >> m_mouseFirstLoc.col >> m_mouseFirstLoc.row;
 }
 
 size_t Board::getBoardSize()
@@ -47,7 +38,6 @@ Location Board::getLocations(int searchedPlayer)
 	switch (searchedPlayer)
 	{
 	case 0:
-		return Location(m_playersLoc[0][0], m_playersLoc[0][1]);
-
+		return Location(m_mouseFirstLoc);
 	}
 }

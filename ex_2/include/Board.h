@@ -14,6 +14,6 @@ public:
 	void printCurrBoard();						//function to print board
 
 private:
-	int m_playersLoc[1][2];
+	Location m_mouseFirstLoc;
 	std::vector<std::string> m_currBoard;
 };
