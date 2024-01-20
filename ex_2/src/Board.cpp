@@ -26,12 +26,16 @@ size_t Board::getBoardSize()
 
 void Board::printCurrBoard()
 {
-	for (int x = 0; x < m_currBoard.size(); ++x)
+	for (auto x = 0; x < m_currBoard.size(); ++x)
 	{
-		std::cout << m_currBoard[x];
+		for (auto y = 0; y < m_currBoard[x].size(); ++y)
+		{
+			std::cout << m_currBoard[x][y];
+		}
 		std::cout << std::endl;
 	}
 }
+
 
 Location Board::getLocations(int searchedPlayer)
 {
@@ -40,4 +44,16 @@ Location Board::getLocations(int searchedPlayer)
 	case 0:
 		return Location(m_mouseFirstLoc);
 	}
+}
+
+char Board::getChar(Location position)
+{
+	return m_currBoard[position.row][position.col];
+}
+
+bool Board::newPositionIsValid(const Location& newPosition)
+{
+	// Check if the new position is within the bounds of the board
+	return (newPosition.row >= 0 && newPosition.row < m_currBoard.size() &&
+			newPosition.col >= 0 && newPosition.col < m_currBoard[0].size());
 }

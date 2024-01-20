@@ -24,5 +24,18 @@ Location Mouse::getPosition()
 
 void Mouse::move(Board &board, Location newLocation)
 {
-	m_position = newLocation;
+	if (isValidMove(board, newLocation))
+	{
+		m_position = newLocation;
+	}
+	
+}
+
+bool Mouse::isValidMove(Board board, Location location)
+{
+	char currentChar = board.getChar(location);
+	if (currentChar == ' ' || currentChar == '$' || currentChar == '*' || currentChar == 'F')
+		return true;
+
+	return false;
 }

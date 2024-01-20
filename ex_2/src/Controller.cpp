@@ -82,13 +82,13 @@ void Controller::handleSpecialKey()
         movePlayer(m_mouse, Location(0, -1));
         break;
     case SpecialKeys::DOWN:
-        std::cout << "Arrow Down pressed\n";
+        movePlayer(m_mouse, Location(0, 1));
         break;
     case SpecialKeys::LEFT:
-        std::cout << "Arrow Left pressed\n";
+        movePlayer(m_mouse, Location(-1, 0));
         break;
     case SpecialKeys::RIGHT:
-        std::cout << "Arrow Right pressed\n";
+        movePlayer(m_mouse, Location(1, 0));
         break;
     default:
         std::cout << "Unknown special key pressed (code = " << c << ")\n";
@@ -99,5 +99,9 @@ void Controller::handleSpecialKey()
 void Controller::movePlayer(auto& player, const Location& direction)
 {
     Location newPosition(player.getPosition().col + direction.col, player.getPosition().row + direction.row);
-    player.move(m_board, newPosition);
+    if (m_board.newPositionIsValid(newPosition))
+    {
+        player.move(m_board, newPosition);
+    }
 }
+

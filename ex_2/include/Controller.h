@@ -21,6 +21,7 @@ private:
 	void movePlayer(auto& player, const Location& direction);
 	Location getCharacterLocation(Characters requestedCharacter);
 	Board m_board;
-	int m_level;
+	int m_turns;
 	Mouse m_mouse;
+	int m_level;
 };

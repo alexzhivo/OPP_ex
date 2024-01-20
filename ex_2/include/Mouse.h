@@ -12,7 +12,7 @@ public:
 	void move(Board& board, Location newLocation);
 	void print();
 	Location getPosition();
-
+	bool isValidMove(Board board, Location location);
 private:
 	Location m_position;
 	const char m_char = '%';
