@@ -3,12 +3,19 @@
 #include "Location.h"
 #include <iostream>
 
+class Cheese;
+
 Mouse::Mouse(Location position)
 	: m_position(position) {}
 
 void Mouse::setPosition(Location newPosition)
 {
 	m_position = newPosition;
+}
+
+void Mouse::eatCheese()
+{
+	
 }
 
 void Mouse::print()
@@ -27,6 +34,12 @@ bool Mouse::move(Board &board, Location newLocation)
 	if (isValidMove(board, newLocation))
 	{
 		m_position = newLocation;
+
+		char theChar = board.getChar(newLocation);
+		if (theChar == '*') {
+			board.clearCheese(newLocation);
+		}
+
 		return true;
 	}
 	return false;

@@ -4,16 +4,15 @@
 #include <conio.h>
 
 Controller::Controller()
-    : m_level(1), m_mouse(getMouseLocation()),m_whosTurn(0), m_cats(getCatsLocations()), m_board("Board1.txt")
+    : m_level(1), m_mouse(getMouseLocation()), m_whosTurn(0), m_cats(getCatsLocations()), m_board("Board1.txt"), m_gameOver(false)
 {}
 
 void Controller::play()
 {
-
     resetScreen();
-    //m_board.printCurrBoard();   //Print the board
-    //m_mouse.setPosition(getCharacterLocation(mouse));
-    while (true)
+    // m_board.printCurrBoard();   //Print the board
+    // m_mouse.setPosition(getCharacterLocation(mouse));
+    while (!m_gameOver)
     {
         handleKey();
         resetScreen();
@@ -37,8 +36,13 @@ Location Controller::getMouseLocation()
 std::vector<Location> Controller::getCatsLocations()
 {
     return m_board.getCatsLocations();
-
 }
+
+std::vector<Location> Controller::getCheeseLocations()
+{
+    return m_board.getCheeseLocations();
+}
+
 void Controller::handleKey()
 {
     const auto c = _getch();
@@ -53,6 +57,11 @@ void Controller::handleKey()
         exit = handleRegularKey(c);
         break;
     }
+}
+
+void Controller::checkGameStatus()
+{
+
 }
 
 bool Controller::handleRegularKey(int c)
@@ -108,4 +117,3 @@ void Controller::movePlayer(auto& player, const Location& direction)
     {
     }
 }
-

@@ -52,21 +52,40 @@ Location Board::getMouseLocation()
 		return m_mouseFirstLoc;
 }
 
+// returns a vector of Cats Locations
 std::vector<Location> Board::getCatsLocations()
 {
 	return m_catsFirstLocs;
 }
 
+std::vector<Location> Board::getCheeseLocations()
+{
+	return m_cheeseLocations;
+}
+
+void Board::clearCheese(Location position)
+{
+	m_currBoard[position.row][position.col] = ' ';
+
+	m_cheeseLocations.erase(std::remove_if(
+		m_cheeseLocations.begin(),
+		m_cheeseLocations.end(),
+		[&position](const Location& loc) {
+			return loc.col == position.col && loc.row == position.row;
+		}
+	),
+		m_cheeseLocations.end());
+}
+
+// returns the Char in the given Location
 char Board::getChar(Location position)
 {
 	return m_currBoard[position.row][position.col];
 }
 
+// Check if the new position is within the bounds of the board
 bool Board::newPositionIsValid(const Location& newPosition)
 {
-	// Check if the new position is within the bounds of the board
 	return (newPosition.row >= 0 && newPosition.row < m_currBoard.size() &&
 			newPosition.col >= 0 && newPosition.col < m_currBoard[0].size());
 }
-
-

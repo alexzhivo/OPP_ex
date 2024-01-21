@@ -13,6 +13,9 @@ public:
 	void print();
 	Location getPosition();
 	bool isValidMove(Board board, Location location);
+	
+	void eatCheese();
+
 private:
 	Location m_position;
 	const char m_char = '%';
