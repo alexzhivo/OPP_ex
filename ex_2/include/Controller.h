@@ -19,7 +19,7 @@ private:
 	bool handleRegularKey(int c);
 	void handleSpecialKey();
 	void movePlayer(auto& player, const Location& direction);
-	void checkGameStatus();
+	void endGame();
 
 	Location getMouseLocation();
 	std::vector<Location> getCatsLocations();

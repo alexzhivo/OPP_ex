@@ -4,19 +4,43 @@
 #include <conio.h>
 
 Controller::Controller()
-    : m_level(1), m_mouse(getMouseLocation()), m_whosTurn(0), m_cats(getCatsLocations()), m_board("Board1.txt"), m_gameOver(false)
+    : m_level(1),
+      m_mouse(getMouseLocation()),
+      m_whosTurn(0), 
+      m_cats(getCatsLocations()), 
+      m_board("Board1.txt"), 
+      m_gameOver(false)
 {}
 
 void Controller::play()
 {
     resetScreen();
+
     // m_board.printCurrBoard();   //Print the board
     // m_mouse.setPosition(getCharacterLocation(mouse));
+    
     while (!m_gameOver)
     {
-        handleKey();
+        while (m_board.isCheeseLeft())
+        {
+            handleKey();
+            resetScreen();
+        }
+        system("cls");          // clear screen
+        m_level++;
+        if (m_level > 2)
+            endGame();
+
+        m_board = Board("Board" + std::to_string(m_level) + ".txt");
+        m_mouse.setPosition(getMouseLocation());
+
         resetScreen();
     }
+}
+
+void Controller::endGame()
+{
+    m_gameOver = true;
 }
 
 void Controller::resetScreen()
@@ -30,7 +54,7 @@ void Controller::resetScreen()
 
 Location Controller::getMouseLocation()
 {
-        return m_board.getMouseLocation();  
+    return m_board.getMouseLocation();  
 }
 
 std::vector<Location> Controller::getCatsLocations()
@@ -57,11 +81,6 @@ void Controller::handleKey()
         exit = handleRegularKey(c);
         break;
     }
-}
-
-void Controller::checkGameStatus()
-{
-
 }
 
 bool Controller::handleRegularKey(int c)

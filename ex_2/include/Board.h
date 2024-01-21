@@ -19,10 +19,11 @@ public:
 
 	std::vector<Location> getCatsLocations();	// get cats locations
 	std::vector<Location> getCheeseLocations();	// get cheese locations
+	bool isCheeseLeft();						// checks if cheese left on board
 
 private:
-	Location m_mouseFirstLoc;
 	std::vector<std::string> m_currBoard;
+	Location m_mouseFirstLoc;
 	std::vector<Location> m_catsFirstLocs;
 	std::vector<Location> m_cheeseLocations;
 };

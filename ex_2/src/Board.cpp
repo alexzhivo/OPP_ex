@@ -26,6 +26,8 @@ Board::Board(std::string fileName)
 				m_catsFirstLocs.push_back(Location(col, m_currBoard.size() - 1));
 				m_currBoard[m_currBoard.size() - 1][col] = ' ';  // Update the board
 			}
+			if (line[col] == '*')
+				m_cheeseLocations.emplace_back(Location(col, m_currBoard.size() - 1));
 		}
 	}
 }
@@ -73,8 +75,14 @@ void Board::clearCheese(Location position)
 		[&position](const Location& loc) {
 			return loc.col == position.col && loc.row == position.row;
 		}
-	),
-		m_cheeseLocations.end());
+	), m_cheeseLocations.end());
+
+	std::cout << m_cheeseLocations.size() << std::endl;
+}
+
+bool Board::isCheeseLeft()
+{
+	return !m_cheeseLocations.empty();
 }
 
 // returns the Char in the given Location

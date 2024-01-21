@@ -13,11 +13,6 @@ void Mouse::setPosition(Location newPosition)
 	m_position = newPosition;
 }
 
-void Mouse::eatCheese()
-{
-	
-}
-
 void Mouse::print()
 {
 	Screen::setLocation(m_position);
@@ -36,6 +31,8 @@ bool Mouse::move(Board &board, Location newLocation)
 		m_position = newLocation;
 
 		char theChar = board.getChar(newLocation);
+
+		// if mouse steps on cheese block
 		if (theChar == '*') {
 			board.clearCheese(newLocation);
 		}
