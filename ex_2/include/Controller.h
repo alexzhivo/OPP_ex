@@ -3,6 +3,7 @@
 #include "Board.h"
 #include "Location.h"
 #include "Mouse.h"
+#include "Cats.h"
 
 enum Characters {
 	mouse
@@ -19,9 +20,11 @@ private:
 	bool handleRegularKey(int c);
 	void handleSpecialKey();
 	void movePlayer(auto& player, const Location& direction);
-	Location getCharacterLocation(Characters requestedCharacter);
+	Location getMouseLocation();
+	std::vector<Location> getCatsLocations();
 	Board m_board;
-	int m_turns;
 	Mouse m_mouse;
+	Cats m_cats;
+	int m_whosTurn;
 	int m_level;
 };

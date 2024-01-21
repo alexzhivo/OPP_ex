@@ -4,11 +4,12 @@
 #include <conio.h>
 
 Controller::Controller()
-    : m_level(1), m_mouse(getCharacterLocation(mouse)), m_board("Board1.txt")
+    : m_level(1), m_mouse(getMouseLocation()),m_whosTurn(0), m_cats(getCatsLocations()), m_board("Board1.txt")
 {}
 
 void Controller::play()
 {
+
     resetScreen();
     //m_board.printCurrBoard();   //Print the board
     //m_mouse.setPosition(getCharacterLocation(mouse));
@@ -24,17 +25,19 @@ void Controller::resetScreen()
     Screen::resetLocation();
     m_board.printCurrBoard();   //Print the board
     m_mouse.print();
+    m_cats.print();
     Screen::setLocation(Location(0, m_board.getBoardSize()));
 }
 
-Location Controller::getCharacterLocation(Characters requestedCharacter)
+Location Controller::getMouseLocation()
 {
-    switch (requestedCharacter)
-    {
-    case mouse:
-        return m_board.getLocations(mouse);
+        return m_board.getMouseLocation();  
+}
 
-    }
+std::vector<Location> Controller::getCatsLocations()
+{
+    return m_board.getCatsLocations();
+
 }
 void Controller::handleKey()
 {
@@ -98,10 +101,11 @@ void Controller::handleSpecialKey()
 
 void Controller::movePlayer(auto& player, const Location& direction)
 {
-    Location newPosition(player.getPosition().col + direction.col, player.getPosition().row + direction.row);
-    if (m_board.newPositionIsValid(newPosition))
+    Location newPosition(player.getPosition().col + direction.col,
+                         player.getPosition().row + direction.row);
+    if (m_board.newPositionIsValid(newPosition) &&
+        player.move(m_board, newPosition))
     {
-        player.move(m_board, newPosition);
     }
 }
 

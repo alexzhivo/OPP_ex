@@ -9,7 +9,7 @@ class Mouse {
 public:
 	Mouse(Location position); 
 	void setPosition(Location newPosition);
-	void move(Board& board, Location newLocation);
+	bool move(Board& board, Location newLocation);
 	void print();
 	Location getPosition();
 	bool isValidMove(Board board, Location location);

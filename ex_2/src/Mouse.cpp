@@ -22,13 +22,14 @@ Location Mouse::getPosition()
 	return m_position;
 }
 
-void Mouse::move(Board &board, Location newLocation)
+bool Mouse::move(Board &board, Location newLocation)
 {
 	if (isValidMove(board, newLocation))
 	{
 		m_position = newLocation;
+		return true;
 	}
-	
+	return false;
 }
 
 bool Mouse::isValidMove(Board board, Location location)

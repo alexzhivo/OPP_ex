@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <vector>
 
 Board::Board(std::string fileName)
 {
@@ -8,42 +9,52 @@ Board::Board(std::string fileName)
 		exit(EXIT_FAILURE);
 
 	auto line = std::string();
-	std::getline(file, line);	//Read a line
 
-	while (!line.empty())
+	while (std::getline(file, line))
 	{
-		m_currBoard.push_back(line);	//each line is kept in the vector
-		std::getline(file, line);
+		m_currBoard.push_back(line);
+		for (auto col = 0; col < line.size(); ++col)
+		{
+			if (line[col] == '%')
+			{
+				m_mouseFirstLoc.row = m_currBoard.size() - 1;
+				m_mouseFirstLoc.col = col;
+				m_currBoard[m_mouseFirstLoc.row][m_mouseFirstLoc.col] = ' ';
+			}
+			if (line[col] == '^')
+			{
+				m_catsFirstLocs.push_back(Location(col, m_currBoard.size() - 1));
+				m_currBoard[m_currBoard.size() - 1][col] = ' ';  // Update the board
+			}
+		}
 	}
-
-	file >> m_mouseFirstLoc.col >> m_mouseFirstLoc.row;
 }
 
-size_t Board::getBoardSize()
+int Board::getBoardSize()
 {
 	return m_currBoard.size();
 }
 
 void Board::printCurrBoard()
 {
-	for (auto x = 0; x < m_currBoard.size(); ++x)
+	for (auto row = 0; row < m_currBoard.size(); ++row)
 	{
-		for (auto y = 0; y < m_currBoard[x].size(); ++y)
+		for (auto col = 0; col < m_currBoard[row].size(); ++col)
 		{
-			std::cout << m_currBoard[x][y];
+			std::cout << m_currBoard[row][col];
 		}
 		std::cout << std::endl;
 	}
 }
 
-
-Location Board::getLocations(int searchedPlayer)
+Location Board::getMouseLocation()
 {
-	switch (searchedPlayer)
-	{
-	case 0:
-		return Location(m_mouseFirstLoc);
-	}
+		return m_mouseFirstLoc;
+}
+
+std::vector<Location> Board::getCatsLocations()
+{
+	return m_catsFirstLocs;
 }
 
 char Board::getChar(Location position)
@@ -57,3 +68,5 @@ bool Board::newPositionIsValid(const Location& newPosition)
 	return (newPosition.row >= 0 && newPosition.row < m_currBoard.size() &&
 			newPosition.col >= 0 && newPosition.col < m_currBoard[0].size());
 }
+
+
