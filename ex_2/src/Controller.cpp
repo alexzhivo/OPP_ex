@@ -6,7 +6,7 @@
 Controller::Controller()
     : m_level(1),
       m_mouse(getMouseLocation()),
-      m_whosTurn(0), 
+      m_whoseTurn(0), 
       m_cats(getCatsLocations()), 
       m_board("Board1.txt"), 
       m_gameOver(false)
@@ -23,8 +23,16 @@ void Controller::play()
     {
         while (m_board.isCheeseLeft())
         {
-            handleKey();
-            resetScreen();
+            if (m_whoseTurn == 0)
+            {
+                handleKey();
+                resetScreen();
+            }
+            else
+            {
+                
+            }
+                
         }
         system("cls");          // clear screen
         m_level++;
@@ -134,5 +142,6 @@ void Controller::movePlayer(auto& player, const Location& direction)
     if (m_board.newPositionIsValid(newPosition) &&
         player.move(m_board, newPosition))
     {
+        m_whoseTurn = 1 - m_whoseTurn;
     }
 }

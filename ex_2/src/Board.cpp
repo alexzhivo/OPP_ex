@@ -72,7 +72,8 @@ void Board::clearCheese(Location position)
 	m_cheeseLocations.erase(std::remove_if(
 		m_cheeseLocations.begin(),
 		m_cheeseLocations.end(),
-		[&position](const Location& loc) {
+		[&position](const Location& loc) 
+		{
 			return loc.col == position.col && loc.row == position.row;
 		}
 	), m_cheeseLocations.end());

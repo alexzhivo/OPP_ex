@@ -29,7 +29,7 @@ private:
 	Mouse m_mouse;
 	Cats m_cats;
 
-	int m_whosTurn;
+	int m_whoseTurn;
 	int m_level;
 	bool m_gameOver;
 };
