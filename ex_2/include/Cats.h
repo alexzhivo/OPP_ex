@@ -8,8 +8,11 @@ class Cats {
 
 public:
 	Cats(std::vector<Location> positions);
-	//void setPosition(Location newPosition);
-	void print();
+	bool isValidMove(Board board, Location location);
+	bool move(Board& board);
+	Location getRandomDirection();
+	int getRandomNumber(int min, int max);
+	void print(Board& board);
 private:
 	std::vector<Location> m_positions;
 	const char m_char = '^';

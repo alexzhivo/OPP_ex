@@ -19,12 +19,15 @@ Board::Board(std::string fileName)
 			{
 				m_mouseFirstLoc.row = m_currBoard.size() - 1;
 				m_mouseFirstLoc.col = col;
-				m_currBoard[m_mouseFirstLoc.row][m_mouseFirstLoc.col] = ' ';
+				clearCell(m_mouseFirstLoc);
 			}
 			if (line[col] == '^')
 			{
 				m_catsFirstLocs.push_back(Location(col, m_currBoard.size() - 1));
-				m_currBoard[m_currBoard.size() - 1][col] = ' ';  // Update the board
+				Location location;
+				location.row = m_currBoard.size() - 1;
+				location.col = col;
+				clearCell(location);
 			}
 			if (line[col] == '*')
 				m_cheeseLocations.emplace_back(Location(col, m_currBoard.size() - 1));
@@ -65,9 +68,14 @@ std::vector<Location> Board::getCheeseLocations()
 	return m_cheeseLocations;
 }
 
+void Board::clearCell(const Location& location) 
+{
+	m_currBoard[location.row][location.col] = ' ';
+}
+
 void Board::clearCheese(Location position)
 {
-	m_currBoard[position.row][position.col] = ' ';
+	clearCell(position);
 
 	m_cheeseLocations.erase(std::remove_if(
 		m_cheeseLocations.begin(),

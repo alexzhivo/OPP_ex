@@ -16,6 +16,7 @@ public:
 	char getChar(Location position);			// get char symbol from location
 	bool newPositionIsValid(const Location& newPosition);
 	void clearCheese(Location position);
+	void clearCell(const Location& location);
 
 	std::vector<Location> getCatsLocations();	// get cats locations
 	std::vector<Location> getCheeseLocations();	// get cheese locations

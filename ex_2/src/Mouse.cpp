@@ -3,8 +3,6 @@
 #include "Location.h"
 #include <iostream>
 
-class Cheese;
-
 Mouse::Mouse(Location position)
 	: m_position(position) {}
 
@@ -33,7 +31,8 @@ bool Mouse::move(Board &board, Location newLocation)
 		char theChar = board.getChar(newLocation);
 
 		// if mouse steps on cheese block
-		if (theChar == '*') {
+		if (theChar == '*') 
+		{
 			board.clearCheese(newLocation);
 		}
 

@@ -3,6 +3,7 @@
 #include "Board.h"
 #include <conio.h>
 
+
 Controller::Controller()
     : m_level(1),
       m_mouse(getMouseLocation()),
@@ -15,24 +16,22 @@ Controller::Controller()
 void Controller::play()
 {
     resetScreen();
-
-    // m_board.printCurrBoard();   //Print the board
-    // m_mouse.setPosition(getCharacterLocation(mouse));
     
     while (!m_gameOver)
     {
         while (m_board.isCheeseLeft())
-        {
+        { 
             if (m_whoseTurn == 0)
             {
                 handleKey();
                 resetScreen();
             }
-            else
+
+            if(m_whoseTurn == 1)
             {
-                
-            }
-                
+                catsTurn(m_cats);
+                resetScreen();
+            }       
         }
         system("cls");          // clear screen
         m_level++;
@@ -56,7 +55,7 @@ void Controller::resetScreen()
     Screen::resetLocation();
     m_board.printCurrBoard();   //Print the board
     m_mouse.print();
-    m_cats.print();
+    m_cats.print(m_board);
     Screen::setLocation(Location(0, m_board.getBoardSize()));
 }
 
@@ -144,4 +143,11 @@ void Controller::movePlayer(auto& player, const Location& direction)
     {
         m_whoseTurn = 1 - m_whoseTurn;
     }
+}
+
+void Controller::catsTurn(auto& player)
+{
+    player.move(m_board);
+ 
+    m_whoseTurn = 1 - m_whoseTurn;
 }

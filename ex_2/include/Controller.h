@@ -20,6 +20,7 @@ private:
 	void handleSpecialKey();
 	void movePlayer(auto& player, const Location& direction);
 	void endGame();
+	void catsTurn(auto& player);
 
 	Location getMouseLocation();
 	std::vector<Location> getCatsLocations();
