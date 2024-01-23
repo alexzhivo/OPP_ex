@@ -3,8 +3,6 @@
 #include "Location.h"
 #include <iostream>
 
-class Cheese;
-
 Mouse::Mouse(Location position)
 	: m_position(position), m_keys(0) , m_score(0) , m_lives(3) {}
 
@@ -34,22 +32,22 @@ bool Mouse::move(Board &board, Location newLocation)
 
 		// if mouse steps on cheese block
 		if (theChar == '*') {
-			board.removeCheese(newLocation);
+			board.clearCheese(newLocation);
 			m_score += 10;
 		}
 		// if mouse steps on key block
 		if (theChar == 'F') {
-			board.clearBlock(newLocation);
+			board.clearCell(newLocation);
 			m_keys++;	// adds a key
 		}
 		// if mouse steps on a Door with key
 		if (theChar == 'D') {
-			board.clearBlock(newLocation);
+			board.clearCell(newLocation);
 			m_score += 2;
 		}
 		// if mouse steps on a Present
 		if (theChar == '$') {
-			board.clearBlock(newLocation);
+			board.clearCell(newLocation);
 			m_score += 5;
 		}
 

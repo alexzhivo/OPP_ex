@@ -12,17 +12,15 @@ public:
 
 	void printCurrBoard();						// function to print board
 	bool newPositionIsValid(const Location& newPosition);
-
-	int getBoardSize();							// fuction to get board size
-	char getChar(Location position);			// get char symbol from location
+	void clearCheese(Location position);
+	void clearCell(const Location& location);
+	int getBoardSize();
+	char getChar(Location position);
 	Location getMouseLocation();
+
 	std::vector<Location> getCatsLocations();	// get cats locations
 	std::vector<Location> getCheeseLocations();	// get cheese locations
-
-	void removeCheese(Location position);		// removes cheese
 	bool isCheeseLeft();						// checks if cheese left on board
-	
-	void clearBlock(Location position);			// clears a block on board
 
 private:
 

@@ -7,11 +7,12 @@
 class Cats {
 
 public:
-	Cats(std::vector<Location> positions);	// cats constructor
-
-	//void setPosition(Location newPosition);
-
-	void print();
+	Cats(std::vector<Location> positions);
+	bool isValidMove(Board board, Location location);
+	bool move(Board& board);
+	Location getRandomDirection();
+	int getRandomNumber(int min, int max);
+	void print(Board& board);
 private:
 	std::vector<Location> m_positions;
 	const char m_char = '^';

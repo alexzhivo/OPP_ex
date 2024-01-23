@@ -19,12 +19,15 @@ Board::Board(std::string fileName)
 			{
 				m_mouseFirstLoc.row = (int)(m_currBoard.size() - 1);
 				m_mouseFirstLoc.col = col;
-				m_currBoard[m_mouseFirstLoc.row][m_mouseFirstLoc.col] = ' ';
+				clearCell(m_mouseFirstLoc);
 			}
 			if (line[col] == '^')
 			{
-				m_catsFirstLocs.push_back(Location(col,(int)m_currBoard.size() - 1));
-				m_currBoard[m_currBoard.size() - 1][col] = ' ';  // Update the board
+				m_catsFirstLocs.push_back(Location(col, m_currBoard.size() - 1));
+				Location location;
+				location.row = m_currBoard.size() - 1;
+				location.col = col;
+				clearCell(location);
 			}
 			if (line[col] == '*')
 				m_cheeseLocations.emplace_back(Location(col,(int)m_currBoard.size() - 1));
@@ -51,6 +54,7 @@ void Board::printCurrBoard()
 	}
 }
 
+      // old function before merge
 // returns a vector of first mouse location
 Location Board::getMouseLocation()
 {
@@ -69,16 +73,16 @@ std::vector<Location> Board::getCheeseLocations()
 	return m_cheeseLocations;
 }
 
-// clears a block on board
-void Board::clearBlock(Location position)
+void Board::clearCell(const Location& location) 
 {
-	m_currBoard[position.row][position.col] = ' ';
+	m_currBoard[location.row][location.col] = ' ';
 }
 
+
 // remove the cheese from board and from cheese vector
-void Board::removeCheese(Location position)
+void Board::clearCheese(Location position)
 {
-	clearBlock(position);
+	clearCell(position);
 
 	m_cheeseLocations.erase(std::remove_if(
 		m_cheeseLocations.begin(),
