@@ -6,7 +6,7 @@
 class Cheese;
 
 Mouse::Mouse(Location position)
-	: m_position(position) {}
+	: m_position(position), m_keys(0) , m_score(0) , m_lives(3) {}
 
 void Mouse::setPosition(Location newPosition)
 {
@@ -34,7 +34,23 @@ bool Mouse::move(Board &board, Location newLocation)
 
 		// if mouse steps on cheese block
 		if (theChar == '*') {
-			board.clearCheese(newLocation);
+			board.removeCheese(newLocation);
+			m_score += 10;
+		}
+		// if mouse steps on key block
+		if (theChar == 'F') {
+			board.clearBlock(newLocation);
+			m_keys++;	// adds a key
+		}
+		// if mouse steps on a Door with key
+		if (theChar == 'D') {
+			board.clearBlock(newLocation);
+			m_score += 2;
+		}
+		// if mouse steps on a Present
+		if (theChar == '$') {
+			board.clearBlock(newLocation);
+			m_score += 5;
 		}
 
 		return true;
@@ -47,6 +63,29 @@ bool Mouse::isValidMove(Board board, Location location)
 	char currentChar = board.getChar(location);
 	if (currentChar == ' ' || currentChar == '$' || currentChar == '*' || currentChar == 'F')
 		return true;
+	if (currentChar == 'D' && m_keys > 0) {
+		m_keys--; // uses a key
+		return true;
+	}
 
 	return false;
+}
+
+void Mouse::levelUP()
+{
+	m_keys = 0;				// reset keys for mouse
+	m_score += 25;			// adds the points for completing level
+}
+
+int Mouse::getLives()
+{
+	return m_lives;
+}
+int Mouse::getScore()
+{
+	return m_score;
+}
+int Mouse::getKeys()
+{
+	return m_keys;
 }

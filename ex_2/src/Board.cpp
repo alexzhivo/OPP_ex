@@ -65,9 +65,14 @@ std::vector<Location> Board::getCheeseLocations()
 	return m_cheeseLocations;
 }
 
-void Board::clearCheese(Location position)
+void Board::clearBlock(Location position)
 {
 	m_currBoard[position.row][position.col] = ' ';
+}
+
+void Board::removeCheese(Location position)
+{
+	clearBlock(position);
 
 	m_cheeseLocations.erase(std::remove_if(
 		m_cheeseLocations.begin(),
@@ -77,8 +82,6 @@ void Board::clearCheese(Location position)
 			return loc.col == position.col && loc.row == position.row;
 		}
 	), m_cheeseLocations.end());
-
-	std::cout << m_cheeseLocations.size() << std::endl;
 }
 
 bool Board::isCheeseLeft()

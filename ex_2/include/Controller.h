@@ -10,10 +10,12 @@ enum Characters {
 };
 class Controller {
 public:
-	Controller();	//Constructor
-	void play();	//start the game
+	Controller();	// constructor
+	void play();	// start the game
 
 private:
+	void printData();	// prints game data
+
 	void resetScreen();
 	void handleKey();
 	bool handleRegularKey(int c);

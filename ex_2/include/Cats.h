@@ -7,8 +7,10 @@
 class Cats {
 
 public:
-	Cats(std::vector<Location> positions);
+	Cats(std::vector<Location> positions);	// cats constructor
+
 	//void setPosition(Location newPosition);
+
 	void print();
 private:
 	std::vector<Location> m_positions;

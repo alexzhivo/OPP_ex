@@ -15,6 +15,7 @@ Controller::Controller()
 void Controller::play()
 {
     resetScreen();
+    printData();
 
     // m_board.printCurrBoard();   //Print the board
     // m_mouse.setPosition(getCharacterLocation(mouse));
@@ -23,19 +24,13 @@ void Controller::play()
     {
         while (m_board.isCheeseLeft())
         {
-            if (m_whoseTurn == 0)
-            {
-                handleKey();
-                resetScreen();
-            }
-            else
-            {
-                
-            }
-                
+            handleKey();
+            resetScreen();
+            printData();
         }
         system("cls");          // clear screen
         m_level++;
+        m_mouse.levelUP();
         if (m_level > 2)
             endGame();
 
@@ -43,6 +38,7 @@ void Controller::play()
         m_mouse.setPosition(getMouseLocation());
 
         resetScreen();
+        printData();
     }
 }
 
@@ -51,10 +47,20 @@ void Controller::endGame()
     m_gameOver = true;
 }
 
+void Controller::printData()
+{
+    std::cout << "============================" << std::endl;
+    std::cout << "         LEVEL: " << m_level << std::endl;
+    std::cout << "         SCORE: " << m_mouse.getScore() << std::endl;
+    std::cout << "         LIVES: " << m_mouse.getLives() << std::endl;
+    std::cout << "          KEYS: " << m_mouse.getKeys() << std::endl;
+    std::cout << "============================" << std::endl;
+}
+
 void Controller::resetScreen()
 {
     Screen::resetLocation();
-    m_board.printCurrBoard();   //Print the board
+    m_board.printCurrBoard();   // prints the board
     m_mouse.print();
     m_cats.print();
     Screen::setLocation(Location(0, m_board.getBoardSize()));
