@@ -11,15 +11,19 @@ public:
 	void setPosition(Location newPosition);	
 	bool move(Board& board, Location newLocation);
 	bool isValidMove(Board board, Location location);
+
 	int getLives();
 	int getScore();
 	int getKeys();
+	Location getPosition();
 	void levelUP();
 
-	Location getPosition();
+	int getEaten();
+
 	void print();
 
 private:
+	Location m_startPosition;
 	Location m_position;
 	const char m_char = '%';
 	int m_keys;

@@ -23,9 +23,9 @@ Board::Board(std::string fileName)
 			}
 			if (line[col] == '^')
 			{
-				m_catsFirstLocs.push_back(Location(col, m_currBoard.size() - 1));
+				m_catsFirstLocs.push_back(Location(col, (int)m_currBoard.size() - 1));
 				Location location;
-				location.row = m_currBoard.size() - 1;
+				location.row = (int)m_currBoard.size() - 1;
 				location.col = col;
 				clearCell(location);
 			}

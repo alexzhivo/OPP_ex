@@ -9,8 +9,7 @@ Controller::Controller()
       m_mouse(getMouseLocation()),
       m_whoseTurn(0), 
       m_cats(getCatsLocations()), 
-      m_board("Board1.txt"), 
-      m_gameOver(false)
+      m_board("Board1.txt")
 {}
 
 void Controller::play()
@@ -18,28 +17,31 @@ void Controller::play()
     resetScreen();
     printData();
     
-    while (!m_gameOver)
+    while (true)
     {
         while (m_board.isCheeseLeft())
         { 
             if (m_whoseTurn == 0)
-            {
                 handleKey();
-                resetScreen();
-                printData();
-            }
 
-            if(m_whoseTurn == 1)
-            {
+            if (m_whoseTurn == 1)
                 catsTurn(m_cats);
-                resetScreen();
-            }       
+
+            if (isCatOnMouse()) {
+                if (m_mouse.getEaten() == 0) {
+                    system("cls");
+                    return;
+                }
+            }
+            resetScreen();
+            printData();
         }
         system("cls");          // clear screen
         m_level++;
         m_mouse.levelUP();
-        if (m_level > 2)
-            endGame();
+        if (m_level > 2) {
+            return;
+        }
 
         m_board = Board("Board" + std::to_string(m_level) + ".txt");
         m_mouse.setPosition(getMouseLocation());
@@ -47,11 +49,6 @@ void Controller::play()
         resetScreen();
         printData();
     }
-}
-
-void Controller::endGame()
-{
-    m_gameOver = true;
 }
 
 void Controller::printData()
@@ -71,6 +68,26 @@ void Controller::resetScreen()
     m_mouse.print();
     m_cats.print(m_board);
     Screen::setLocation(Location(0, m_board.getBoardSize()));
+}
+
+bool Controller::isCatOnMouse()
+{
+    int num_of_cats = m_cats.getNumOfCats();
+
+    for (int i = 0; i < num_of_cats; i++) {
+        if (isSamePosition(m_cats.getCatPosition(i), m_mouse.getPosition()))
+            return true;
+    }
+
+    return false;
+}
+
+bool Controller::isSamePosition(const Location pos1, const Location pos2)
+{
+    if (pos1.col == pos2.col && pos1.row == pos2.row) {
+        return true;
+    }
+    return false;
 }
 
 Location Controller::getMouseLocation()

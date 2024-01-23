@@ -88,3 +88,13 @@ bool Cats::isValidMove(Board board, Location location)
 
 	return false;
 }
+
+int Cats::getNumOfCats()
+{
+    return (int)m_positions.size();
+}
+
+Location Cats::getCatPosition(const int num)
+{
+    return m_positions[num];
+}

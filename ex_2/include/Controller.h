@@ -12,7 +12,6 @@ class Controller {
 public:
 	Controller();	// constructor
 	void play();	// start the game
-
 private:
 	void printData();	// prints game data
 
@@ -21,8 +20,9 @@ private:
 	bool handleRegularKey(int c);
 	void handleSpecialKey();
 	void movePlayer(auto& player, const Location& direction);
-	void endGame();
 	void catsTurn(auto& player);
+	bool isCatOnMouse();
+	bool isSamePosition(const Location pos1, const Location pos2);
 
 	Location getMouseLocation();
 	std::vector<Location> getCatsLocations();
@@ -34,5 +34,4 @@ private:
 
 	int m_whoseTurn;
 	int m_level;
-	bool m_gameOver;
 };

@@ -4,7 +4,7 @@
 #include <iostream>
 
 Mouse::Mouse(Location position)
-	: m_position(position), m_keys(0) , m_score(0) , m_lives(3) {}
+	: m_position(position), m_startPosition(position), m_keys(0), m_score(0), m_lives(3) {}
 
 void Mouse::setPosition(Location newPosition)
 {
@@ -67,6 +67,16 @@ bool Mouse::isValidMove(Board board, Location location)
 	}
 
 	return false;
+}
+
+int Mouse::getEaten()
+{
+	if (m_lives > 1) {
+		m_lives--;
+		m_position = m_startPosition;
+		return 1;
+	}
+	return 0;
 }
 
 void Mouse::levelUP()
