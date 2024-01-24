@@ -193,11 +193,6 @@ void Controller::movePlayer(auto& player, const Location& direction)
         if (theChar == '^') {
             m_mouse.getEaten(m_board);
         }
-
-        if (isCatAndMouseSamePos()) {
-            m_mouse.getEaten(m_board);
-        }
-
         m_whoseTurn = 1 - m_whoseTurn;
     }
 }
