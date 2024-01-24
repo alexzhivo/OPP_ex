@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Board.h"
 #include "Location.h"
 #include "Mouse.h"
 #include "Cats.h"
@@ -10,19 +9,19 @@ enum Characters {
 };
 class Controller {
 public:
-	Controller();	// constructor
-	void play();	// start the game
+	Controller();				// constructor
+	void play();				// start the game
 private:
-	void printData();	// prints game data
+	void printEndMessage(const char stat);
 	void resetScreen();
 	void handleKey();
 	bool handleRegularKey(int c);
 	void handleSpecialKey();
 	void movePlayer(auto& player, const Location& direction);
-	void catsTurn(auto& player);
-	//bool isCatOnMouse();
-	//bool isSamePosition(const Location pos1, const Location pos2);
+	void moveCats(auto& player);
 	Location getMouseLocation();
+	int getScore();
+	void increaseLevel();
 	
 	std::vector<Location> getCatsLocations();
 	std::vector<Location> getCheeseLocations();
@@ -30,7 +29,8 @@ private:
 	Board m_board;
 	Mouse m_mouse;
 	Cats m_cats;
-
+	
+	int m_score;
 	int m_whoseTurn;
 	int m_level;
 };

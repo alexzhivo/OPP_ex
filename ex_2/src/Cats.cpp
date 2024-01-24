@@ -1,9 +1,9 @@
 #include "Cats.h"
-#include "Location.h"
 #include <ctime>
 #include <iostream>
 #include <thread>
 #include <chrono>
+
 using namespace std::chrono_literals;
 
 Cats::Cats(std::vector<Location> positions) 
@@ -16,7 +16,7 @@ void Cats::print(Board& board)
         Screen::setLocation(cats);
         std::cout << m_char;
         Screen::setLocation(Location(0, board.getBoardSize()));
-        std::this_thread::sleep_for(200ms);
+        std::this_thread::sleep_for(50ms);
     }
 }
 
@@ -33,7 +33,7 @@ bool Cats::move(Board& board, Mouse& mouse)
 
         if (isValidMove(board, newLocation))
         {
-            board.clearCell(m_positions[i]);
+            // board.clearCell(m_positions[i]); (not needed)
 
             m_positions[i] = newLocation;
 
@@ -44,8 +44,16 @@ bool Cats::move(Board& board, Mouse& mouse)
         }
         // If the move is not valid, the cat stays in its current position
     }
-
     return true;
+}
+
+bool Cats::killCat()
+{
+    if (!m_positions.empty()) {
+        int index = getRandomNumber(0, (int)m_positions.size() - 1);
+        m_positions.erase(m_positions.begin() + index);
+    }
+    return false;
 }
 
 Location Cats::getRandomDirection() 
@@ -83,7 +91,7 @@ bool Cats::isValidMove(Board board, Location location)
 
 	char currentChar = board.getChar(location);
 
-	if (currentChar == ' ' || currentChar == '$' || currentChar == 'F' || currentChar == '%')
+	if (currentChar != '#' && currentChar != 'D')
 		return true;
 
 	return false;

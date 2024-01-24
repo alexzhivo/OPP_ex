@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Board.h"
-#include "Location.h"
 #include "io.h"
 #include "Mouse.h"
 
@@ -17,6 +16,7 @@ public:
 	void print(Board& board);
 	int getNumOfCats();
 	Location getCatPosition(const int num);
+	bool killCat();
 
 private:
 	std::vector<Location> m_positions;

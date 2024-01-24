@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <vector>
+#include "Io.h"
 
 Board::Board(std::string fileName)
 {
@@ -29,6 +30,10 @@ Board::Board(std::string fileName)
 			}
 			if (line[col] == '*')
 				m_cheeseLocations.push_back(currentLocation);
+			if (line[col] == 'F')
+				m_keysLocations.push_back(currentLocation);
+			if (line[col] == '$')
+				m_presentsLocation.push_back(currentLocation);
 		}
 	}
 }
@@ -39,9 +44,16 @@ int Board::getBoardSize()
 	return (int)m_currBoard.size();
 }
 
-// prints current board
-void Board::printCurrBoard()
+// returns how many cats were at the beginning.
+int Board::getCatsNumInLevel()
 {
+	return (int)m_catsFirstLocs.size();
+}
+
+// prints the current board and the pickable items
+void Board::print()
+{
+	// prints the board
 	for (auto row = 0; row < m_currBoard.size(); ++row)
 	{
 		for (auto col = 0; col < m_currBoard[row].size(); ++col)
@@ -50,9 +62,25 @@ void Board::printCurrBoard()
 		}
 		std::cout << std::endl;
 	}
+	// prints the pickable items
+	// cheese
+	for (auto item = 0; item < m_cheeseLocations.size(); item++) {
+		Screen::setLocation(m_cheeseLocations[item]);
+		std::cout << '*';
+	}
+	// keys
+	for (auto item = 0; item < m_keysLocations.size(); item++) {
+		Screen::setLocation(m_keysLocations[item]);
+		std::cout << 'F';
+	}
+	// presents
+	for (auto item = 0; item < m_presentsLocation.size(); item++) {
+		Screen::setLocation(m_presentsLocation[item]);
+		std::cout << '$';
+	}
+	Screen::resetLocation();
 }
 
-      // old function before merge
 // returns a vector of first mouse location
 Location Board::getMouseLocation()
 {
@@ -71,25 +99,41 @@ std::vector<Location> Board::getCheeseLocations()
 	return m_cheeseLocations;
 }
 
+// clears a cell on board
 void Board::clearCell(const Location& location) 
 {
 	m_currBoard[location.row][location.col] = ' ';
 }
 
-
-// remove the cheese from board and from cheese vector
-void Board::clearCheese(Location position)
+// remove an item from board and from item vector
+void Board::clearItem(Location position, const char item)
 {
 	clearCell(position);
 
-	m_cheeseLocations.erase(std::remove_if(
-		m_cheeseLocations.begin(),
-		m_cheeseLocations.end(),
+	std::vector<Location>* items = nullptr;
+
+	switch (item) {
+		case '*': 
+			items = &m_cheeseLocations;
+			break;
+		case '$':
+			items = &m_presentsLocation;
+			break;
+		case 'F':
+			items = &m_keysLocations;
+			break;
+		default :
+			return;
+	}
+
+	(*items).erase(std::remove_if(
+		(*items).begin(),
+		(*items).end(),
 		[&position](const Location& loc) 
 		{
 			return loc.col == position.col && loc.row == position.row;
 		}
-	), m_cheeseLocations.end());
+	), (*items).end());
 }
 
 // checks if cheese left on board
