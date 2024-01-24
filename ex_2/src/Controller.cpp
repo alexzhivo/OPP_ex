@@ -131,6 +131,9 @@ bool Controller::handleRegularKey(int c)
     case Keys::ESCAPE:
         std::cout << "Escape pressed. Exiting...\n";
         return true;
+    case Keys::SPACE:
+        movePlayer(m_mouse, Location(0, 0));
+        break;
     default:
         std::cout << "Unknown regular key pressed (code = " << c << ")\n";
         break;

@@ -5,6 +5,7 @@
 namespace Keys
 {
 constexpr int ESCAPE = 27;
+constexpr int SPACE = 32;
 constexpr int SPECIAL_KEY = 224;
 }
 
