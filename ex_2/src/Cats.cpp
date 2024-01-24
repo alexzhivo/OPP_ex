@@ -14,34 +14,33 @@ void Cats::print(Board& board)
     for (const auto& cats : m_positions) 
     {
         Screen::setLocation(cats);
-        
         std::cout << m_char;
         Screen::setLocation(Location(0, board.getBoardSize()));
         std::this_thread::sleep_for(200ms);
-        
     }
 }
 
-bool Cats::move(Board& board)
+bool Cats::move(Board& board, Mouse& mouse)
 {
     srand((unsigned int)time(nullptr));
+
     for (size_t i = 0; i < m_positions.size(); ++i)
     {
         // Generate a random direction
         Location randomDirection = getRandomDirection();
 
-        // Calculate the new location
         Location newLocation(m_positions[i].col + randomDirection.col, m_positions[i].row + randomDirection.row);
 
-        // Move the cat if the move is valid
         if (isValidMove(board, newLocation))
         {
-            // Clear the current position on the board
             board.clearCell(m_positions[i]);
 
-            // Update the cat position to the new location
             m_positions[i] = newLocation;
-            
+
+            if (board.isSamePosition(newLocation, mouse.getPosition()))
+            {
+                mouse.getEaten(board);
+            }   
         }
         // If the move is not valid, the cat stays in its current position
     }
@@ -79,11 +78,12 @@ bool Cats::isValidMove(Board board, Location location)
 {
     if (!board.newPositionIsValid(location))
     {
-        // for debugging : std::cout << "here";
         return false;
     }
+
 	char currentChar = board.getChar(location);
-	if (currentChar == ' ' || currentChar == '$' || currentChar == 'F')
+
+	if (currentChar == ' ' || currentChar == '$' || currentChar == 'F' || currentChar == '%')
 		return true;
 
 	return false;
@@ -97,4 +97,13 @@ int Cats::getNumOfCats()
 Location Cats::getCatPosition(const int num)
 {
     return m_positions[num];
+}
+
+void Cats::setPositions(std::vector<Location> newPositions)
+{
+    // Clear the existing positions
+    m_positions.clear();
+
+    // Fill the vector with new positions
+    m_positions = newPositions;
 }

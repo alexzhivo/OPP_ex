@@ -15,22 +15,20 @@ Board::Board(std::string fileName)
 		m_currBoard.push_back(line);
 		for (auto col = 0; col < line.size(); ++col)
 		{
+			const Location currentLocation(col, (int)m_currBoard.size() - 1);
+
 			if (line[col] == '%')
 			{
-				m_mouseFirstLoc.row = (int)(m_currBoard.size() - 1);
-				m_mouseFirstLoc.col = col;
-				clearCell(m_mouseFirstLoc);
+				m_mouseFirstLoc = currentLocation;
+				clearCell(currentLocation);
 			}
 			if (line[col] == '^')
 			{
-				m_catsFirstLocs.push_back(Location(col, (int)m_currBoard.size() - 1));
-				Location location;
-				location.row = (int)m_currBoard.size() - 1;
-				location.col = col;
-				clearCell(location);
+				m_catsFirstLocs.push_back(currentLocation);
+				clearCell(currentLocation);
 			}
 			if (line[col] == '*')
-				m_cheeseLocations.emplace_back(Location(col,(int)m_currBoard.size() - 1));
+				m_cheeseLocations.push_back(currentLocation);
 		}
 	}
 }
@@ -111,4 +109,9 @@ bool Board::newPositionIsValid(const Location& newPosition)
 {
 	return (newPosition.row >= 0 && newPosition.row < m_currBoard.size() &&
 			newPosition.col >= 0 && newPosition.col < m_currBoard[0].size());
+}
+
+bool Board::isSamePosition(const Location pos1, const Location pos2)
+{
+	return(pos1.col == pos2.col && pos1.row == pos2.row);
 }

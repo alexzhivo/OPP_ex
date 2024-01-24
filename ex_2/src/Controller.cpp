@@ -19,7 +19,7 @@ void Controller::play()
     
     while (true)
     {
-        while (m_board.isCheeseLeft())
+        while (m_board.isCheeseLeft() && m_mouse.getLives() > 0)
         { 
             if (m_whoseTurn == 0)
                 handleKey();
@@ -27,24 +27,27 @@ void Controller::play()
             if (m_whoseTurn == 1)
                 catsTurn(m_cats);
 
-            if (isCatOnMouse()) {
+            /*if (isCatOnMouse()) {
                 if (m_mouse.getEaten() == 0) {
                     system("cls");
                     return;
                 }
-            }
+            }*/
             resetScreen();
             printData();
         }
         system("cls");          // clear screen
         m_level++;
         m_mouse.levelUP();
-        if (m_level > 2) {
+        if (m_level > 2) 
+        {
             return;
         }
 
         m_board = Board("Board" + std::to_string(m_level) + ".txt");
+        m_board = Board("Board" + std::to_string(m_level) + ".txt");
         m_mouse.setPosition(getMouseLocation());
+        m_cats.setPositions(getCatsLocations());
 
         resetScreen();
         printData();
@@ -65,12 +68,12 @@ void Controller::resetScreen()
 {
     Screen::resetLocation();
     m_board.printCurrBoard();   // prints the board
-    m_mouse.print();
     m_cats.print(m_board);
-    Screen::setLocation(Location(0, m_board.getBoardSize()));
+    m_mouse.print();
+    Screen::setLocation(Location(0, m_board.getBoardSize()));   
 }
 
-bool Controller::isCatOnMouse()
+/*bool Controller::isCatOnMouse()
 {
     int num_of_cats = m_cats.getNumOfCats();
 
@@ -80,15 +83,15 @@ bool Controller::isCatOnMouse()
     }
 
     return false;
-}
+}*/
 
-bool Controller::isSamePosition(const Location pos1, const Location pos2)
+/*bool Controller::isSamePosition(const Location pos1, const Location pos2)
 {
     if (pos1.col == pos2.col && pos1.row == pos2.row) {
         return true;
     }
     return false;
-}
+}*/
 
 Location Controller::getMouseLocation()
 {
@@ -125,12 +128,6 @@ bool Controller::handleRegularKey(int c)
 {
     switch (c)
     {
-    case 'A':
-        std::cout << "A pressed\n";
-        break;
-    case 'a':
-        std::cout << "a pressed\n";
-        break;
     case Keys::ESCAPE:
         std::cout << "Escape pressed. Exiting...\n";
         return true;
@@ -138,7 +135,6 @@ bool Controller::handleRegularKey(int c)
         std::cout << "Unknown regular key pressed (code = " << c << ")\n";
         break;
     }
-
     return false;
 }
 
@@ -169,6 +165,7 @@ void Controller::movePlayer(auto& player, const Location& direction)
 {
     Location newPosition(player.getPosition().col + direction.col,
                          player.getPosition().row + direction.row);
+
     if (m_board.newPositionIsValid(newPosition) &&
         player.move(m_board, newPosition))
     {
@@ -178,7 +175,7 @@ void Controller::movePlayer(auto& player, const Location& direction)
 
 void Controller::catsTurn(auto& player)
 {
-    player.move(m_board);
+    player.move(m_board, m_mouse);
  
     m_whoseTurn = 1 - m_whoseTurn;
 }

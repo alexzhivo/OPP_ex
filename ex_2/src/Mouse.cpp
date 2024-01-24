@@ -4,7 +4,7 @@
 #include <iostream>
 
 Mouse::Mouse(Location position)
-	: m_position(position), m_startPosition(position), m_keys(0), m_score(0), m_lives(3) {}
+	: m_position(position), m_keys(0), m_score(0), m_lives(3) {}
 
 void Mouse::setPosition(Location newPosition)
 {
@@ -50,7 +50,6 @@ bool Mouse::move(Board &board, Location newLocation)
 			board.clearCell(newLocation);
 			m_score += 5;
 		}
-
 		return true;
 	}
 	return false;
@@ -61,6 +60,7 @@ bool Mouse::isValidMove(Board board, Location location)
 	char currentChar = board.getChar(location);
 	if (currentChar == ' ' || currentChar == '$' || currentChar == '*' || currentChar == 'F')
 		return true;
+
 	if (currentChar == 'D' && m_keys > 0) {
 		m_keys--; // uses a key
 		return true;
@@ -69,14 +69,13 @@ bool Mouse::isValidMove(Board board, Location location)
 	return false;
 }
 
-int Mouse::getEaten()
+void Mouse::getEaten(Board& board)
 {
-	if (m_lives > 1) {
+	if (m_lives > 1) 
+	{
 		m_lives--;
-		m_position = m_startPosition;
-		return 1;
+		m_position = board.getMouseLocation();
 	}
-	return 0;
 }
 
 void Mouse::levelUP()
@@ -84,6 +83,7 @@ void Mouse::levelUP()
 	m_keys = 0;				// reset keys for mouse
 	m_score += 25;			// adds the points for completing level
 }
+
 
 int Mouse::getLives()
 {

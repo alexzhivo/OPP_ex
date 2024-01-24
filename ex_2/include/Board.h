@@ -17,7 +17,7 @@ public:
 	int getBoardSize();
 	char getChar(Location position);
 	Location getMouseLocation();
-
+	bool isSamePosition(const Location pos1, const Location pos2);
 	std::vector<Location> getCatsLocations();	// get cats locations
 	std::vector<Location> getCheeseLocations();	// get cheese locations
 	bool isCheeseLeft();						// checks if cheese left on board

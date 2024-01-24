@@ -14,17 +14,16 @@ public:
 	void play();	// start the game
 private:
 	void printData();	// prints game data
-
 	void resetScreen();
 	void handleKey();
 	bool handleRegularKey(int c);
 	void handleSpecialKey();
 	void movePlayer(auto& player, const Location& direction);
 	void catsTurn(auto& player);
-	bool isCatOnMouse();
-	bool isSamePosition(const Location pos1, const Location pos2);
-
+	//bool isCatOnMouse();
+	//bool isSamePosition(const Location pos1, const Location pos2);
 	Location getMouseLocation();
+	
 	std::vector<Location> getCatsLocations();
 	std::vector<Location> getCheeseLocations();
 
