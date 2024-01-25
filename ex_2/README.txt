@@ -80,7 +80,6 @@ Cats Removal with Present:
                                                          Known bugs
 =====================================================================
 
-	- when Mouse Steps on Mouse He doesn't get eaten.
 	- after a mouse gets eaten the cats doesn't go back to initial position.
 
 =====================================================================
