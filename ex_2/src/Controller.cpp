@@ -103,34 +103,30 @@ std::vector<Location> Controller::getCheeseLocations()
 void Controller::handleKey()
 {
     const auto c = _getch();
-    auto exit = false;
     switch (c)
     {
-    case 0:
     case Keys::SPECIAL_KEY:
         handleSpecialKey();
         break;
     default:
-        exit = handleRegularKey(c);
+        handleRegularKey(c);
         break;
     }
 }
 
-bool Controller::handleRegularKey(int c)
+void Controller::handleRegularKey(int c)
 {
     switch (c)
     {
     case Keys::ESCAPE:
-        std::cout << "Escape pressed. Exiting...\n";
-        return true;
+        system("cls");
+        exit(EXIT_SUCCESS);
     case Keys::SPACE:
         movePlayer(m_mouse, Location(0, 0));
         break;
     default:
-        std::cout << "Unknown regular key pressed (code = " << c << ")\n";
         break;
     }
-    return false;
 }
 
 void Controller::handleSpecialKey()
@@ -151,7 +147,6 @@ void Controller::handleSpecialKey()
         movePlayer(m_mouse, Location(1, 0));
         break;
     default:
-        std::cout << "Unknown special key pressed (code = " << c << ")\n";
         break;
     }
 }
