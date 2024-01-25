@@ -8,23 +8,23 @@
 
 class Board {
 public:
-	Board(std::string fileName,const int lvl);				// defaut constructor
-
-	void print();								// prints the board
+	Board(std::string fileName, const int lvl);
 	bool newPositionIsValid(const Location& newPosition);
 	void clearItem(Location position, const char item);
 	void clearCell(const Location& location);
-	int getBoardSize();
-	char getChar(Location position);
-	Location getMouseLocation();
-	bool isSamePosition(const Location pos1, const Location pos2);
-	std::vector<Location> getCatsLocations();	// get cats locations
-	std::vector<Location> getCheeseLocations();	// get cheese locations
-	bool isCheeseLeft();						// checks if cheese left on board
-	int getCatsNumInLevel();
-
-	int getLevel() const;
+	void print();							
 	void levelUp();
+
+	bool isSamePosition(const Location pos1, const Location pos2);
+	bool isCheeseLeft() const;
+
+	int getCatsNumInLevel() const;
+	int getBoardSize() const;
+	char getChar(Location position) const;
+	int getLevel() const;
+	Location getMouseLocation() const;
+	std::vector<Location> getCatsLocations() const;
+	std::vector<Location> getCheeseLocations() const;
 
 private:
 

@@ -14,11 +14,11 @@ public:
 	Location getRandomDirection();
 	int getRandomNumber(int min, int max);
 	void print(Board& board);
-	int getNumOfCats();
+	int getNumOfCats() const;
 	Location getCatPosition(const int num);
 	bool killCat();
 
 private:
-	std::vector<Location> m_positions;
 	const char m_char = '^';
+	std::vector<Location> m_positions;
 };

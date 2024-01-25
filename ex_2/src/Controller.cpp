@@ -3,6 +3,7 @@
 #include "Io.h"
 #include <conio.h>
 
+// constructor
 Controller::Controller()
     :   m_mouse(getMouseLocation()),
         m_whoseTurn(0),
@@ -11,6 +12,7 @@ Controller::Controller()
         m_score(0)
 {}
 
+// the main controller function
 void Controller::play()
 {
     resetScreen();
@@ -62,6 +64,8 @@ void Controller::resetScreen()
     std::cout << "           KEYS: " << m_mouse.getKeys() << std::endl;
     std::cout << "============================" << std::endl;
 }
+
+// prints the ending screen of the game
 void Controller::printEndMessage(const char stat)
 {
     system("cls");
@@ -72,7 +76,7 @@ void Controller::printEndMessage(const char stat)
         std::cout << "         YOU LOSE...        " << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-    std::cout << "          SCORE: " << getScore() << std::endl;
+    std::cout << "         SCORE: " << getScore() << std::endl;
     std::cout << "============================" << std::endl;
 }
 
@@ -85,38 +89,43 @@ void Controller::increaseLevel()
     m_score += 25;
 }
 
-Location Controller::getMouseLocation()
+// get location for mouse
+Location Controller::getMouseLocation() const
 {
     return m_board.getMouseLocation();  
 }
 
-std::vector<Location> Controller::getCatsLocations()
+// get all cats location
+std::vector<Location> Controller::getCatsLocations() 
 {
     return m_board.getCatsLocations();
 }
 
+// get all cheese location
 std::vector<Location> Controller::getCheeseLocations()
 {
     return m_board.getCheeseLocations();
 }
 
+// handle key press
 void Controller::handleKey()
 {
-    const auto c = _getch();
-    switch (c)
+    const auto key_pressed = _getch();
+    switch (key_pressed)
     {
     case Keys::SPECIAL_KEY:
         handleSpecialKey();
         break;
     default:
-        handleRegularKey(c);
+        handleRegularKey(key_pressed);
         break;
     }
 }
 
-void Controller::handleRegularKey(int c)
+// handle regular keys
+void Controller::handleRegularKey(const int key_pressed)
 {
-    switch (c)
+    switch (key_pressed)
     {
     case Keys::ESCAPE:
         system("cls");
@@ -129,10 +138,11 @@ void Controller::handleRegularKey(int c)
     }
 }
 
+// handle arrow keys
 void Controller::handleSpecialKey()
 {
-    const auto c = _getch();
-    switch (c)
+    const auto key_pressed = _getch();
+    switch (key_pressed)
     {
     case SpecialKeys::UP:
         movePlayer(m_mouse, Location(0, -1));
@@ -151,6 +161,7 @@ void Controller::handleSpecialKey()
     }
 }
 
+// move command for player (mouse)
 void Controller::movePlayer(auto& player, const Location& direction)
 {
     Location newPosition(player.getPosition().col + direction.col,
@@ -189,7 +200,7 @@ void Controller::movePlayer(auto& player, const Location& direction)
         m_whoseTurn = 1 - m_whoseTurn;
     }
 }
-
+// function to move that cats
 void Controller::moveCats(auto& player)
 {
     player.move(m_board, m_mouse);
@@ -197,7 +208,8 @@ void Controller::moveCats(auto& player)
     m_whoseTurn = 1 - m_whoseTurn;
 }
 
-int Controller::getScore()
+// get the current score ingame
+int Controller::getScore() const
 {
     return m_score;
 }

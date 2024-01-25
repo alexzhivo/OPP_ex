@@ -4,27 +4,26 @@
 #include "Mouse.h"
 #include "Cats.h"
 
-enum Characters {
-	mouse
-};
 class Controller {
 public:
 	Controller();				// constructor
 	void play();				// start the game
+
 private:
-	void resetScreen();
-	void handleRegularKey(int c);
-	void handleSpecialKey();
+	void resetScreen();	
+	void printEndMessage(const char stat);
 	void handleKey();
+	void handleRegularKey(const int key_pressed);
+	void handleSpecialKey();
 	void movePlayer(auto& player, const Location& direction);
 	void moveCats(auto& player);
-	Location getMouseLocation();
-	int getScore();
 	void increaseLevel();
-	void printEndMessage(const char stat);
-	
+
+	int getScore() const;
+	Location getMouseLocation() const;
 	std::vector<Location> getCatsLocations();
 	std::vector<Location> getCheeseLocations();
+	
 
 	Board m_board;
 	Mouse m_mouse;

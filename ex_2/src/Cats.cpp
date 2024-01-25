@@ -6,9 +6,11 @@
 
 using namespace std::chrono_literals;
 
+// Constructor
 Cats::Cats(std::vector<Location> positions) 
 	: m_positions(positions) {}
 
+// prints the cats on the board
 void Cats::print(Board& board)
 {
     for (const auto& cats : m_positions) 
@@ -19,7 +21,7 @@ void Cats::print(Board& board)
         std::this_thread::sleep_for(50ms);
     }
 }
-
+// move function for the cats
 bool Cats::move(Board& board, Mouse& mouse)
 {
     srand((unsigned int)time(nullptr));
@@ -46,7 +48,7 @@ bool Cats::move(Board& board, Mouse& mouse)
     }
     return true;
 }
-
+// removes one cat from the cats position vector
 bool Cats::killCat()
 {
     if (!m_positions.empty()) {
@@ -56,6 +58,7 @@ bool Cats::killCat()
     return false;
 }
 
+// gives cat a random direction for moving
 Location Cats::getRandomDirection() 
 {
     // Generate a random direction (up, down, left, or right)
@@ -75,13 +78,13 @@ Location Cats::getRandomDirection()
     }
 }
 
-// Function to generate a random number between min and max (inclusive)
+// function to generate a random number between min and max (inclusive)
 int Cats::getRandomNumber(int min, int max)
 {
     return rand() % (max - min + 1) + min;
 }
 
-
+// check if cat cat's move is valid
 bool Cats::isValidMove(Board board, Location location)
 {
     if (!board.newPositionIsValid(location))
@@ -96,17 +99,19 @@ bool Cats::isValidMove(Board board, Location location)
 
 	return false;
 }
-
-int Cats::getNumOfCats()
+// returns the number of cats.
+int Cats::getNumOfCats() const
 {
     return (int)m_positions.size();
 }
 
+// returns a specific cat position
 Location Cats::getCatPosition(const int num)
 {
     return m_positions[num];
 }
 
+// sets positions for cats
 void Cats::setPositions(std::vector<Location> newPositions)
 {
     // Clear the existing positions

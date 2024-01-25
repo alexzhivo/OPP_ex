@@ -5,24 +5,22 @@
 
 class Mouse {
 public:
-	Mouse(Location position);		// mouse constructor
-
-	void setPosition(Location newPosition);	
+	Mouse(Location position);
 	bool move(Board& board, Location newLocation);
 	bool isValidMove(Board board, Location location);
-	int getLives();
-	int getKeys();
+	void setPosition(Location newPosition);	
+	void print();
 	void addKey();
-	Location getPosition();
+	void getEaten(Board& board);
 	void resetKeys();
 
-	void getEaten(Board& board);
-
-	void print();
+	int getKeys() const;
+	int getLives() const;
+	Location getPosition() const;
 
 private:
-	Location m_position;
 	const char m_char = '%';
+	Location m_position;
 	int m_keys;
 	int m_lives;
 };

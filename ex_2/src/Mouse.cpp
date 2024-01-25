@@ -16,7 +16,7 @@ void Mouse::print()
 	std::cout << m_char;
 }
 
-Location Mouse::getPosition()
+Location Mouse::getPosition() const
 {
 	return m_position;
 }
@@ -45,28 +45,30 @@ bool Mouse::isValidMove(Board board, Location location)
 	return false;
 }
 
+// mouse picked up a key
 void Mouse::addKey()
 {
 	m_keys++;
 }
-
+// mouse get eaten, loses life and returns to initial location
 void Mouse::getEaten(Board& board)
 {
 	m_lives--;
 	if (m_lives > 0) 
 		m_position = board.getMouseLocation();
 }
+// reset cats keys
 void Mouse::resetKeys()
 {
 	m_keys = 0;
 }
-
-int Mouse::getLives()
+// get current lives
+int Mouse::getLives() const
 {
 	return m_lives;
 }
 
-int Mouse::getKeys()
+int Mouse::getKeys() const
 {
 	return m_keys;
 }

@@ -41,13 +41,13 @@ Board::Board(std::string fileName,const int lvl)
 }
 
 // returns current board size
-int Board::getBoardSize()
+int Board::getBoardSize() const
 {
 	return (int)m_currBoard.size();
 }
 
 // returns how many cats were at the beginning.
-int Board::getCatsNumInLevel()
+int Board::getCatsNumInLevel() const
 {
 	return (int)m_catsFirstLocs.size();
 }
@@ -84,19 +84,19 @@ void Board::print()
 }
 
 // returns a vector of first mouse location
-Location Board::getMouseLocation()
+Location Board::getMouseLocation() const
 {
 		return m_mouseFirstLoc;
 }
 
 // returns a vector of Cats first Locations
-std::vector<Location> Board::getCatsLocations()
+std::vector<Location> Board::getCatsLocations() const
 {
 	return m_catsFirstLocs;
 }
 
 // returns a vector of cheese Locations on Board
-std::vector<Location> Board::getCheeseLocations()
+std::vector<Location> Board::getCheeseLocations() const
 {
 	return m_cheeseLocations;
 }
@@ -139,13 +139,13 @@ void Board::clearItem(Location position, const char item)
 }
 
 // checks if cheese left on board
-bool Board::isCheeseLeft()
+bool Board::isCheeseLeft() const
 {
 	return !m_cheeseLocations.empty();
 }
 
 // returns the Char in the given Location
-char Board::getChar(Location position)
+char Board::getChar(Location position) const
 {
 	return m_currBoard[position.row][position.col];
 }
