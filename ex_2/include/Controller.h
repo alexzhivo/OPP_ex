@@ -32,5 +32,4 @@ private:
 	
 	int m_score;
 	int m_whoseTurn;
-	int m_level;
 };

@@ -8,7 +8,7 @@
 
 class Board {
 public:
-	Board(std::string fileName);				// defaut constructor
+	Board(std::string fileName,const int lvl);				// defaut constructor
 
 	void print();								// prints the board
 	bool newPositionIsValid(const Location& newPosition);
@@ -23,6 +23,9 @@ public:
 	bool isCheeseLeft();						// checks if cheese left on board
 	int getCatsNumInLevel();
 
+	int getLevel() const;
+	void levelUp();
+
 private:
 
 	std::vector<std::string> m_currBoard;		// current level board
@@ -33,4 +36,6 @@ private:
 	std::vector<Location> m_cheeseLocations;	// cheese locations
 	std::vector<Location> m_keysLocations;		// kets locations
 	std::vector<Location> m_presentsLocation;	// presents locations
+
+	int m_level;
 };

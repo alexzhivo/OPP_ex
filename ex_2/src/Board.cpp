@@ -2,13 +2,15 @@
 #include <vector>
 #include "Io.h"
 
-Board::Board(std::string fileName)
+Board::Board(std::string fileName,const int lvl)
+	: m_level(lvl)
 {
 	auto file = std::ifstream(fileName);
 
-	if (!file) 	// if cant find file
-		exit(EXIT_FAILURE);
-
+	if (!file) {	// if cant find file
+		m_level = 0;
+		return;
+	}
 	auto line = std::string();
 
 	while (std::getline(file, line))
@@ -158,4 +160,13 @@ bool Board::newPositionIsValid(const Location& newPosition)
 bool Board::isSamePosition(const Location pos1, const Location pos2)
 {
 	return(pos1.col == pos2.col && pos1.row == pos2.row);
+}
+void Board::levelUp()
+{
+	m_level++;
+}
+
+int Board::getLevel() const
+{
+	return m_level;
 }

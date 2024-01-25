@@ -4,11 +4,10 @@
 #include <conio.h>
 
 Controller::Controller()
-    :   m_level(1),
-        m_mouse(getMouseLocation()),
+    :   m_mouse(getMouseLocation()),
         m_whoseTurn(0),
         m_cats(getCatsLocations()),
-        m_board("Board1.txt"),
+        m_board("Board1.txt",1),
         m_score(0)
 {}
 
@@ -34,12 +33,11 @@ void Controller::play()
             break;
         }
         increaseLevel();
-        if (m_level > 2) {
+        m_board = Board("Board" + std::to_string(m_board.getLevel()) + ".txt",m_board.getLevel());
+        if (m_board.getLevel() == 0) {
             printEndMessage('W');
             break;
         }
-
-        m_board = Board("Board" + std::to_string(m_level) + ".txt");
         m_mouse.setPosition(getMouseLocation());
         m_cats.setPositions(getCatsLocations());
 
@@ -58,7 +56,7 @@ void Controller::resetScreen()
     Screen::setLocation(Location(0, m_board.getBoardSize()));
     // printing the game data
     std::cout << "============================" << std::endl;
-    std::cout << "          LEVEL: " << m_level << std::endl;
+    std::cout << "          LEVEL: " << m_board.getLevel() << std::endl;
     std::cout << "          SCORE: " << getScore() << std::endl;
     std::cout << "          LIVES: " << m_mouse.getLives() << std::endl;
     std::cout << "           KEYS: " << m_mouse.getKeys() << std::endl;
@@ -81,7 +79,7 @@ void Controller::printEndMessage(const char stat)
 // increase player level
 void Controller::increaseLevel()
 {
-    m_level++;
+    m_board.levelUp();
     m_mouse.resetKeys();
     m_score += (5 * m_board.getCatsNumInLevel());
     m_score += 25;
