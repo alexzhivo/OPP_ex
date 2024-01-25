@@ -7,7 +7,8 @@ Board::Board(std::string fileName,const int lvl)
 {
 	auto file = std::ifstream(fileName);
 
-	if (!file) {	// if cant find file
+	if (!file) 
+	{	// if cant find file
 		m_level = 0;
 		return;
 	}

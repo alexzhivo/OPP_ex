@@ -31,12 +31,10 @@ bool Cats::move(Board& board, Mouse& mouse)
         // Generate a random direction
         Location randomDirection = getRandomDirection();
 
-        Location newLocation(m_positions[i].col + randomDirection.col, m_positions[i].row + randomDirection.row);
+        Location newLocation = calculateNewLocation(i, randomDirection);
 
         if (isValidMove(board, newLocation))
         {
-            // board.clearCell(m_positions[i]); (not needed)
-
             m_positions[i] = newLocation;
 
             if (board.isSamePosition(newLocation, mouse.getPosition()))
@@ -48,6 +46,13 @@ bool Cats::move(Board& board, Mouse& mouse)
     }
     return true;
 }
+
+Location Cats::calculateNewLocation(size_t catIndex, const Location& randomDirection)
+{
+    return Location(m_positions[catIndex].col + randomDirection.col,
+        m_positions[catIndex].row + randomDirection.row);
+}
+
 // removes one cat from the cats position vector
 bool Cats::killCat()
 {
@@ -120,3 +125,5 @@ void Cats::setPositions(std::vector<Location> newPositions)
     // Fill the vector with new positions
     m_positions = newPositions;
 }
+
+

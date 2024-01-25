@@ -8,8 +8,7 @@ Controller::Controller()
     :   m_mouse(getMouseLocation()),
         m_whoseTurn(0),
         m_cats(getCatsLocations()),
-        m_board("Board1.txt",1),
-        m_score(0)
+        m_board("Board1.txt",1)
 {}
 
 // the main controller function
@@ -29,21 +28,7 @@ void Controller::play()
 
             resetScreen();
         }
-        system("cls");          // clear screen
-        if (m_mouse.getLives() == 0) {
-            printEndMessage('L');
-            break;
-        }
-        increaseLevel();
-        m_board = Board("Board" + std::to_string(m_board.getLevel()) + ".txt",m_board.getLevel());
-        if (m_board.getLevel() == 0) {
-            printEndMessage('W');
-            break;
-        }
-        m_mouse.setPosition(getMouseLocation());
-        m_cats.setPositions(getCatsLocations());
-
-        resetScreen();
+        handleEndOfGame();
     }
 }
 
@@ -56,10 +41,15 @@ void Controller::resetScreen()
     m_cats.print(m_board);          // prints the cats
     m_mouse.print();                // prints the mouse
     Screen::setLocation(Location(0, m_board.getBoardSize()));
+    printGameData();                // prints the data
+}
+
+void Controller::printGameData()
+{
     // printing the game data
     std::cout << "============================" << std::endl;
     std::cout << "          LEVEL: " << m_board.getLevel() << std::endl;
-    std::cout << "          SCORE: " << getScore() << std::endl;
+    std::cout << "          SCORE: " << m_mouse.getScore() << std::endl;
     std::cout << "          LIVES: " << m_mouse.getLives() << std::endl;
     std::cout << "           KEYS: " << m_mouse.getKeys() << std::endl;
     std::cout << "============================" << std::endl;
@@ -76,7 +66,7 @@ void Controller::printEndMessage(const char stat)
         std::cout << "         YOU LOSE...        " << std::endl;
     std::cout << std::endl;
     std::cout << std::endl;
-    std::cout << "         SCORE: " << getScore() << std::endl;
+    std::cout << "         SCORE: " << m_mouse.getScore() << std::endl;
     std::cout << "============================" << std::endl;
 }
 
@@ -85,8 +75,9 @@ void Controller::increaseLevel()
 {
     m_board.levelUp();
     m_mouse.resetKeys();
-    m_score += (5 * m_board.getCatsNumInLevel());
-    m_score += 25;
+    int newScore = m_mouse.getScore();
+    newScore += (5 * m_board.getCatsNumInLevel() + 25);
+    m_mouse.setScore(newScore);
 }
 
 // get location for mouse
@@ -168,35 +159,9 @@ void Controller::movePlayer(auto& player, const Location& direction)
                          player.getPosition().row + direction.row);
 
     if (m_board.newPositionIsValid(newPosition) &&
-        player.move(m_board,newPosition))
+        player.move(m_board, newPosition, m_cats))
     {
-        char theChar = m_board.getChar(newPosition);
-
-        // if mouse steps on cheese block
-        if (theChar == '*') {
-            m_board.clearItem(newPosition,'*');
-            m_score += 10;
-        }
-        // if mouse steps on key block
-        if (theChar == 'F') {
-            m_board.clearItem(newPosition,'F');
-            m_mouse.addKey();	// adds a key
-        }
-        // if mouse steps on a Door with key
-        if (theChar == 'D') {
-            m_board.clearCell(newPosition);
-            m_score += 2;
-        }
-        // if mouse steps on a Present
-        if (theChar == '$') {
-            m_board.clearItem(newPosition,'$');
-            m_cats.killCat();
-            m_score += 5;
-        }
-        // if mouse steps on a Cat
-        if (theChar == '^') {
-            m_mouse.getEaten(m_board);
-        }
+        
         m_whoseTurn = 1 - m_whoseTurn;
     }
 }
@@ -208,8 +173,33 @@ void Controller::moveCats(auto& player)
     m_whoseTurn = 1 - m_whoseTurn;
 }
 
-// get the current score ingame
-int Controller::getScore() const
+void Controller::setupNextLevel()
 {
-    return m_score;
+    m_board = Board("Board" + std::to_string(m_board.getLevel()) + ".txt", m_board.getLevel());
+
+    if (m_board.getLevel() == 0)
+    {
+        printEndMessage('W');
+        exit(EXIT_SUCCESS);
+    }
+
+    m_mouse.setPosition(getMouseLocation());
+    m_cats.setPositions(getCatsLocations());
 }
+
+void Controller::handleEndOfGame()
+{
+    system("cls"); // clear screen
+
+    if (m_mouse.getLives() == 0)
+    {
+        printEndMessage('L');
+        exit(EXIT_SUCCESS);
+    }
+
+    increaseLevel();
+    setupNextLevel();
+    resetScreen();
+}
+
+

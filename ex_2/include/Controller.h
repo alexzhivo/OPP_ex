@@ -18,7 +18,9 @@ private:
 	void movePlayer(auto& player, const Location& direction);
 	void moveCats(auto& player);
 	void increaseLevel();
-
+	void setupNextLevel();
+	void handleEndOfGame();
+	void printGameData();
 	int getScore() const;
 	Location getMouseLocation() const;
 	std::vector<Location> getCatsLocations();
@@ -28,7 +30,6 @@ private:
 	Board m_board;
 	Mouse m_mouse;
 	Cats m_cats;
-	
-	int m_score;
+
 	int m_whoseTurn;
 };

@@ -4,6 +4,7 @@
 #include "io.h"
 #include "Mouse.h"
 
+
 class Cats {
 public:
 	Cats(std::vector<Location> positions);
@@ -17,7 +18,7 @@ public:
 	int getNumOfCats() const;
 	Location getCatPosition(const int num);
 	bool killCat();
-
+	Location calculateNewLocation(size_t catIndex, const Location& randomDirection);
 private:
 	const char m_char = '^';
 	std::vector<Location> m_positions;
