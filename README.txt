@@ -6,6 +6,9 @@ finished and submited.
 //=========================//
 
 //===== ex_2 : Cat and Mouse =====//
-- added stage to terminal
-- next add characters to stage
-//=========================//
+finished and submited.
+//================================//
+
+//===== ex_3 : Level Editor =====//
+
+//===============================//
