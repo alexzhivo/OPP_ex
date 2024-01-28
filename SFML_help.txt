@@ -1,0 +1,3 @@
+Official tutorials – https://www.sfml-dev.org/tutorials/2.6/
+Online API documentation – https://www.sfml-dev.org/documentation/2.6.0/
+Community wiki – https://github.com/SFML/SFML/wiki
