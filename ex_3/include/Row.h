@@ -9,14 +9,13 @@ public:
 	Row& operator=(const Row& other);
 	~Row();
 
-	const Tile& at(int index) const;
-	Tile& at(int index);
+	const Tile& at(int index) const;	// reading option
+	Tile& at(int index);				// writing option
 
 	void push_back(const Tile& val);
 	int size() const;
 	bool empty() const;
 private:
-
 	Tile* m_data;
 	int m_size;
 };
