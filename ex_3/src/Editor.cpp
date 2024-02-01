@@ -1,11 +1,11 @@
-#include "Levelmaker.h"
+#include "Editor.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
-Levelmaker::Levelmaker()
+Editor::Editor()
 {}
 
-void Levelmaker::run()
+void Editor::run()
 {
 	auto window = sf::RenderWindow(sf::VideoMode(960, 720), "Level Maker", sf::Style::Titlebar | sf::Style::Close);
 
@@ -55,7 +55,7 @@ void Levelmaker::run()
 	}
 }
 
-void Levelmaker::handleClick(const sf::Event::MouseButtonEvent& event)
+void Editor::handleClick(const sf::Event::MouseButtonEvent& event)
 {
 	std::cout << event.x << " " << event.y << std::endl;
 }

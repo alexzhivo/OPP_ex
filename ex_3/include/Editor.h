@@ -2,9 +2,9 @@
 
 #include <SFML/Graphics.hpp>
 
-class Levelmaker {
+class Editor {
 public:
-	Levelmaker();
+	Editor();
 	void run();
 private:
 	void handleClick(const sf::Event::MouseButtonEvent& event);

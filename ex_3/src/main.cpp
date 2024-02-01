@@ -1,7 +1,7 @@
-#include "Levelmaker.h"
+#include "Editor.h"
 
 int main()
 {
-	Levelmaker app;
+	Editor app;
 	app.run();
 }
