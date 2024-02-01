@@ -1,9 +1,7 @@
-#include <iostream>
-
-#include "Row.h"
-
+#include "Levelmaker.h"
 
 int main()
 {
-	
+	Levelmaker app;
+	app.run();
 }
