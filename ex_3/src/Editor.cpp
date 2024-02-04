@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 Editor::Editor()
+	: m_menu(280,640,sf::Color(160,160,160))
 {}
 
 void Editor::run()
@@ -36,6 +37,7 @@ void Editor::run()
 	while (window.isOpen())
 	{
 		window.clear();
+		m_menu.draw(window);
 		window.draw(board);
 		for (int i = 0; i < numRectangles; ++i) {
 			window.draw(rectangles[i]);
