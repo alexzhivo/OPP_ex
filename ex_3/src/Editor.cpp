@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 Editor::Editor()
-	: m_menu(280,640,sf::Color(160,160,160))
+	: m_menu(280,640,sf::Color(100,100,100))
 {}
 
 void Editor::run()
@@ -14,34 +14,11 @@ void Editor::run()
 	board.setFillColor(sf::Color::White);
 	board.setPosition(sf::Vector2f(280, 40));
 
-	const int numRectangles = 10;
-	const int cols = 2;
-	const int rectWidth = 80;
-	const int rectHeight = 80;
-
-	sf::RectangleShape rectangles[numRectangles];
-
-	for (int i = 0; i < numRectangles; ++i) {
-		rectangles[i].setSize(sf::Vector2f(rectWidth, rectHeight));
-		rectangles[i].setFillColor(sf::Color::Black);
-		rectangles[i].setOutlineThickness(5);
-		rectangles[i].setOutlineColor(sf::Color::White);
-
-		// Calculate position based on columns
-		int col = i % cols;
-		int row = i / cols;
-
-		rectangles[i].setPosition((float)(40 + col * (rectWidth + 40)), (float)(80 + row * (rectHeight + 40)));
-	}
-
 	while (window.isOpen())
 	{
 		window.clear();
 		m_menu.draw(window);
 		window.draw(board);
-		for (int i = 0; i < numRectangles; ++i) {
-			window.draw(rectangles[i]);
-		}
 		window.display();
 
 		if (auto event = sf::Event{}; window.waitEvent(event)) {
