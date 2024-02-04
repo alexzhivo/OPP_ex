@@ -10,5 +10,7 @@ public:
 private:
 	void handleClick(const sf::Event::MouseButtonEvent& event);
 
+	std::vector<sf::Texture> m_textures;
+	std::vector<std::string> m_textureNames;
 	Menu m_menu;
 };

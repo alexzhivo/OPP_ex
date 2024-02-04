@@ -1,10 +1,17 @@
-#include "Editor.h"
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include "Editor.h"
 
 Editor::Editor()
-	: m_menu(280,640,sf::Color(100,100,100))
-{}
+	: m_menu(280,640,sf::Color(100,100,100),m_textures) , 
+	m_textureNames({ "new","save","mouse","cat","wall","cheese","door","gift","delete","key" })
+{
+	//load images into m_textures
+	for (int i = 0; i < 10; ++i) {
+		sf::Texture texture;
+		texture.loadFromFile(m_textureNames[i] + ".png");
+		m_textures.push_back(texture);
+	}
+}
 
 void Editor::run()
 {
