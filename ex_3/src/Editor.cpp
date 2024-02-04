@@ -2,7 +2,7 @@
 #include "Editor.h"
 
 Editor::Editor()
-	: m_menu(280,640,sf::Color(100,100,100),m_textures) , 
+	: m_menu(280, 640, sf::Color(100, 100, 100), m_textures), m_board(),
 	m_textureNames({ "new","save","mouse","cat","wall","cheese","door","gift","delete","key" })
 {
 	//load images into m_textures
@@ -17,15 +17,11 @@ void Editor::run()
 {
 	auto window = sf::RenderWindow(sf::VideoMode(960, 720), "Level Maker", sf::Style::Titlebar | sf::Style::Close);
 
-	auto board = sf::RectangleShape(sf::Vector2f(640, 640));
-	board.setFillColor(sf::Color::White);
-	board.setPosition(sf::Vector2f(280, 40));
-
 	while (window.isOpen())
 	{
 		window.clear();
 		m_menu.draw(window);
-		window.draw(board);
+		m_board.draw(window);
 		window.display();
 
 		if (auto event = sf::Event{}; window.waitEvent(event)) {

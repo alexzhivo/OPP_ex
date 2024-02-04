@@ -1,7 +1,7 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "Menu.h"
+#include "Board.h"
 
 class Editor {
 public:
@@ -12,5 +12,7 @@ private:
 
 	std::vector<sf::Texture> m_textures;
 	std::vector<std::string> m_textureNames;
+
 	Menu m_menu;
+	Board m_board;
 };
