@@ -2,7 +2,7 @@
 #include "Editor.h"
 
 Editor::Editor()
-	: m_menu(280, 640, sf::Color(100, 100, 100), m_textures), m_board(),
+	: m_menu(280, 640, sf::Color(100, 100, 100), m_textures), m_board(m_textures),
 	m_textureNames({ "new","save","mouse","cat","wall","cheese","door","gift","delete","key" })
 {
 	//load images into m_textures
