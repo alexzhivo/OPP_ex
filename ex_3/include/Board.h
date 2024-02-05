@@ -15,6 +15,7 @@ private:
 	void drawSprite(sf::RenderWindow& window, const int spriteID, const sf::RectangleShape& tile);
 	void resizeAndCenterSprite(sf::Sprite& sprite, const sf::RectangleShape& tile);
 	void userSizeInput();
+	void fileInput(std::ifstream& file);
 
 	const std::vector<sf::Texture>* m_textures;
 	std::vector<Row> m_level;

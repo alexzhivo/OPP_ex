@@ -13,7 +13,17 @@ const int KEY_SPRITE_ID = 9;
 Board::Board(const std::vector<sf::Texture>& textures)
 	: m_textures(&textures)
 {
-	userSizeInput();
+	std::ifstream file("Board.txt");
+	if (file.good())
+	{
+		// File exists, load the board from the file
+		fileInput(file);
+	}
+	else
+	{
+		// File does not exists, use user input
+		userSizeInput();
+	}
 }
 
 void Board::draw(sf::RenderWindow& window)
@@ -37,7 +47,7 @@ void Board::drawTiles(sf::RenderWindow& window) {
 			auto tile = sf::RectangleShape(sf::Vector2f(width, height));
 			tile.setFillColor(sf::Color::Transparent);
 			tile.setOutlineThickness(1);
-			tile.setOutlineColor(sf::Color::Black);
+			tile.setOutlineColor(sf::Color(200,200,200));
 			tile.setPosition(startPos);
 			window.draw(tile);
 
@@ -119,30 +129,43 @@ int Board::getNumOfCols() const
 
 void Board::userSizeInput()
 {
-	// Check if the input file exists
-	std::ifstream inputFile("Board.txt");
-	if (inputFile.good())
-	{
-		// File exists, load the board from the file
-		std::cout << "Loading board from file...\n";
-	}
-	else
-	{
-		// File does not exist, prompt the user for board size
-		std::cout << "Enter the desired board size (height and width): ";
-		std::cin >> m_size.x >> m_size.y;
+	// File does not exist, prompt the user for board size
+	std::cout << "Enter the desired board size (height and width): ";
+	std::cin >> m_size.x >> m_size.y;
 
-		// Initialize the board with the specified size
-		std::cout << "Creating new board...\n";
-		for (int i = 0; i < m_size.x; i++) {
-			m_level.push_back(Row((int)m_size.y));
-		}
-
-		for (int i = 0; i < m_size.x; i++) {
-			for (int j = 0; j < m_size.y; j++) {
-				std::cout << m_level[i].at(j).getValue();
-			}
-			std::cout << std::endl;
-		}
+	// Initialize the board with the specified size
+	std::cout << "Creating new board...\n";
+	for (int i = 0; i < m_size.x; i++) {
+		m_level.push_back(Row((int)m_size.y));
 	}
+
+	for (int i = 0; i < m_size.x; i++) {
+		for (int j = 0; j < m_size.y; j++) {
+			std::cout << m_level[i].at(j).getValue();
+		}
+		std::cout << std::endl;
+	}
+}
+
+
+void Board::fileInput(std::ifstream& file)
+{
+	std::cout << "Loading board from file...\n";
+	std::string line;
+	int row_num = 0;
+	while (std::getline(file, line)) {
+		m_size.y = line.size();
+		// add a row to m_level
+		m_size.x++;
+		m_level.push_back(Row((int)line.size()));
+
+		// Process each char in the line
+		for (int i = 0; i < line.size() ; i++) {
+			m_level[row_num].at(i).setValue(line.at(i));
+
+		}
+		++row_num;
+	}
+
+	file.close(); // Close the file when done
 }
