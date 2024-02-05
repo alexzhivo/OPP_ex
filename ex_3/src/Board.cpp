@@ -154,7 +154,7 @@ void Board::fileInput(std::ifstream& file)
 	std::string line;
 	int row_num = 0;
 	while (std::getline(file, line)) {
-		m_size.y = line.size();
+		m_size.y = (float)line.size();
 		// add a row to m_level
 		m_size.x++;
 		m_level.push_back(Row((int)line.size()));
