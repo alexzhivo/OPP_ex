@@ -18,7 +18,7 @@ void Menu::draw(sf::RenderWindow& window)
 
 bool Menu::isClicked(const int x, const int y) const
 {
-	if (x >= 0 && x <= m_size.x && y >= 0 && y <= m_size.y) {
+	if (x >= 0 && x <= 280 && y >= 40 && y <= 680) {
 		return true;
 	}
 	return false;

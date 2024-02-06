@@ -37,9 +37,7 @@ void Board::draw(sf::RenderWindow& window)
 
 bool Board::isClicked(const int x, const int y) const
 {
-	std::cout << m_size.x << " " << m_size.y << std::endl;
-
-	if (x >= 0 && x <= m_size.x && y >= 0 && y <= m_size.y) {
+	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {
 		return true;
 	}
 	return false;
@@ -127,12 +125,12 @@ void Board::resizeAndCenterSprite(sf::Sprite& sprite, const sf::RectangleShape& 
 	sprite.setPosition(tile.getPosition().x + offsetX, tile.getPosition().y + offsetY);
 }
 
-int Board::getNumOfRows() const
+int Board::getNumOfCols() const
 {
 	return (int)m_size.x;
 }
 
-int Board::getNumOfCols() const
+int Board::getNumOfRows() const
 {
 	return (int)m_size.y;
 }
@@ -140,17 +138,17 @@ int Board::getNumOfCols() const
 void Board::userSizeInput()
 {
 	// File does not exist, prompt the user for board size
-	std::cout << "Enter the desired board size (height and width): ";
+	std::cout << "Enter the desired board size (width and height): ";
 	std::cin >> m_size.x >> m_size.y;
 
 	// Initialize the board with the specified size
 	std::cout << "Creating new board...\n";
-	for (int i = 0; i < m_size.x; i++) {
-		m_level.push_back(Row((int)m_size.y));
+	for (int i = 0; i < m_size.y; i++) {
+		m_level.push_back(Row((int)m_size.x));
 	}
 
-	for (int i = 0; i < m_size.x; i++) {
-		for (int j = 0; j < m_size.y; j++) {
+	for (int i = 0; i < m_size.y; i++) {
+		for (int j = 0; j < m_size.x; j++) {
 			std::cout << m_level[i].at(j).getValue();
 		}
 		std::cout << std::endl;
@@ -164,9 +162,9 @@ void Board::fileInput(std::ifstream& file)
 	std::string line;
 	int row_num = 0;
 	while (std::getline(file, line)) {
-		m_size.y = (float)line.size();
+		m_size.x = (float)line.size();
 		// add a row to m_level
-		m_size.x++;
+		m_size.y++;
 		m_level.push_back(Row((int)line.size()));
 
 		// Process each char in the line
