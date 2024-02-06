@@ -62,6 +62,7 @@ void Board::updateTile(const sf::Vector2f tile, const int button_num)
 {
 	switch (button_num) {
 	case 2:
+		eraseMouse();
 		m_level[tile.y - 1].at(tile.x - 1).setValue('%');
 		break;
 	case 3:
@@ -85,6 +86,17 @@ void Board::updateTile(const sf::Vector2f tile, const int button_num)
 	case 9:
 		m_level[tile.y - 1].at(tile.x - 1).setValue('F');
 		break;
+	}
+}
+
+void Board::eraseMouse()
+{
+	for (int i = 0; i < m_level.size(); i++) {
+		for (int j = 0; j < m_level[i].size(); j++) {
+			if (m_level[i].at(j).getValue() == '%') {
+				m_level[i].at(j).setValue(' ');
+			}
+		}
 	}
 }
 

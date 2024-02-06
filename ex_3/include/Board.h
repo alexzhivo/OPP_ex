@@ -15,6 +15,7 @@ public:
 private:
 	sf::Vector2f getPressedTile(const int x, const int y) const;
 	void updateTile(const sf::Vector2f tile ,const int button_num);
+	void eraseMouse();
 
 	void drawTiles(sf::RenderWindow& window);
 	void drawSprite(sf::RenderWindow& window, const int spriteID, const sf::RectangleShape& tile);
