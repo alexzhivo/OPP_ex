@@ -21,6 +21,5 @@ private:
 
 	const std::vector<sf::Texture>* m_textures;
 	std::vector<Row> m_level;
-	sf::Vector2f m_position;
 	sf::Vector2f m_size;
 };

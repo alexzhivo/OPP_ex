@@ -8,11 +8,15 @@ public:
 		 const sf::Color& color , const std::vector<sf::Texture>& textures);
 	void draw(sf::RenderWindow& window);
 
-	bool isClicked(const int x, const int y) const;
+	bool isClicked(const int x, const int y);
+	int getActiveButton() const;
 
 private:
 	void drawButtons(sf::RenderWindow& window);
 	void createButtons();
+	void deactivateOtherButtons(const int index);
+
+	int m_activeButton;
 
 	const std::vector<sf::Texture>* m_textures;
 	std::vector<Button> m_buttons;

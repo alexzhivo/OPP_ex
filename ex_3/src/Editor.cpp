@@ -31,6 +31,7 @@ void Editor::run()
 				break;
 			case sf::Event::MouseButtonPressed:
 				handleMouseClick(event.mouseButton);
+				std::cout << m_menu.getActiveButton() << std::endl;
 				break;
 			}
 		}
