@@ -11,7 +11,7 @@ const int GIFT_SPRITE_ID = 7;
 const int KEY_SPRITE_ID = 9;
 
 Board::Board(const std::vector<sf::Texture>& textures)
-	: m_textures(&textures)
+	: m_textures(&textures) , m_position(sf::Vector2f(280, 40))
 {
 	std::ifstream file("Board.txt");
 	if (file.good())
@@ -30,9 +30,19 @@ void Board::draw(sf::RenderWindow& window)
 {
 	auto board = sf::RectangleShape(sf::Vector2f(640, 640));
 	board.setFillColor(sf::Color::White);
-	board.setPosition(sf::Vector2f(280, 40));
+	board.setPosition(m_position);
 	window.draw(board);
 	drawTiles(window);
+}
+
+bool Board::isClicked(const int x, const int y) const
+{
+	std::cout << m_size.x << " " << m_size.y << std::endl;
+
+	if (x >= 0 && x <= m_size.x && y >= 0 && y <= m_size.y) {
+		return true;
+	}
+	return false;
 }
 
 void Board::drawTiles(sf::RenderWindow& window) {

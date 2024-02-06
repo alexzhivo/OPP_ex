@@ -8,6 +8,8 @@ public:
 	Board(const std::vector<sf::Texture>& textures);
 	void draw(sf::RenderWindow& window);
 
+	bool isClicked(const int x, const int y) const;
+
 	int getNumOfRows() const;
 	int getNumOfCols() const;
 private:
@@ -19,5 +21,6 @@ private:
 
 	const std::vector<sf::Texture>* m_textures;
 	std::vector<Row> m_level;
+	sf::Vector2f m_position;
 	sf::Vector2f m_size;
 };

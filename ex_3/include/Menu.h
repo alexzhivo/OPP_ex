@@ -7,6 +7,9 @@ public:
 	Menu(const float width, const float height, 
 		 const sf::Color& color , const std::vector<sf::Texture>& textures);
 	void draw(sf::RenderWindow& window);
+
+	bool isClicked(const int x, const int y) const;
+
 private:
 	void drawButtons(sf::RenderWindow& window);
 	void createButtons();

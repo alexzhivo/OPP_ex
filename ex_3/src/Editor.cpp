@@ -29,15 +29,24 @@ void Editor::run()
 			case sf::Event::Closed:
 				window.close();
 				break;
-			case sf::Event::MouseButtonReleased:
-				handleClick(event.mouseButton);
+			case sf::Event::MouseButtonPressed:
+				handleMouseClick(event.mouseButton);
 				break;
 			}
 		}
 	}
 }
 
-void Editor::handleClick(const sf::Event::MouseButtonEvent& event)
+void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event)
 {
+	// print cords to terminal
 	std::cout << event.x << " " << event.y << std::endl;
+
+	if (m_menu.isClicked(event.x,event.y)) {
+		std::cout << "menu is clicked\n";
+	}
+	else if (m_board.isClicked(event.y, event.x)) {
+		std::cout << "board is clicked\n";
+	}
+
 }
