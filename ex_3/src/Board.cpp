@@ -35,24 +35,69 @@ void Board::draw(sf::RenderWindow& window)
 	drawTiles(window);
 }
 
-bool Board::isClicked(const int x, const int y) const
+bool Board::isClicked(const int x, const int y, const int button_num)
 {
 	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {
+		if (button_num >= 2 && button_num <= 9) {
+			updateTile(getPressedTile(x, y), button_num);
+		}
 		return true;
 	}
 	return false;
 }
 
+sf::Vector2f Board::getPressedTile(const int x, const int y) const
+{
+	sf::Vector2f tile_pos;
+	int newX = x - 280;
+	int newY = y - 40;
+
+	tile_pos.x = (int)(newX / m_tileDimensions.x + 1);
+	tile_pos.y = (int)(newY / m_tileDimensions.y + 1);
+
+	return tile_pos;
+}
+
+void Board::updateTile(const sf::Vector2f tile, const int button_num)
+{
+	switch (button_num) {
+	case 2:
+		m_level[tile.y - 1].at(tile.x - 1).setValue('%');
+		break;
+	case 3:
+		m_level[tile.y - 1].at(tile.x - 1).setValue('^');
+		break;
+	case 4:
+		m_level[tile.y - 1].at(tile.x - 1).setValue('#');
+		break;
+	case 5:
+		m_level[tile.y - 1].at(tile.x - 1).setValue('*');
+		break;
+	case 6:
+		m_level[tile.y - 1].at(tile.x - 1).setValue('D');
+		break;
+	case 7:
+		m_level[tile.y - 1].at(tile.x - 1).setValue('$');
+		break;
+	case 8:
+		m_level[tile.y - 1].at(tile.x - 1).setValue(' ');
+		break;
+	case 9:
+		m_level[tile.y - 1].at(tile.x - 1).setValue('F');
+		break;
+	}
+}
+
 void Board::drawTiles(sf::RenderWindow& window) {
 
-	float width = (float)640 / getNumOfCols();
-	float height = (float)640 / getNumOfRows();
+	m_tileDimensions.x = (float)640 / getNumOfCols();
+	m_tileDimensions.y = (float)640 / getNumOfRows();
 
 	auto startPos = sf::Vector2f(280, 40);
 
 	for (int i = 0; i < getNumOfRows(); i++) {
 		for (int j = 0; j < getNumOfCols(); j++) {
-			auto tile = sf::RectangleShape(sf::Vector2f(width, height));
+			auto tile = sf::RectangleShape(m_tileDimensions);
 			tile.setFillColor(sf::Color::Transparent);
 			tile.setOutlineThickness(1);
 			tile.setOutlineColor(sf::Color(200,200,200));
@@ -85,10 +130,10 @@ void Board::drawTiles(sf::RenderWindow& window) {
 				break;
 			}
 
-			startPos.x += width;
+			startPos.x += m_tileDimensions.x;
 		}
 		startPos.x = 280;
-		startPos.y += height;
+		startPos.y += m_tileDimensions.y;
 	}
 }
 

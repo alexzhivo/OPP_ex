@@ -46,8 +46,7 @@ void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event)
 	if (m_menu.isClicked(event.x,event.y)) {
 		std::cout << "menu is clicked\n";
 	}
-	else if (m_board.isClicked(event.x, event.y)) {
+	else if (m_board.isClicked(event.x, event.y, m_menu.getActiveButton())) {
 		std::cout << "board is clicked\n";
 	}
-
 }

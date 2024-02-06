@@ -22,7 +22,12 @@ bool Menu::isClicked(const int x, const int y)
 		for (int i = 0; i < m_buttons.size(); i++) {
 			if (m_buttons[i].isClicked(x,y)) {
 				std::cout << "button " << i << " is clicked.\n";
-				m_activeButton = i;
+				if (!m_buttons[i].isActive()) {
+					m_activeButton = -1;
+				}
+				else {
+					m_activeButton = i;
+				}
 				deactivateOtherButtons(i);
 			}
 		}
