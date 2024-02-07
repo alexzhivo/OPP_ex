@@ -15,7 +15,7 @@ Editor::Editor()
 void Editor::run()
 {
 	while (true) {
-		auto window = sf::RenderWindow(sf::VideoMode(960, 720), "Level Maker", sf::Style::Titlebar | sf::Style::Close);
+		auto window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level Maker", sf::Style::Titlebar | sf::Style::Close);
 
 		while (window.isOpen())
 		{
@@ -40,26 +40,20 @@ void Editor::run()
 
 void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event, sf::RenderWindow& window)
 {
+	// menu press handle
 	int menuButton = m_menu.buttonClicked(event.x, event.y);
-
 	switch (menuButton) {
-	case 0:
+	case 0:		// pressed on new button
 		window.close();
 		m_board.clearBoard();
 		break;
-	case 1:
+	case 1:		// pressed on save button
 		m_board.saveBoard();
+		std::cout << "level is saved.\n";
 		break;
-	case 2:
-	case 3:
-	case 4:
-	case 5:
-	case 6:
-	case 7:
-	case 8:
-	case 9:
+	default:
 		break;
 	}
-
+	// board press handle
 	m_board.handleClick(event.x, event.y, m_menu.getActiveButton());
 }

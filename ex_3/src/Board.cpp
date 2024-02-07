@@ -28,7 +28,7 @@ void Board::draw(sf::RenderWindow& window)
 {
 	auto board = sf::RectangleShape(sf::Vector2f(640, 640));
 	board.setFillColor(sf::Color::White);
-	board.setPosition(sf::Vector2f(280, 40));
+	board.setPosition(sf::Vector2f(280,0));
 	window.draw(board);
 	drawTiles(window);
 }
@@ -73,6 +73,7 @@ void Board::fileInput(std::ifstream& file)
 	}
 
 	file.close(); // Close the file when done
+	std::cout << "file has loaded.\n";
 }
 
 
@@ -86,7 +87,7 @@ sf::Vector2i Board::getPressedTile(const int x, const int y) const
 {
 	sf::Vector2i tile_pos;
 	int newX = x - 280;
-	int newY = y - 40;
+	int newY = y;
 
 	tile_pos.x = (int)(newX / m_tileDimensions.x) + 1;
 	tile_pos.y = (int)(newY / m_tileDimensions.y) + 1;
@@ -96,7 +97,7 @@ sf::Vector2i Board::getPressedTile(const int x, const int y) const
 
 void Board::handleClick(const int x, const int y, const int button_num)
 {
-	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {
+	if (x >= 280 && x <= 920 && y >= 0 && y <= 640) {
 		if (button_num >= 2 && button_num <= 9) {
 			updateTile(getPressedTile(x, y), button_num);
 		}
@@ -154,14 +155,14 @@ void Board::drawTiles(sf::RenderWindow& window) {
 	m_tileDimensions.x = (float)640 / getNumOfCols();
 	m_tileDimensions.y = (float)640 / getNumOfRows();
 
-	auto startPos = sf::Vector2f(280, 40);
+	auto startPos = sf::Vector2f(280,0);
 
 	for (int i = 0; i < getNumOfRows(); i++) {
 		for (int j = 0; j < getNumOfCols(); j++) {
 			auto tile = sf::RectangleShape(m_tileDimensions);
 			tile.setFillColor(sf::Color::Transparent);
 			tile.setOutlineThickness(1);
-			tile.setOutlineColor(sf::Color(200,200,200));
+			tile.setOutlineColor(sf::Color(220,220,220));
 			tile.setPosition(startPos);
 			window.draw(tile);
 
@@ -248,15 +249,7 @@ void Board::userSizeInput()
 	std::cin >> m_size.x >> m_size.y;
 
 	// Initialize the board with the specified size
-	std::cout << "Creating new board...\n";
 	for (int i = 0; i < m_size.y; i++) {
 		m_level.push_back(Row((int)m_size.x));
-	}
-
-	for (int i = 0; i < m_size.y; i++) {
-		for (int j = 0; j < m_size.x; j++) {
-			std::cout << m_level[i].at(j).getValue();
-		}
-		std::cout << std::endl;
 	}
 }

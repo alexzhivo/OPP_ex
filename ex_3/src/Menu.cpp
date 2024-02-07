@@ -8,7 +8,7 @@ void Menu::draw(sf::RenderWindow& window)
 {
 	auto menu = sf::RectangleShape(m_size);
 	menu.setFillColor(m_color);
-	menu.setPosition(sf::Vector2f(0, 40));
+	menu.setPosition(sf::Vector2f(0,0));
 	window.draw(menu);
 	createButtons();
 	drawButtons(window);
@@ -19,6 +19,9 @@ int Menu::buttonClicked(const int x, const int y)
 	if (x >= 0 && x <= 280 && y >= 40 && y <= 680) {
 		for (int i = 0; i < m_buttons.size(); i++) {
 			if (m_buttons[i].isClicked(x,y)) {
+				if (i == 0 || i == 1) {
+					m_buttons[i].isClicked(x, y);
+				}
 				if (m_buttons[i].isActive()) {
 					m_activeButton = i;
 				}
@@ -51,7 +54,7 @@ void Menu::createButtons()
 		for (int i = 0; i < 10; i++) {
 			int col = i % 2;
 			int row = i / 2;
-			auto button_pos = sf::Vector2f((float)40 + col * 120, (float)80 + row * 120);
+			auto button_pos = sf::Vector2f((float)40 + col * 120, (float)40 + row * 120);
 
 			m_buttons.push_back(Button(button_pos, (*m_textures)[i]));
 		}

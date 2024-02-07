@@ -22,10 +22,22 @@ bool Button::isClicked(const int x, const int y)
 {
 	if (x >= m_position.x && x <= m_position.x + 80 &&
 		y >= m_position.y && y <= m_position.y + 80) {
-		buttonPress();
+		pressButton();
 		return true;
 	}
 	return false;
+}
+
+void Button::pressButton()
+{
+	if (m_color == sf::Color(200, 200, 200)) {
+		m_color = sf::Color(80, 80, 80);
+		m_isActive = true;
+	}
+	else {
+		m_color = sf::Color(200, 200, 200);
+		m_isActive = false;
+	}
 }
 
 bool Button::isActive() const
@@ -37,16 +49,4 @@ void Button::deactivate()
 {
 	m_color = sf::Color(200, 200, 200);
 	m_isActive = false;
-}
-
-void Button::buttonPress()
-{
-	if (m_color == sf::Color(200, 200, 200)) {
-		m_color = sf::Color(80, 80, 80);
-		m_isActive = true;
-	}
-	else {
-		m_color = sf::Color(200, 200, 200);
-		m_isActive = false;
-	}
 }

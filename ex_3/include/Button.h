@@ -13,7 +13,8 @@ public:
 	void deactivate();
 
 private:
-	void buttonPress();
+	void pressButton();
+
 	bool m_isActive;
 	sf::Vector2f m_position;
 	sf::Vector2f m_size;
