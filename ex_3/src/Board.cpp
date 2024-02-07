@@ -86,6 +86,10 @@ sf::Vector2i Board::getPressedTile(const int x, const int y) const
 
 void Board::updateTile(const sf::Vector2i tile, const int button_num)
 {
+	if (m_level[tile.y - 1].at(tile.x - 1).getValue() == '%') {
+		// trying to erase mouse
+		return;
+	}
 	switch (button_num) {
 	case 2:
 		eraseMouse();
