@@ -1,8 +1,7 @@
 #include "Tile.h"
 
 Tile::Tile(const char val)
-	: m_val(val) 
-{}
+	: m_val(val) {}
 
 void Tile::setValue(const char val)
 {

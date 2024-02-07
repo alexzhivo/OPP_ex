@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Tile.h"
 
 class Row {
@@ -11,11 +10,10 @@ public:
 
 	const Tile& at(int index) const;	// reading option
 	Tile& at(int index);				// writing option
-
 	void push_back(const Tile& val);
-	int size() const;
 	bool empty() const;
+	int size() const;
 private:
-	Tile* m_data;
+	Tile* m_data;			// array of tiles
 	int m_size;
 };
