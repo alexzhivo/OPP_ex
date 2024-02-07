@@ -46,19 +46,19 @@ bool Board::isClicked(const int x, const int y, const int button_num)
 	return false;
 }
 
-sf::Vector2f Board::getPressedTile(const int x, const int y) const
+sf::Vector2i Board::getPressedTile(const int x, const int y) const
 {
-	sf::Vector2f tile_pos;
+	sf::Vector2i tile_pos;
 	int newX = x - 280;
 	int newY = y - 40;
 
-	tile_pos.x = (int)(newX / m_tileDimensions.x + 1);
-	tile_pos.y = (int)(newY / m_tileDimensions.y + 1);
+	tile_pos.x = (int)(newX / m_tileDimensions.x) + 1;
+	tile_pos.y = (int)(newY / m_tileDimensions.y) + 1;
 
 	return tile_pos;
 }
 
-void Board::updateTile(const sf::Vector2f tile, const int button_num)
+void Board::updateTile(const sf::Vector2i tile, const int button_num)
 {
 	switch (button_num) {
 	case 2:

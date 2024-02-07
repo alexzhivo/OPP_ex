@@ -13,8 +13,8 @@ public:
 	int getNumOfRows() const;
 	int getNumOfCols() const;
 private:
-	sf::Vector2f getPressedTile(const int x, const int y) const;
-	void updateTile(const sf::Vector2f tile ,const int button_num);
+	sf::Vector2i getPressedTile(const int x, const int y) const;
+	void updateTile(const sf::Vector2i tile ,const int button_num);
 	void eraseMouse();
 
 	void drawTiles(sf::RenderWindow& window);
