@@ -10,7 +10,7 @@ public:
 	void saveBoard();
 	void clearBoard();
 
-	bool isClicked(const int x, const int y, const int button_num);
+	void handleClick(const int x, const int y, const int button_num);
 
 	int getNumOfRows() const;
 	int getNumOfCols() const;

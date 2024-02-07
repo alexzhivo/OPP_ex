@@ -61,15 +61,13 @@ void Board::clearBoard()
 	userSizeInput();
 }
 
-bool Board::isClicked(const int x, const int y, const int button_num)
+void Board::handleClick(const int x, const int y, const int button_num)
 {
 	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {
 		if (button_num >= 2 && button_num <= 9) {
 			updateTile(getPressedTile(x, y), button_num);
 		}
-		return true;
 	}
-	return false;
 }
 
 sf::Vector2i Board::getPressedTile(const int x, const int y) const

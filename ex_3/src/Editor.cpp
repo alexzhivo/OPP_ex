@@ -32,7 +32,6 @@ void Editor::run()
 					exit(EXIT_SUCCESS);
 				case sf::Event::MouseButtonPressed:
 					handleMouseClick(event.mouseButton,window);
-					std::cout << m_menu.getActiveButton() << std::endl;
 					break;
 				}
 			}
@@ -46,12 +45,10 @@ void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event, sf::Rend
 
 	switch (menuButton) {
 	case 0:
-		std::cout << "new button is pressed\n";
 		window.close();
 		m_board.clearBoard();
 		break;
 	case 1:
-		std::cout << "save button is pressed\n";
 		m_board.saveBoard();
 		break;
 	case 2:
@@ -62,11 +59,8 @@ void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event, sf::Rend
 	case 7:
 	case 8:
 	case 9:
-		std::cout << "entity button is pressed\n";
 		break;
 	}
 
-	if (m_board.isClicked(event.x, event.y, m_menu.getActiveButton())) {
-		std::cout << "board is clicked\n";
-	}
+	m_board.handleClick(event.x, event.y, m_menu.getActiveButton());
 }
