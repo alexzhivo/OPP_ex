@@ -1,6 +1,4 @@
 #include "Board.h"
-#include <iostream>
-#include <fstream>
 
 const int MOUSE_SPRITE_ID = 2;
 const int CAT_SPRITE_ID = 3;
@@ -55,19 +53,33 @@ void Board::saveBoard()
 	file.close();
 }
 
+void Board::fileInput(std::ifstream& file)
+{
+	std::cout << "Loading board from file...\n";
+	std::string line;
+	int row_num = 0;
+	while (std::getline(file, line)) {
+		m_size.x = (float)line.size();
+		// add a row to m_level
+		m_size.y++;
+		m_level.push_back(Row((int)line.size()));
+
+		// Process each char in the line
+		for (int i = 0; i < line.size(); i++) {
+			m_level[row_num].at(i).setValue(line.at(i));
+
+		}
+		++row_num;
+	}
+
+	file.close(); // Close the file when done
+}
+
+
 void Board::clearBoard()
 {
 	m_level.clear();
 	userSizeInput();
-}
-
-void Board::handleClick(const int x, const int y, const int button_num)
-{
-	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {
-		if (button_num >= 2 && button_num <= 9) {
-			updateTile(getPressedTile(x, y), button_num);
-		}
-	}
 }
 
 sf::Vector2i Board::getPressedTile(const int x, const int y) const
@@ -82,6 +94,14 @@ sf::Vector2i Board::getPressedTile(const int x, const int y) const
 	return tile_pos;
 }
 
+void Board::handleClick(const int x, const int y, const int button_num)
+{
+	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {
+		if (button_num >= 2 && button_num <= 9) {
+			updateTile(getPressedTile(x, y), button_num);
+		}
+	}
+}
 
 void Board::updateTile(const sf::Vector2i tile, const int button_num)
 {
@@ -239,26 +259,4 @@ void Board::userSizeInput()
 		}
 		std::cout << std::endl;
 	}
-}
-
-void Board::fileInput(std::ifstream& file)
-{
-	std::cout << "Loading board from file...\n";
-	std::string line;
-	int row_num = 0;
-	while (std::getline(file, line)) {
-		m_size.x = (float)line.size();
-		// add a row to m_level
-		m_size.y++;
-		m_level.push_back(Row((int)line.size()));
-
-		// Process each char in the line
-		for (int i = 0; i < line.size() ; i++) {
-			m_level[row_num].at(i).setValue(line.at(i));
-
-		}
-		++row_num;
-	}
-
-	file.close(); // Close the file when done
 }

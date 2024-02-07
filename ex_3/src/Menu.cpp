@@ -2,9 +2,7 @@
 
 Menu::Menu(const float width, const float height, const sf::Color& color, const std::vector<sf::Texture>& textures)
 	: m_size(width, height), m_color(color), m_textures(&textures), m_activeButton(-1)
-{
-
-}
+{}
 
 void Menu::draw(sf::RenderWindow& window)
 {
