@@ -82,6 +82,7 @@ sf::Vector2i Board::getPressedTile(const int x, const int y) const
 	return tile_pos;
 }
 
+
 void Board::updateTile(const sf::Vector2i tile, const int button_num)
 {
 	if (m_level[tile.y - 1].at(tile.x - 1).getValue() == '%') {
@@ -239,7 +240,6 @@ void Board::userSizeInput()
 		std::cout << std::endl;
 	}
 }
-
 
 void Board::fileInput(std::ifstream& file)
 {
