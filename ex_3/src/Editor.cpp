@@ -40,13 +40,29 @@ void Editor::run()
 
 void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event)
 {
-	// print cords to terminal
-	std::cout << event.x << " " << event.y << std::endl;
+	int menuButton = m_menu.buttonClicked(event.x, event.y);
 
-	if (m_menu.isClicked(event.x,event.y)) {
-		std::cout << "menu is clicked\n";
+	switch (menuButton) {
+	case 0:
+		std::cout << "new button is pressed\n";
+		break;
+	case 1:
+		std::cout << "save button is pressed\n";
+		m_board.saveBoard();
+		break;
+	case 2:
+	case 3:
+	case 4:
+	case 5:
+	case 6:
+	case 7:
+	case 8:
+	case 9:
+		std::cout << "entity button is pressed\n";
+		break;
 	}
-	else if (m_board.isClicked(event.x, event.y, m_menu.getActiveButton())) {
+
+	if (m_board.isClicked(event.x, event.y, m_menu.getActiveButton())) {
 		std::cout << "board is clicked\n";
 	}
 }

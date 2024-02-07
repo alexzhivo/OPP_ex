@@ -16,24 +16,23 @@ void Menu::draw(sf::RenderWindow& window)
 	drawButtons(window);
 }
 
-bool Menu::isClicked(const int x, const int y)
+int Menu::buttonClicked(const int x, const int y)
 {
 	if (x >= 0 && x <= 280 && y >= 40 && y <= 680) {
 		for (int i = 0; i < m_buttons.size(); i++) {
 			if (m_buttons[i].isClicked(x,y)) {
-				std::cout << "button " << i << " is clicked.\n";
-				if (!m_buttons[i].isActive()) {
-					m_activeButton = -1;
-				}
-				else {
+				if (m_buttons[i].isActive()) {
 					m_activeButton = i;
 				}
+				else {
+					m_activeButton = -1;
+				}
 				deactivateOtherButtons(i);
-			}
+				return i;
+			} 
 		}
-		return true;
 	}
-	return false;
+	return -1;
 }
 
 int Menu::getActiveButton() const

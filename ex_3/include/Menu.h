@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Button.h>
+#include <thread>
 
 class Menu {
 public:
@@ -8,7 +9,7 @@ public:
 		 const sf::Color& color , const std::vector<sf::Texture>& textures);
 	void draw(sf::RenderWindow& window);
 
-	bool isClicked(const int x, const int y);
+	int buttonClicked(const int x, const int y);
 	int getActiveButton() const;
 
 private:

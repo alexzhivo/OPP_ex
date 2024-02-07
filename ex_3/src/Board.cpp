@@ -35,6 +35,26 @@ void Board::draw(sf::RenderWindow& window)
 	drawTiles(window);
 }
 
+void Board::saveBoard()
+{
+	std::ofstream file("Board.txt", std::ios::trunc);	// clear file
+	if (!file.is_open()) {
+		std::cerr << "Failed to open the file for writing.\n";
+		exit(EXIT_FAILURE);
+	} 
+
+	file.seekp(0, std::ios::beg);	// move the writing pointer to the start
+
+	for (int i = 0; i < m_level.size(); i++) {
+		for (int j = 0; j < m_level[i].size(); j++) {
+			file << m_level[i].at(j).getValue();
+		}
+		file << '\n';
+	}
+
+	file.close();
+}
+
 bool Board::isClicked(const int x, const int y, const int button_num)
 {
 	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {

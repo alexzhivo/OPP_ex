@@ -7,6 +7,7 @@ class Board {
 public:
 	Board(const std::vector<sf::Texture>& textures);
 	void draw(sf::RenderWindow& window);
+	void saveBoard();
 
 	bool isClicked(const int x, const int y, const int button_num);
 
