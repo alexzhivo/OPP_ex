@@ -55,6 +55,12 @@ void Board::saveBoard()
 	file.close();
 }
 
+void Board::clearBoard()
+{
+	m_level.clear();
+	userSizeInput();
+}
+
 bool Board::isClicked(const int x, const int y, const int button_num)
 {
 	if (x >= 280 && x <= 920 && y >= 40 && y <= 680) {

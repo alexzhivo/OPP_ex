@@ -8,7 +8,7 @@ public:
 	Editor();
 	void run();
 private:
-	void handleMouseClick(const sf::Event::MouseButtonEvent& event);
+	void handleMouseClick(const sf::Event::MouseButtonEvent& event, sf::RenderWindow& window);
 
 	std::vector<sf::Texture> m_textures;
 	std::vector<std::string> m_textureNames;

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Button.h>
-#include <thread>
 
 class Menu {
 public:
