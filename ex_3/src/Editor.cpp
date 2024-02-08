@@ -15,7 +15,7 @@ Editor::Editor()
 void Editor::run()
 {
 	while (true) {
-		auto window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level Maker", sf::Style::Titlebar | sf::Style::Close);
+		auto window = sf::RenderWindow(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Level Editor", sf::Style::Titlebar | sf::Style::Close);
 
 		while (window.isOpen())
 		{

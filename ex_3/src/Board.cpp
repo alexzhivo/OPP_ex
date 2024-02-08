@@ -85,32 +85,36 @@ void Board::clearBoard()
 
 sf::Vector2i Board::getPressedTile(const int x, const int y) const
 {
-	sf::Vector2i tile_pos;
-	int newX = x - 280;
-	int newY = y;
+	sf::Vector2i tilePos;
+	int newX = x - (280 + (640 - (int)m_tileDimensions.x * getNumOfCols()) / 2);
+	int newY = y - ((640 - (int)m_tileDimensions.y * getNumOfRows()) / 2);
 
-	tile_pos.x = (int)(newX / m_tileDimensions.x) + 1;
-	tile_pos.y = (int)(newY / m_tileDimensions.y) + 1;
+	tilePos.x = (int)(newX / m_tileDimensions.x + 1);
+	tilePos.y = (int)(newY / m_tileDimensions.y + 1);
 
-	return tile_pos;
+	return tilePos;
 }
 
-void Board::handleClick(const int x, const int y, const int button_num)
+void Board::handleClick(const int x, const int y, const int buttonNum)
 {
-	if (x >= 280 && x <= 920 && y >= 0 && y <= 640) {
-		if (button_num >= 2 && button_num <= 9) {
-			updateTile(getPressedTile(x, y), button_num);
+	float boundX = float(280) + ((float(640) - m_tileDimensions.x * getNumOfCols()) / 2);
+	float boundY = float(640 - m_tileDimensions.y * getNumOfRows()) / 2;
+
+	if (x >= boundX && x <= boundX + m_tileDimensions.x * getNumOfCols() &&
+		y >= boundY && y <= boundY + m_tileDimensions.y * getNumOfRows()) {
+		if (buttonNum >= 2 && buttonNum <= 9) {
+			updateTile(getPressedTile(x, y), buttonNum);
 		}
 	}
 }
 
-void Board::updateTile(const sf::Vector2i tile, const int button_num)
+void Board::updateTile(const sf::Vector2i tile, const int buttonNum)
 {
 	if (m_level[tile.y - 1].at(tile.x - 1).getValue() == '%') {
 		// trying to erase mouse
 		return;
 	}
-	switch (button_num) {
+	switch (buttonNum) {
 	case 2:
 		eraseMouse();
 		m_level[tile.y - 1].at(tile.x - 1).setValue('%');
@@ -152,18 +156,25 @@ void Board::eraseMouse()
 
 void Board::drawTiles(sf::RenderWindow& window) {
 
-	m_tileDimensions.x = (float)640 / getNumOfCols();
-	m_tileDimensions.y = (float)640 / getNumOfRows();
-
-	auto startPos = sf::Vector2f(280,0);
+	//m_tileDimensions.x = (float)640 / getNumOfCols();
+	//m_tileDimensions.y = (float)640 / getNumOfRows();
+	m_tileDimensions.x = float(640) / std::max(getNumOfCols(), getNumOfRows());
+	m_tileDimensions.y = float(640) / std::max(getNumOfCols(), getNumOfRows());
+	
+	//auto startPos = sf::Vector2f(280,0);
+	auto startPos = sf::Vector2f();
+	startPos.x = float(280) + ((float(640) - m_tileDimensions.x * getNumOfCols()) / 2);
+	startPos.y = float(640 - m_tileDimensions.y * getNumOfRows())/ 2;
 
 	for (int i = 0; i < getNumOfRows(); i++) {
 		for (int j = 0; j < getNumOfCols(); j++) {
 			auto tile = sf::RectangleShape(m_tileDimensions);
+
 			tile.setFillColor(sf::Color::Transparent);
 			tile.setOutlineThickness(1);
 			tile.setOutlineColor(sf::Color(220,220,220));
 			tile.setPosition(startPos);
+
 			window.draw(tile);
 
 			switch (m_level[i].at(j).getValue()) {
@@ -194,7 +205,8 @@ void Board::drawTiles(sf::RenderWindow& window) {
 
 			startPos.x += m_tileDimensions.x;
 		}
-		startPos.x = 280;
+		//startPos.x = 280;
+		startPos.x = float(280) + ((float(640) - m_tileDimensions.x * getNumOfCols()) / 2);
 		startPos.y += m_tileDimensions.y;
 	}
 }
