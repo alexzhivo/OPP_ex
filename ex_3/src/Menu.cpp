@@ -14,7 +14,7 @@ void Menu::draw(sf::RenderWindow& window)
 	drawButtons(window);
 }
 
-int Menu::buttonClicked(const int x, const int y)
+int Menu::buttonClicked(const float x, const float y)
 {
 	if (x >= 0 && x <= 280 && y >= 40 && y <= 680) {
 		for (int i = 0; i < m_buttons.size(); i++) {

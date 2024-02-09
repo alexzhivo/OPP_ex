@@ -83,11 +83,12 @@ void Board::clearBoard()
 	userSizeInput();
 }
 
-sf::Vector2i Board::getPressedTile(const int x, const int y) const
+sf::Vector2i Board::getPressedTile(const float x, const float y) const
 {
+	
 	sf::Vector2i tilePos;
-	int newX = x - (280 + (640 - (int)m_tileDimensions.x * getNumOfCols()) / 2);
-	int newY = y - ((640 - (int)m_tileDimensions.y * getNumOfRows()) / 2);
+	float newX = x - (280 + (640 - m_tileDimensions.x * getNumOfCols()) / 2);
+	float newY = y - ((640 - m_tileDimensions.y * getNumOfRows()) / 2);
 
 	tilePos.x = (int)(newX / m_tileDimensions.x + 1);
 	tilePos.y = (int)(newY / m_tileDimensions.y + 1);
@@ -95,7 +96,7 @@ sf::Vector2i Board::getPressedTile(const int x, const int y) const
 	return tilePos;
 }
 
-void Board::handleClick(const int x, const int y, const int buttonNum)
+void Board::handleClick(const float x, const float y, const int buttonNum)
 {
 	float boundX = float(280) + ((float(640) - m_tileDimensions.x * getNumOfCols()) / 2);
 	float boundY = float(640 - m_tileDimensions.y * getNumOfRows()) / 2;
@@ -103,6 +104,7 @@ void Board::handleClick(const int x, const int y, const int buttonNum)
 	if (x >= boundX && x <= boundX + m_tileDimensions.x * getNumOfCols() &&
 		y >= boundY && y <= boundY + m_tileDimensions.y * getNumOfRows()) {
 		if (buttonNum >= 2 && buttonNum <= 9) {
+
 			updateTile(getPressedTile(x, y), buttonNum);
 		}
 	}

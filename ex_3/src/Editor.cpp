@@ -30,7 +30,9 @@ void Editor::run()
 					window.close();
 					exit(EXIT_SUCCESS);
 				case sf::Event::MouseButtonPressed:
-					handleMouseClick(event.mouseButton,window);
+					auto location = window.mapPixelToCoords(
+						{ event.mouseButton.x, event.mouseButton.y });
+					handleMouseClick(location ,window);
 					break;
 				}
 			}
@@ -38,10 +40,10 @@ void Editor::run()
 	}
 }
 
-void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event, sf::RenderWindow& window)
+void Editor::handleMouseClick(const sf::Vector2f& location, sf::RenderWindow& window)
 {
 	// menu press handle
-	int menuButton = m_menu.buttonClicked(event.x, event.y);
+	int menuButton = m_menu.buttonClicked(location.x, location.y);
 	switch (menuButton) {
 	case 0:		// pressed on new button
 		window.close();
@@ -55,5 +57,5 @@ void Editor::handleMouseClick(const sf::Event::MouseButtonEvent& event, sf::Rend
 		break;
 	}
 	// board press handle
-	m_board.handleClick(event.x, event.y, m_menu.getActiveButton());
+	m_board.handleClick(location.x, location.y, m_menu.getActiveButton());
 }

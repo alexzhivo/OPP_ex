@@ -18,7 +18,7 @@ void Button::draw(sf::RenderWindow& window)
 	window.draw(m_sprite);
 }
 
-bool Button::isClicked(const int x, const int y)
+bool Button::isClicked(const float x, const float y)
 {
 	if (x >= m_position.x && x <= m_position.x + 80 &&
 		y >= m_position.y && y <= m_position.y + 80) {

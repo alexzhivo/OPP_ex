@@ -8,7 +8,7 @@ public:
 	Button(const sf::Vector2f& pos , const sf::Texture& texture);
 	void draw(sf::RenderWindow& window);
 
-	bool isClicked(const int x, const int y);
+	bool isClicked(const float x, const float y);
 	bool isActive() const;
 	void deactivate();
 

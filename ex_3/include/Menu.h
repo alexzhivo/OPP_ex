@@ -10,7 +10,7 @@ public:
 		 const sf::Color& color , const std::vector<sf::Texture>& textures);
 	void draw(sf::RenderWindow& window);
 
-	int buttonClicked(const int x, const int y);
+	int buttonClicked(const float x, const float y);
 	int getActiveButton() const;
 
 private:

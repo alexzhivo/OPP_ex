@@ -11,12 +11,12 @@ public:
 	void saveBoard();
 	void clearBoard();
 
-	void handleClick(const int x, const int y, const int button_num);
+	void handleClick(const float x, const float y, const int button_num);
 
 	int getNumOfRows() const;
 	int getNumOfCols() const;
 private:
-	sf::Vector2i getPressedTile(const int x, const int y) const;
+	sf::Vector2i getPressedTile(const float x, const float y) const;
 	void updateTile(const sf::Vector2i tile ,const int button_num);
 	void eraseMouse();
 
