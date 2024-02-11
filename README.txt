@@ -3,12 +3,14 @@
 
 //===== ex_1 : Shapes =====//
 finished and submited.
+score : 100
 //=========================//
 
 //===== ex_2 : Cat and Mouse =====//
 finished and submited.
+score : 85
 //================================//
 
 //===== ex_3 : Level Editor =====//
-started working on.
+finished and submited.
 //===============================//
