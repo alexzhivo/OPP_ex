@@ -7,3 +7,6 @@ ex_2/out
 # Ignore ex_3 directories
 ex_3/.vs
 ex_3/out
+# Ignore project directories
+project/.vs
+project/out
