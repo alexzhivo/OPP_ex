@@ -13,7 +13,7 @@ void Board::loadLevelFromFile(std::string fileName)
 
 	if (!file)
 	{
-		exit(EXIT_FAILURE);
+		return;
 	}
 
 	file >> m_numOfRows >> m_numOfCols;

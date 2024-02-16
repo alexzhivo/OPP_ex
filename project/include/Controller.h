@@ -5,7 +5,7 @@
 
 class Controller {
 public:
-	Controller() = default;
+	Controller();
 	~Controller() = default;
 	void run();
 private:
