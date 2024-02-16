@@ -8,7 +8,10 @@ public:
 	~Window() = default;
 
 	void startMenu();
+	void startGame();
+
 private:
 	Menu m_menu;
 	sf::RenderWindow m_window;
+
 };
