@@ -1,7 +1,6 @@
-#include "Window.h"
 #include "iostream"
-
-#include "Mouse.h"
+#include "Window.h"
+#include "CollisionManager.h"
 
 Window::Window()
 	: m_window() , m_menu()
@@ -55,8 +54,10 @@ void Window::startMenu()
 }
 
 // for mouse debug
-void Window::startGame()
+void Window::startGame(Board &board)
 {
+	CollisionManager CM(board);
+
 	Mouse mouse(sf::Vector2f(20, 20));	// create mouse
 
 	sf::Clock clock;
@@ -85,18 +86,31 @@ void Window::startGame()
 		// Handle player input
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			mouse.move(-1, 0, dtSeconds);
+			if (CM.checkMapEdgeCollision(mouse)) {
+				mouse.move(1, 0, dtSeconds);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 			mouse.move(1, 0, dtSeconds);
+			if (CM.checkMapEdgeCollision(mouse)) {
+				mouse.move(-1, 0, dtSeconds);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 			mouse.move(0, -1, dtSeconds);
+			if (CM.checkMapEdgeCollision(mouse)) {
+				mouse.move(0, 1, dtSeconds);
+			}
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			mouse.move(0, 1, dtSeconds);
+			if (CM.checkMapEdgeCollision(mouse)) {
+				mouse.move(0, -1, dtSeconds);
+			}
 		}
 
 		m_window.clear();
+		board.draw(m_window);
 		mouse.draw(m_window);
 		m_window.display();
 	}

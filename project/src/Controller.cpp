@@ -10,6 +10,6 @@ void Controller::run()
 	while (running)
 	{
 		m_window.startMenu();
-		m_window.startGame();
+		m_window.startGame(m_board);
 	}
 }
