@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Wall.h"
+
+#include "Mouse.h"
 #include <vector>
 #include <string>
 #include <memory>
@@ -15,16 +17,20 @@ public:
 	~Board() = default;
 	void loadLevelFromFile(std::string fileName);
 	void setTileSize();
-
+	void setBoardSize();
 	void draw(sf::RenderWindow& window);
+	float getTileSize();
 
 	// for collision checking
 	sf::FloatRect getBoardBounds() const;
 private:
 	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
-
+	
 	sf::RectangleShape m_background;
 	int m_numOfCols;
 	int m_numOfRows;;
-	sf::Vector2f m_tileSize;
+	float m_tileSize;
+	std::vector<std::string> m_fileBoard;
+	float m_boardWidth;
+	int m_boardHeight;
 };

@@ -58,7 +58,9 @@ void Window::startGame(Board &board)
 {
 	CollisionManager CM(board);
 
-	Mouse mouse(sf::Vector2f(20, 20));	// create mouse
+	float tileSize = board.getTileSize();
+
+	Mouse mouse(sf::Vector2f(20, 20), sf::Vector2f(tileSize, tileSize));	// create mouse , getTileSize temporary
 
 	sf::Clock clock;
 

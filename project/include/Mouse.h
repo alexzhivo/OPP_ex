@@ -6,7 +6,7 @@ const float MOUSE_SPEED = 300.f;
 
 class Mouse : public MovingObject {
 public:
-	Mouse(const sf::Vector2f position);
+	Mouse(const sf::Vector2f position, sf::Vector2f size);
 	virtual ~Mouse() = default;
 
 	void reduceLifeCount();

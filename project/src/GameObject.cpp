@@ -1,11 +1,11 @@
 #include "GameObject.h"
 
-GameObject::GameObject(const sf::Vector2f position)
+GameObject::GameObject(const sf::Vector2f position, sf::Vector2f size)
 	: m_sprite()
 {
 	// create the temp sprite for Object
 	m_sprite.setPosition(position);
-	m_sprite.setSize(sf::Vector2f(50, 50));
+	m_sprite.setSize(size);
 }
 
 // for collision checking

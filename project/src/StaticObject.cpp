@@ -1,7 +1,7 @@
 #include "StaticObject.h"
 
-StaticObject::StaticObject(const sf::Vector2f position)
-	: GameObject(position) , m_exists(true)
+StaticObject::StaticObject(const sf::Vector2f position, sf::Vector2f size)
+	: GameObject(position, size) , m_exists(true)
 {}
 
 bool StaticObject::isExisting() const

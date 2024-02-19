@@ -2,7 +2,7 @@
 
 class MovingObject : public GameObject {
 public:
-	MovingObject(const sf::Vector2f position);
+	MovingObject(const sf::Vector2f position, sf::Vector2f size);
 	virtual ~MovingObject() = default;
 
 	// set functions

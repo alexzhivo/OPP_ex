@@ -1,7 +1,7 @@
 #include "MovingObject.h"
 
-MovingObject::MovingObject(const sf::Vector2f position)
-	: GameObject(position) , m_speed(0) , m_alive(true)
+MovingObject::MovingObject(const sf::Vector2f position, sf::Vector2f size)
+	: GameObject(position, size) , m_speed(0) , m_alive(true)
 {}
 
 void MovingObject::setSpeed(float speed)

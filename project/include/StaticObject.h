@@ -4,7 +4,7 @@
 
 class StaticObject : public GameObject {
 public:
-	StaticObject(const sf::Vector2f position);
+	StaticObject(const sf::Vector2f position, sf::Vector2f size);
 	virtual ~StaticObject() = default;
 
 	bool isExisting() const;

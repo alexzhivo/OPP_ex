@@ -7,11 +7,14 @@ Board::Board(std::string fileName)
 	: m_background() , m_gameObjects()
 {
 	loadLevelFromFile(fileName);
+	
 
 	// background creation
-	m_background.setSize(sf::Vector2f(BOARD_WIDTH, BOARD_HEIGHT));
+	m_background.setSize(sf::Vector2f((float)m_boardWidth, (float)m_boardHeight));
 	m_background.setFillColor(sf::Color(50, 50, 50));
 	m_background.setPosition(sf::Vector2f(0.f, 0.f));
+
+	//Mouse mouse(sf::Vector2f(20, 20), sf::Vector2f(m_tileSize, m_tileSIze));	// create mouse
 }
 
 void Board::loadLevelFromFile(std::string fileName)
@@ -20,31 +23,35 @@ void Board::loadLevelFromFile(std::string fileName)
 
 	if (!file)
 	{
-		std::cout << "file did not open.\n" << std::endl;
 		return;
 	}
-	std::cout << "opened file.\n" << std::endl;
+
+	file >> m_numOfRows >> m_numOfCols;
 
 	auto line = std::string();
-
-	if (std::getline(file, line)) {
-		m_numOfRows = 1;
-		m_numOfCols = (int)line.length();
-	}
-	while (std::getline(file, line))
+	getline(file, line);
+	for (int i = 0; i < m_numOfRows; i++)
 	{
-		m_numOfRows++;
+		getline(file, line);
+		m_fileBoard.push_back(line);
 	}
 
 	setTileSize();	// change tile size to fit the screen.
-	file.clear();	// cleaning EOF flag
-	file.seekg(0);	// start from the beginning of the file.
+	setBoardSize();
 
-	for  (int i = 0 ; std::getline(file, line) ; i++) 
+	sf::Vector2f position;
+	
+
+	for (int i = 0; i < m_numOfRows; i++) 
 	{
-		for (int j = 0; j < line.length(); j++) {
-			if (line.at(j) == '#') {
-				m_gameObjects.emplace_back(std::make_unique<Wall>(sf::Vector2f(m_tileSize.y * j,m_tileSize.x * i)));
+		for (int j = 0; j < m_numOfCols; j++) 
+		{
+			if (m_fileBoard[i][j] == '#')
+			{
+				position.x = m_tileSize * j;
+				position.y = m_tileSize * i;
+				
+				m_gameObjects.push_back(std::make_unique<Wall>(position, sf::Vector2f(m_tileSize, m_tileSize)));
 			}
 		}
 	}
@@ -52,10 +59,14 @@ void Board::loadLevelFromFile(std::string fileName)
 
 void Board::setTileSize()
 {
-	m_tileSize.x = (float) BOARD_HEIGHT / m_numOfRows;
-	m_tileSize.y = (float) BOARD_WIDTH / m_numOfCols;
+	m_tileSize = ((float)WINDOW_WIDTH) / (std::max(m_numOfRows, m_numOfCols));
 }
 
+void Board::setBoardSize()
+{
+	m_boardWidth = m_tileSize * m_numOfCols;
+	m_boardHeight = m_tileSize * m_numOfRows;
+}
 void Board::draw(sf::RenderWindow& window)
 {
 	window.draw(m_background);
@@ -67,4 +78,10 @@ void Board::draw(sf::RenderWindow& window)
 sf::FloatRect Board::getBoardBounds() const
 {
 	return m_background.getGlobalBounds();
+}
+
+float Board::getTileSize() // temporary for check
+{
+	return m_tileSize;
+
 }
