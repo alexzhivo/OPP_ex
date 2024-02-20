@@ -7,6 +7,7 @@
 #include <memory>
 #include <fstream>
 #include <iostream>
+#include "GraphicManager.h"
 
 const int BOARD_WIDTH = 1200;
 const int BOARD_HEIGHT = 700;
@@ -16,7 +17,7 @@ const int WINDOW_HEIGHT = 800;
 
 class Board {
 public:
-	Board(std::string fileName, const int level);
+	Board(GraphicManager& graphicManager, std::string fileName, const int level);
 	~Board() = default;
 	
 	// set
@@ -34,6 +35,7 @@ private:
 
 	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
 	
+	GraphicManager& m_graphicManager;
 	sf::RectangleShape m_background;
 	int m_numOfCols;
 	int m_numOfRows;;

@@ -4,7 +4,7 @@
 
 class GameObject {
 public:
-	GameObject(const sf::Vector2f position, sf::Vector2f size);
+	GameObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
 	virtual ~GameObject() = default;
 
 	// for collision checking
@@ -12,5 +12,5 @@ public:
 
 	void draw(sf::RenderWindow& window) const;
 protected:
-	sf::RectangleShape m_sprite;
+	sf::Sprite m_sprite;
 };

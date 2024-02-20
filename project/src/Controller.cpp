@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller()
-	: m_board("Board.txt",1) , m_window() , m_menu()
+	: m_window(), m_menu(), m_graphicManager(), m_board(m_graphicManager, "Board.txt", 1)
 {}
 
 void Controller::run()
@@ -66,7 +66,7 @@ void Controller::startGame()
 
 	float tileSize = m_board.getTileSize();
 
-	Mouse mouse(sf::Vector2f(20, 20), sf::Vector2f(tileSize, tileSize));	// create mouse , getTileSize temporary
+	Mouse mouse(sf::Vector2f(20, 20), sf::Vector2f(tileSize, tileSize), m_graphicManager.getTexture("mouse"));	// create mouse , getTileSize temporary
 
 	sf::Clock clock;
 

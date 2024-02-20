@@ -2,8 +2,8 @@
 
 #include "iostream" // for debuging
 
-Board::Board(std::string fileName , const int level)
-	: m_background() , m_gameObjects() , m_level(level)
+Board::Board(GraphicManager& graphicManager, std::string fileName , const int level)
+	: m_graphicManager(graphicManager), m_background(), m_gameObjects(), m_level(level)
 {
 	loadLevelFromFile(fileName);
 	
@@ -34,7 +34,10 @@ void Board::loadLevelFromFile(std::string fileName)
 		getline(file, line);
 		for (int j = 0; j < line.length(); j++) {
 			if (line.at(j) == '#') {
-				m_gameObjects.push_back(std::make_unique<Wall>(sf::Vector2f(m_tileSize * j, m_tileSize * i), sf::Vector2f(m_tileSize, m_tileSize)));
+				  m_gameObjects.push_back(std::make_unique<Wall>(
+					sf::Vector2f(m_tileSize * j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize) , 
+					m_graphicManager.getTexture("wall")));
 			}
 		}
 	}
