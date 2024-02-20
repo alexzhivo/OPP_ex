@@ -18,22 +18,24 @@ class Board {
 public:
 	Board(std::string fileName);
 	~Board() = default;
-	void loadLevelFromFile(std::string fileName);
+	
+	// set
 	void setTileSize();
 	void setBoardSize();
-	void draw(sf::RenderWindow& window);
+
+	// get
 	float getTileSize();
 
-	// for collision checking
-	sf::FloatRect getBoardBounds() const;
+	void draw(sf::RenderWindow& window);
 private:
+	void loadLevelFromFile(std::string fileName);
+
 	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
 	
 	sf::RectangleShape m_background;
 	int m_numOfCols;
 	int m_numOfRows;;
 	float m_tileSize;
-	std::vector<std::string> m_fileBoard;
-	float m_boardWidth;
-	float m_boardHeight;
+	float m_width;
+	float m_height;
 };

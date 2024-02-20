@@ -7,13 +7,10 @@ Board::Board(std::string fileName)
 {
 	loadLevelFromFile(fileName);
 	
-
 	// background creation
-	m_background.setSize(sf::Vector2f((float)m_boardWidth, (float)m_boardHeight));
+	m_background.setSize(sf::Vector2f((float)m_width, (float)m_height));
 	m_background.setFillColor(sf::Color(50, 50, 50));
 	m_background.setPosition(sf::Vector2f(0.f, 0.f));
-
-	//Mouse mouse(sf::Vector2f(20, 20), sf::Vector2f(m_tileSize, m_tileSIze));	// create mouse
 }
 
 void Board::loadLevelFromFile(std::string fileName)
@@ -27,30 +24,17 @@ void Board::loadLevelFromFile(std::string fileName)
 
 	file >> m_numOfRows >> m_numOfCols;
 
+	setTileSize();	// change tile size to fit the screen.
+	setBoardSize();
+
 	auto line = std::string();
 	getline(file, line);
 	for (int i = 0; i < m_numOfRows; i++)
 	{
 		getline(file, line);
-		m_fileBoard.push_back(line);
-	}
-
-	setTileSize();	// change tile size to fit the screen.
-	setBoardSize();
-
-	sf::Vector2f position;
-	
-
-	for (int i = 0; i < m_numOfRows; i++) 
-	{
-		for (int j = 0; j < m_numOfCols; j++) 
-		{
-			if (m_fileBoard[i][j] == '#')
-			{
-				position.x = m_tileSize * j;
-				position.y = m_tileSize * i;
-				
-				m_gameObjects.push_back(std::make_unique<Wall>(position, sf::Vector2f(m_tileSize, m_tileSize)));
+		for (int j = 0; j < line.length(); j++) {
+			if (line.at(j) == '#') {
+				m_gameObjects.push_back(std::make_unique<Wall>(sf::Vector2f(m_tileSize * j, m_tileSize * i), sf::Vector2f(m_tileSize, m_tileSize)));
 			}
 		}
 	}
@@ -63,8 +47,8 @@ void Board::setTileSize()
 
 void Board::setBoardSize()
 {
-	m_boardWidth = m_numOfCols * m_tileSize;
-	m_boardHeight = m_numOfRows * m_tileSize;
+	m_width = m_numOfCols * m_tileSize;
+	m_height = m_numOfRows * m_tileSize;
 }
 void Board::draw(sf::RenderWindow& window)
 {
@@ -74,13 +58,7 @@ void Board::draw(sf::RenderWindow& window)
 	}
 }
 
-sf::FloatRect Board::getBoardBounds() const
-{
-	return m_background.getGlobalBounds();
-}
-
 float Board::getTileSize() // temporary for check
 {
 	return m_tileSize;
-
 }
