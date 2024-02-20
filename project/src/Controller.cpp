@@ -64,9 +64,7 @@ void Controller::startMenu()
 void Controller::startGame()
 {
 
-	float tileSize = m_board.getTileSize();
-
-	Mouse mouse(sf::Vector2f(20, 20), sf::Vector2f(tileSize, tileSize), m_graphicManager.getTexture("mouse"));	// create mouse , getTileSize temporary
+	sf::Vector2f tileSize = m_board.getTileSize();
 
 	sf::Clock clock;
 
@@ -93,21 +91,20 @@ void Controller::startGame()
 
 		// Handle player input
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			mouse.move(-1, 0, dtSeconds);
+			m_board.movePlayer(LEFT, dtSeconds);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-			mouse.move(1, 0, dtSeconds);
+			m_board.movePlayer(RIGHT, dtSeconds);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-			mouse.move(0, -1, dtSeconds);
+			m_board.movePlayer(UP, dtSeconds);
 		}
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-			mouse.move(0, 1, dtSeconds);
+			m_board.movePlayer(DOWN, dtSeconds);
 		}
 
 		m_window.clear();
 		m_board.draw(m_window);
-		mouse.draw(m_window);
 		m_window.display();
 	}
 }

@@ -6,7 +6,8 @@ GameObject::GameObject(const sf::Vector2f position, sf::Vector2f size, sf::Textu
 	// create the temp sprite for Object
 	m_sprite.setTexture(*texture);
 	m_sprite.setPosition(position);
-	//m_sprite.scale(sf::Vector2f(0.8f, 0.8f));
+	//m_sprite.setScale(size.y / static_cast<float>(texture->getSize().x),
+	//	size.x / texture->getSize().y);
 }
 
 // for collision checking
