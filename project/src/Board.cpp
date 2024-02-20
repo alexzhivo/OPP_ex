@@ -64,8 +64,8 @@ void Board::setTileSize()
 
 void Board::setBoardSize()
 {
-	m_boardWidth = m_tileSize * m_numOfCols;
-	m_boardHeight = m_tileSize * m_numOfRows;
+	m_boardWidth = m_numOfCols * m_tileSize;
+	m_boardHeight = m_numOfRows * m_tileSize;
 }
 void Board::draw(sf::RenderWindow& window)
 {

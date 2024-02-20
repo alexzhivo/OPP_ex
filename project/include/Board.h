@@ -32,5 +32,5 @@ private:
 	float m_tileSize;
 	std::vector<std::string> m_fileBoard;
 	float m_boardWidth;
-	int m_boardHeight;
+	float m_boardHeight;
 };
