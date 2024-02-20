@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller()
-	: m_level(1), m_board("Board1.txt")
+	: m_level(1), m_board("Board.txt")
 {}
 
 void Controller::run()
