@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller()
-	: m_level(1), m_board("Board.txt") , m_window() , m_menu()
+	: m_board("Board.txt",1) , m_window() , m_menu()
 {}
 
 void Controller::run()
@@ -10,7 +10,7 @@ void Controller::run()
 	while (running)
 	{
 		startMenu();
-		startGame(m_board);
+		startGame();
 	}
 }
 
@@ -61,10 +61,10 @@ void Controller::startMenu()
 	}
 }
 
-void Controller::startGame(Board& board)
+void Controller::startGame()
 {
 
-	float tileSize = board.getTileSize();
+	float tileSize = m_board.getTileSize();
 
 	Mouse mouse(sf::Vector2f(20, 20), sf::Vector2f(tileSize, tileSize));	// create mouse , getTileSize temporary
 
@@ -106,7 +106,7 @@ void Controller::startGame(Board& board)
 		}
 
 		m_window.clear();
-		board.draw(m_window);
+		m_board.draw(m_window);
 		mouse.draw(m_window);
 		m_window.display();
 	}

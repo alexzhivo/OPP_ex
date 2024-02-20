@@ -2,8 +2,8 @@
 
 #include "iostream" // for debuging
 
-Board::Board(std::string fileName)
-	: m_background() , m_gameObjects()
+Board::Board(std::string fileName , const int level)
+	: m_background() , m_gameObjects() , m_level(level)
 {
 	loadLevelFromFile(fileName);
 	
@@ -58,7 +58,18 @@ void Board::draw(sf::RenderWindow& window)
 	}
 }
 
-float Board::getTileSize() // temporary for check
+void Board::upLevel()
+{
+	m_level++;
+}
+
+
+float Board::getTileSize() const // temporary for check
 {
 	return m_tileSize;
+}
+
+int Board::getLevel() const
+{
+	return m_level;
 }

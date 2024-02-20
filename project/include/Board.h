@@ -16,15 +16,17 @@ const int WINDOW_HEIGHT = 800;
 
 class Board {
 public:
-	Board(std::string fileName);
+	Board(std::string fileName, const int level);
 	~Board() = default;
 	
 	// set
 	void setTileSize();
 	void setBoardSize();
+	void upLevel();
 
 	// get
-	float getTileSize();
+	float getTileSize() const;
+	int getLevel() const;
 
 	void draw(sf::RenderWindow& window);
 private:
@@ -38,4 +40,5 @@ private:
 	float m_tileSize;
 	float m_width;
 	float m_height;
+	int m_level;
 };
