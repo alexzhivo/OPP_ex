@@ -1,15 +1,18 @@
 #pragma once
 
 #include "Wall.h"
-
 #include "Mouse.h"
 #include <vector>
 #include <string>
 #include <memory>
 #include <fstream>
+#include <iostream>
 
 const int BOARD_WIDTH = 1200;
 const int BOARD_HEIGHT = 700;
+
+const int WINDOW_WIDTH = 1200;
+const int WINDOW_HEIGHT = 800;
 
 class Board {
 public:

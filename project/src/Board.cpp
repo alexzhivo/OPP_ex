@@ -1,5 +1,4 @@
 #include "Board.h"
-#include "Window.h"
 
 #include "iostream" // for debuging
 
