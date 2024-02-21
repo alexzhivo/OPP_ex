@@ -9,7 +9,7 @@ public:
 	Menu();
 	~Menu() = default;
 
-	void drawMenu(sf::RenderWindow& window);
+	void drawMenu(sf::RenderWindow& window) const;
 	menu_button getSelectedOption(sf::Vector2f click_location);
 
 private:

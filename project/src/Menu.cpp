@@ -36,7 +36,7 @@ Menu::Menu()
 	m_exit.setFillColor(sf::Color(200, 200, 200));
 }
 
-void Menu::drawMenu(sf::RenderWindow& window)
+void Menu::drawMenu(sf::RenderWindow& window) const
 {
 	window.draw(m_newGame);
 	window.draw(m_newGameTxt);

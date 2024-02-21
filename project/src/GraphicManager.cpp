@@ -33,10 +33,11 @@ std::unique_ptr<TextureSlot> GraphicManager::loadTextureFromFile(const std::stri
 
 void GraphicManager::loadInGameTextures()
 {
-	m_ingameTextures.push_back(loadTextureFromFile("wall", "wall.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("cat", "cat.png"));
     m_ingameTextures.push_back(loadTextureFromFile("mouse", "mouse.png"));
+	m_ingameTextures.push_back(loadTextureFromFile("wall", "wall.png"));
     m_ingameTextures.push_back(loadTextureFromFile("cheese", "cheese.png"));
     m_ingameTextures.push_back(loadTextureFromFile("door", "door.png"));
     m_ingameTextures.push_back(loadTextureFromFile("key", "key.png"));
-    //m_ingameTextures.push_back(loadTextureFromFile("cat", "cat.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("gift", "gift.png"));
 }

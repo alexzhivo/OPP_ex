@@ -14,7 +14,7 @@ Board::Board(GraphicManager& graphicManager, std::string fileName , const int le
 	m_background.setPosition(sf::Vector2f(0.f, 0.f));
 }
 
-void Board::loadLevelFromFile(std::string fileName)
+void Board::loadLevelFromFile(const std::string fileName)
 {
 	auto file = std::ifstream(fileName);
 
@@ -42,10 +42,10 @@ void Board::loadLevelFromFile(std::string fileName)
 					m_graphicManager.getTexture("wall")));
 				break;
 			case '^':
-				//m_enemies.push_back(std::make_unique<Cat>(
-				//	sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-				//	m_tileSize,
-				//	m_graphicManager.getTexture("cat")));
+				m_enemies.push_back(std::make_unique<Cat>(
+					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
+					m_tileSize,
+					m_graphicManager.getTexture("cat")));
 				break;
 			case '%':
 				m_player = (std::make_unique<Mouse>(
@@ -71,6 +71,12 @@ void Board::loadLevelFromFile(std::string fileName)
 					m_tileSize,
 					m_graphicManager.getTexture("key")));
 				break;
+			case '$':
+				m_gameObjects.push_back(std::make_unique<Gift>(
+					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
+					m_tileSize,
+					m_graphicManager.getTexture("gift")));
+				break;
 			default:
 				break;
 			}
@@ -94,9 +100,9 @@ void Board::draw(sf::RenderWindow& window)
 	for (int i = 0; i < m_gameObjects.size(); i++) {
 		m_gameObjects[i]->draw(window);
 	}
-	//for (int i = 0; i < m_enemies.size(); i++) {
-	//	m_enemies[i]->draw(window);
-	//}
+	for (int i = 0; i < m_enemies.size(); i++) {
+		m_enemies[i]->draw(window);
+	}
 	m_player->draw(window);
 }
 
@@ -105,7 +111,7 @@ void Board::upLevel()
 	m_level++;
 }
 
-void Board::movePlayer(const direction direction, const float dtSeconds)
+void Board::movePlayer(const Direction direction, const float dtSeconds)
 {
 	switch (direction) {
 	case LEFT:

@@ -1,17 +1,18 @@
 #pragma once
 
-#include "GraphicManager.h"
-#include "Wall.h"
-#include "Cheese.h"
-#include "Door.h"
-#include "Key.h"
-//#include "Cat.h"
-#include "Mouse.h"
 #include <vector>
 #include <string>
 #include <memory>
 #include <fstream>
 #include <iostream>
+#include "GraphicManager.h"
+#include "Wall.h"
+#include "Cheese.h"
+#include "Door.h"
+#include "Key.h"
+#include "Gift.h"
+#include "Cat.h"
+#include "Mouse.h"
 
 const int BOARD_WIDTH = 1200;
 const int BOARD_HEIGHT = 700;
@@ -19,7 +20,7 @@ const int BOARD_HEIGHT = 700;
 const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 800;
 
-enum direction { LEFT , RIGHT , UP , DOWN };
+enum Direction { LEFT , RIGHT , UP , DOWN };
 
 class Board {
 public:
@@ -35,15 +36,15 @@ public:
 	sf::Vector2f getTileSize() const;
 	int getLevel() const;
 
-	// movement controll
-	void movePlayer(const direction direction, const float dtSeconds);
+	// movement control
+	void movePlayer(const Direction direction, const float dtSeconds);
 
 	void draw(sf::RenderWindow& window);
 private:
-	void loadLevelFromFile(std::string fileName);
+	void loadLevelFromFile(const std::string fileName);
 
 	std::unique_ptr<MovingObject> m_player;
-	//std::vector<std::unique_ptr<MovingObject>> m_enemies;
+	std::vector<std::unique_ptr<MovingObject>> m_enemies;
 	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
 
 	GraphicManager& m_graphicManager;
