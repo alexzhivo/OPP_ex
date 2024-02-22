@@ -1,5 +1,8 @@
 #pragma once
 
+class Mouse;
+class Cheese;
+
 #include <SFML/Graphics.hpp>
 
 class GameObject {
@@ -7,8 +10,15 @@ public:
 	GameObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
 	virtual ~GameObject() = default;
 
-	// for collision checking
-	sf::FloatRect getObjectBounds() const;
+	// double dispatch collision handling
+	sf::Sprite getSprite() const { return m_sprite; }; //copy
+	sf::Sprite& getSprite() { return m_sprite; }; // ref
+
+	bool collide_with(const GameObject& otherObject);
+
+	virtual void handleCollision(GameObject& otherObject) = 0;
+	virtual void handleCollision(Mouse& otherObject) = 0;
+	virtual void handleCollision(Cheese& otherObject) = 0;
 
 	void draw(sf::RenderWindow& window) const;
 protected:

@@ -10,10 +10,9 @@ GameObject::GameObject(const sf::Vector2f position, sf::Vector2f size, sf::Textu
 	//	size.x / texture->getSize().y);
 }
 
-// for collision checking
-sf::FloatRect GameObject::getObjectBounds() const
+bool GameObject::collide_with(const GameObject& otherObject)
 {
-	return m_sprite.getGlobalBounds();
+	return getSprite().getGlobalBounds().intersects(otherObject.getSprite().getGlobalBounds());
 }
 
 void GameObject::draw(sf::RenderWindow& window) const
