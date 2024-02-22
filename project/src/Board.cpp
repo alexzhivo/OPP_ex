@@ -113,18 +113,20 @@ void Board::upLevel()
 
 void Board::movePlayer(const Direction direction, const float dtSeconds)
 {
+	MovingObject* player = static_cast<MovingObject*>(m_player.get());
+
 	switch (direction) {
 	case LEFT:
-		m_player->move(-1, 0, dtSeconds);
+		player->move(-1, 0, dtSeconds);
 		break;
 	case RIGHT:
-		m_player->move(1, 0, dtSeconds);
+		player->move(1, 0, dtSeconds);
 		break;
 	case UP:
-		m_player->move(0, -1, dtSeconds);
+		player->move(0, -1, dtSeconds);
 		break;
 	case DOWN:
-		m_player->move(0, 1, dtSeconds);
+		player->move(0, 1, dtSeconds);
 		break;
 	}
 }

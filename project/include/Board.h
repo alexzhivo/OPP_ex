@@ -43,8 +43,8 @@ public:
 private:
 	void loadLevelFromFile(const std::string fileName);
 
-	std::unique_ptr<MovingObject> m_player;
-	std::vector<std::unique_ptr<MovingObject>> m_enemies;
+	std::unique_ptr<GameObject> m_player;
+	std::vector<std::unique_ptr<GameObject>> m_enemies;
 	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
 
 	GraphicManager& m_graphicManager;
