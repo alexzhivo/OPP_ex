@@ -9,6 +9,11 @@ public:
 	Mouse(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
 	virtual ~Mouse() = default;
 
+	// get 
+	int getLives() const;
+	int getKeys() const;
+	int getScore() const;
+
 	void increaseKeys();
 	bool useKey();
 
@@ -27,4 +32,5 @@ private:
 	sf::Vector2f m_startingPosition;
 	int m_lives;
 	int m_keys;
+	int m_score;
 };

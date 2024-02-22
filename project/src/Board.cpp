@@ -3,7 +3,7 @@
 #include "iostream" // for debuging
 
 Board::Board(GraphicManager& graphicManager, std::string fileName , const int level)
-	: m_graphicManager(graphicManager), m_background(), m_gameObjects(), m_player(), m_level(level)
+	: m_graphicManager(graphicManager), m_gameHUD(graphicManager), m_background(), m_gameObjects(), m_player(), m_level(level)
 {
 	loadLevelFromFile(fileName);
 	
@@ -96,7 +96,12 @@ void Board::setBoardSize()
 }
 void Board::draw(sf::RenderWindow& window)
 {
+	Mouse* player = static_cast<Mouse*>(m_player.get());
+
 	window.draw(m_background);
+	m_gameHUD.updateAndDraw(window, m_level,
+		player->getLives(), player->getKeys(), player->getScore());
+
 	for (int i = 0; i < m_gameObjects.size(); i++) {
 		m_gameObjects[i]->draw(window);
 	}

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include "GraphicManager.h"
+#include "HUD.h"
 #include "Wall.h"
 #include "Cheese.h"
 #include "Door.h"
@@ -16,6 +17,9 @@
 
 const int BOARD_WIDTH = 1200;
 const int BOARD_HEIGHT = 700;
+
+const int HUD_WIDTH = 1200;
+const int HUD_HEIGHT = 100;
 
 const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 800;
@@ -56,6 +60,8 @@ private:
 
 	GraphicManager& m_graphicManager;
 	sf::RectangleShape m_background;
+	HUD m_gameHUD;
+
 	int m_numOfCols;
 	int m_numOfRows;;
 	sf::Vector2f m_tileSize;
