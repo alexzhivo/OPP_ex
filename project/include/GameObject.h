@@ -6,6 +6,7 @@ class Wall;
 class Gift;
 class Key;
 class Door;
+class Cat;
 
 #include <SFML/Graphics.hpp>
 
@@ -22,6 +23,7 @@ public:
 
 	virtual void handleCollision(GameObject& otherObject) = 0;
 	virtual void handleCollision(Mouse& otherObject) = 0;
+	virtual void handleCollision(Cat& otherObject) = 0;
 	virtual void handleCollision(Cheese& otherObject) = 0;
 	virtual void handleCollision(Wall& otherObject) = 0;
 	virtual void handleCollision(Gift& otherObject) = 0;

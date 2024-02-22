@@ -154,10 +154,17 @@ void Board::updateObjects()
 
 void Board::checkCollisions()
 {
+	// check collisions with static objects
 	for (int i = 0 ; i < m_gameObjects.size() ; i++)
 	{
 		if (dynamic_cast<GameObject*>(m_gameObjects[i].get()) && m_player->collide_with(*m_gameObjects[i].get()))
 			m_player->handleCollision(*m_gameObjects[i].get());
+	}
+
+	// check collisions with moving objects
+	for (int i = 0; i < m_enemies.size(); i++) {
+		if (dynamic_cast<GameObject*>(m_enemies[i].get()) && m_player->collide_with(*m_enemies[i].get()))
+			m_player->handleCollision(*m_enemies[i].get());
 	}
 }
 

@@ -1,7 +1,7 @@
 #include "Mouse.h"
 
 Mouse::Mouse(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
-	: MovingObject(position, size, texture), m_lives(3) , m_keys(0)
+	: MovingObject(position, size, texture), m_lives(3) , m_keys(0), m_startingPosition(position)
 {
 	this->setSpeed(MOUSE_SPEED);
 	m_sprite.setScale(0.75f, 0.75f);	// for fiting through wall openings
@@ -10,8 +10,12 @@ Mouse::Mouse(const sf::Vector2f position, sf::Vector2f size, sf::Texture* textur
 void Mouse::reduceLifeCount()
 {
 	m_lives--;
-	if (!m_lives)
+	if (m_lives > 0) {
+		m_sprite.setPosition(m_startingPosition);
+	}
+	else {
 		this->eliminate();
+	}
 }
 
 void Mouse::increaseKeys()
