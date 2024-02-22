@@ -15,6 +15,7 @@ public:
 	void handleCollision(Cheese& otherObject) override { ; };
 	void handleCollision(Wall& otherObject) override { ; };
 	void handleCollision(Gift& otherObject) override { ; };
+	void handleCollision(Key& otherObject) override { ; };
 
 private:
 };
