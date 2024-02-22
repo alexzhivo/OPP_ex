@@ -44,6 +44,7 @@ public:
 	void movePlayer(const Direction direction, const float dtSeconds);
 
 	void updateObjects();	// removes deleted objects
+	void checkCollisions();	// check for collisions
 
 	void draw(sf::RenderWindow& window);
 private:

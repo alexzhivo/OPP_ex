@@ -102,17 +102,12 @@ void Controller::startGame()
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			m_board.movePlayer(DOWN, dtSeconds);
 		}
-
-
-		// for debugging
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
-			m_board.removeObject();
-		}
-		// -------------
 		
+		// check and handle collisions
+		m_board.checkCollisions();
+		m_board.updateObjects();
 
-		m_board.updateObjects();	// removes deleted objects
-
+		// display updated window
 		m_window.clear();
 		m_board.draw(m_window);
 		m_window.display();

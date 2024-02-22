@@ -9,7 +9,7 @@ public:
 
 	// double dispatch handling collision
 	void handleCollision(GameObject& otherObject) override { ; };
-	void handleCollision(Mouse& otherObject) override { ; };
+	void handleCollision(Mouse& otherObject) override;
 	void handleCollision(Cheese& otherObject) override { ; };
 private:
 };

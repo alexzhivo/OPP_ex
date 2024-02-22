@@ -12,3 +12,8 @@ void Mouse::reduceLifeCount()
 	if (!m_lives)
 		this->eliminate();
 }
+
+void Mouse::handleCollision(GameObject& otherObject)
+{
+	otherObject.handleCollision(*this);
+}
