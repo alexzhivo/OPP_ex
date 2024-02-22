@@ -19,6 +19,7 @@ public:
 	void handleCollision(Wall& otherObject) override { ; };
 	void handleCollision(Gift& otherObject) override { ; };
 	void handleCollision(Key& otherObject) override { ; };
+	void handleCollision(Door& otherObject) override { ; };
 
 	void reduceLifeCount();
 private:

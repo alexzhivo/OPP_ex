@@ -5,6 +5,7 @@ class Cheese;
 class Wall;
 class Gift;
 class Key;
+class Door;
 
 #include <SFML/Graphics.hpp>
 
@@ -25,6 +26,7 @@ public:
 	virtual void handleCollision(Wall& otherObject) = 0;
 	virtual void handleCollision(Gift& otherObject) = 0;
 	virtual void handleCollision(Key& otherObject) = 0;
+	virtual void handleCollision(Door& otherObject) = 0;
 
 	void draw(sf::RenderWindow& window) const;
 protected:
