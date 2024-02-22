@@ -21,11 +21,11 @@ void HUD::updateAndDraw(sf::RenderWindow& window, const int level, const int liv
 	window.draw(m_background);
 	for (int i = 0; i < keys && i < 3; i++) {
 		window.draw(m_key);
-		m_key.setPosition(sf::Vector2f(575 + i * 45, 735));
+		m_key.setPosition(575.f + i * 45.5, 735.f);
 	}
 	for (int i = 0; i < lives && i < 3; i++) {
 		window.draw(m_heart);
-		m_heart.setPosition(sf::Vector2f(299 + i * 46, 728));
+		m_heart.setPosition(299.f + i * 45.5, 728.f);
 	}
 	window.draw(m_heart);
 }
