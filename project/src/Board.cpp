@@ -140,3 +140,27 @@ int Board::getLevel() const
 {
 	return m_level;
 }
+
+void Board::updateObjects()
+{
+	for (int i = 0; i >= 0 && i < m_gameObjects.size(); i++) {
+		if (dynamic_cast<StaticObject*>(m_gameObjects[i].get())->isExisting() == false)
+		{
+			m_gameObjects.erase(m_gameObjects.begin() + i);
+			i--;
+		}
+	}
+}
+
+// for debugging
+void Board::removeObject()
+{
+	// debug
+	int index = 20;
+	// -----
+	if (index < m_gameObjects.size()) {
+		StaticObject* objectToRemove = static_cast<StaticObject*>(m_gameObjects[index].get());
+		objectToRemove->remove();
+	}
+}
+// -------------

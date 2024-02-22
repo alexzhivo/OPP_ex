@@ -35,9 +35,15 @@ public:
 	// get
 	sf::Vector2f getTileSize() const;
 	int getLevel() const;
+	
+	// for debugging
+	void removeObject();
+	// -------------
 
 	// movement control
 	void movePlayer(const Direction direction, const float dtSeconds);
+
+	void updateObjects();	// removes deleted objects
 
 	void draw(sf::RenderWindow& window);
 private:

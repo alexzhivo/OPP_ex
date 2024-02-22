@@ -103,6 +103,16 @@ void Controller::startGame()
 			m_board.movePlayer(DOWN, dtSeconds);
 		}
 
+
+		// for debugging
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			m_board.removeObject();
+		}
+		// -------------
+		
+
+		m_board.updateObjects();	// removes deleted objects
+
 		m_window.clear();
 		m_board.draw(m_window);
 		m_window.display();
