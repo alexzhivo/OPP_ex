@@ -2,6 +2,7 @@
 
 class Mouse;
 class Cheese;
+class Wall;
 
 #include <SFML/Graphics.hpp>
 
@@ -19,6 +20,7 @@ public:
 	virtual void handleCollision(GameObject& otherObject) = 0;
 	virtual void handleCollision(Mouse& otherObject) = 0;
 	virtual void handleCollision(Cheese& otherObject) = 0;
+	virtual void handleCollision(Wall& otherObject) = 0;
 
 	void draw(sf::RenderWindow& window) const;
 protected:

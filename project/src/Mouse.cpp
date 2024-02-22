@@ -4,6 +4,7 @@ Mouse::Mouse(const sf::Vector2f position, sf::Vector2f size, sf::Texture* textur
 	: MovingObject(position, size, texture), m_lives(3)
 {
 	this->setSpeed(MOUSE_SPEED);
+	m_sprite.scale(0.5f, 0.5f);
 }
 
 void Mouse::reduceLifeCount()
