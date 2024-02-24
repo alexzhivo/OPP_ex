@@ -7,6 +7,5 @@ Wall::Wall(const sf::Vector2f position, const float size, sf::Texture* texture)
 
 void Wall::handleCollision(Mouse& otherObject)
 {
-	otherObject.setToLastPosition();
 	otherObject.handleCollision(*this);
 }

@@ -38,25 +38,21 @@ public:
 	// get
 	int getLevel() const;
 	int getCurrentTime() const;
-	
-	// for debugging
-	void removeObject();
-	// -------------
 
 	// movement control
 	void movePlayer(const Direction direction, const float dtSeconds);
 
 	void updateObjects();	// removes deleted objects
 	void checkCollisions();	// check for collisions
-
+	void handleCollisions(GameObject& gameObject);
 	void draw(sf::RenderWindow& window);
 private:
 	void loadLevelFromFile(const std::string fileName);
 	void scaleBoard();
 
-	std::unique_ptr<GameObject> m_player;
-	std::vector<std::unique_ptr<GameObject>> m_enemies;
-	std::vector<std::unique_ptr<GameObject>> m_gameObjects;
+	std::unique_ptr<MovingObject> m_player;
+	std::vector<std::unique_ptr<MovingObject>> m_enemies;
+	std::vector<std::unique_ptr<StaticObject>> m_gameObjects;
 
 	GraphicManager& m_graphicManager;
 	sf::RectangleShape m_background;

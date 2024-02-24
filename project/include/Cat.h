@@ -10,14 +10,14 @@ public:
 	virtual ~Cat() = default;
 
 	// double dispatch handling collision
-	void handleCollision(GameObject& otherObject) override { ; };
+	void handleCollision(GameObject& otherObject) override;
 	void handleCollision(Mouse& otherObject) override;
-	void handleCollision(Cat& otherObject) override { ; };
-	void handleCollision(Cheese& otherObject) override { ; };
-	void handleCollision(Wall& otherObject) override { ; };
-	void handleCollision(Gift& otherObject) override { ; };
-	void handleCollision(Key& otherObject) override { ; };
-	void handleCollision(Door& otherObject) override { ; };
+	void handleCollision(Cat&) override {};
+	void handleCollision(Cheese&) override {};
+	void handleCollision(Wall&) override {};
+	void handleCollision(Gift&) override {};
+	void handleCollision(Key&) override {};
+	void handleCollision(Door&) override {};
 
 private:
 };

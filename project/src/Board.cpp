@@ -185,30 +185,29 @@ void Board::updateObjects()
 }
 
 void Board::checkCollisions()
+
+
+
 {
-	// check collisions with static objects
-	for (int i = 0 ; i < m_gameObjects.size() ; i++)
+	handleCollisions(*m_player);	
+}
+
+void Board::handleCollisions(GameObject& gameObject)
+{
+	for (auto& unmovable : m_gameObjects)
 	{
-		if (dynamic_cast<GameObject*>(m_gameObjects[i].get()) && m_player->collide_with(*m_gameObjects[i].get()))
-			m_player->handleCollision(*m_gameObjects[i].get());
+		if (gameObject.collide_with(*unmovable))
+		{
+			gameObject.handleCollision(*unmovable);
+		}
 	}
 
-	// check collisions with moving objects
-	for (int i = 0; i < m_enemies.size(); i++) {
-		if (dynamic_cast<GameObject*>(m_enemies[i].get()) && m_player->collide_with(*m_enemies[i].get()))
-			m_player->handleCollision(*m_enemies[i].get());
+	for (auto& movable : m_enemies)
+	{
+		if (gameObject.collide_with(*movable))
+		{
+			gameObject.handleCollision(*movable);
+		}
 	}
 }
 
-// for debugging
-void Board::removeObject()
-{
-	// debug
-	int index = 20;
-	// -----
-	if (index < m_gameObjects.size()) {
-		StaticObject* objectToRemove = static_cast<StaticObject*>(m_gameObjects[index].get());
-		objectToRemove->remove();
-	}
-}
-// -------------

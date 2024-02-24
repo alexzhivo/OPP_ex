@@ -9,6 +9,15 @@ public:
 
 	bool isExisting() const;
 	void remove();
+
+	virtual void handleCollision(GameObject&) {};
+	//virtual void handleCollision(Mouse& otherObject) = 0;
+	//virtual void handleCollision(Cat& otherObject) = 0;
+	virtual void handleCollision(Cheese&) {};
+	virtual void handleCollision(Wall&) {};
+	virtual void handleCollision(Gift&) {};
+	virtual void handleCollision(Key&) {};
+	virtual void handleCollision(Door&) {};
 private:
 	bool m_exists;
 };

@@ -1,4 +1,5 @@
 #include "GameObject.h"
+#include <iostream>
 
 GameObject::GameObject(const sf::Vector2f position,const float size, sf::Texture* texture)
 	: m_sprite()
