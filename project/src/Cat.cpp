@@ -1,7 +1,7 @@
 #include "Cat.h"
 #include "Mouse.h"
 
-Cat::Cat(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
+Cat::Cat(const sf::Vector2f position, const float size, sf::Texture* texture)
 	: MovingObject(position, size, texture)
 {
 	this->setSpeed(CAT_SPEED);

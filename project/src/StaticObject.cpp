@@ -1,6 +1,6 @@
 #include "StaticObject.h"
 
-StaticObject::StaticObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
+StaticObject::StaticObject(const sf::Vector2f position, const float size, sf::Texture* texture)
 	: GameObject(position, size, texture) , m_exists(true)
 {}
 

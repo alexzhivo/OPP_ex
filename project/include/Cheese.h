@@ -4,7 +4,7 @@
 
 class Cheese : public StaticObject {
 public:
-	Cheese(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	Cheese(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~Cheese() = default;
 
 	// double dispatch handling collision

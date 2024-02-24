@@ -1,7 +1,7 @@
 #include "Door.h"
 #include "Mouse.h"
 
-Door::Door(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
+Door::Door(const sf::Vector2f position, const float size, sf::Texture* texture)
 	: StaticObject(position, size, texture)
 {}
 

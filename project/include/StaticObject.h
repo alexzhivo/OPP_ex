@@ -4,7 +4,7 @@
 
 class StaticObject : public GameObject {
 public:
-	StaticObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	StaticObject(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~StaticObject() = default;
 
 	bool isExisting() const;

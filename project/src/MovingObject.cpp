@@ -1,6 +1,6 @@
 #include "MovingObject.h"
 
-MovingObject::MovingObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
+MovingObject::MovingObject(const sf::Vector2f position, const float size, sf::Texture* texture)
 	: GameObject(position, size, texture) , m_speed(0) , m_alive(true) , m_lastPosition(position)
 {}
 

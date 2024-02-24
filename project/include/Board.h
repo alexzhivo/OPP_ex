@@ -32,8 +32,6 @@ public:
 	~Board() = default;
 	
 	// set
-	void setTileSize();
-	void setBoardSize();
 	void upLevel();
 	void restartClock();
 
@@ -54,6 +52,7 @@ public:
 	void draw(sf::RenderWindow& window);
 private:
 	void loadLevelFromFile(const std::string fileName);
+	void scaleBoard();
 
 	std::unique_ptr<GameObject> m_player;
 	std::vector<std::unique_ptr<GameObject>> m_enemies;
@@ -67,7 +66,7 @@ private:
 
 	int m_numOfCols;
 	int m_numOfRows;;
-	sf::Vector2f m_tileSize;
+	float m_tileSize;
 	float m_width;
 	float m_height;
 	int m_level;

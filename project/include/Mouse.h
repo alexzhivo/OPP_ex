@@ -6,7 +6,7 @@ const float MOUSE_SPEED = 300.f;
 
 class Mouse : public MovingObject {
 public:
-	Mouse(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	Mouse(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~Mouse() = default;
 
 	// get 

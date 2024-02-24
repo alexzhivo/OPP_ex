@@ -7,11 +7,6 @@ Board::Board(GraphicManager& graphicManager, std::string fileName , const int le
 	m_background(), m_gameObjects(), m_player(), m_level(level)
 {
 	loadLevelFromFile(fileName);
-
-	// background creation
-	m_background.setSize(sf::Vector2f(BOARD_WIDTH,BOARD_HEIGHT));
-	m_background.setFillColor(sf::Color(50, 50, 50));
-	m_background.setPosition(sf::Vector2f(0.f, 0.f));
 }
 
 void Board::loadLevelFromFile(const std::string fileName)
@@ -23,13 +18,28 @@ void Board::loadLevelFromFile(const std::string fileName)
 		return;
 	}
 
-	file >> m_numOfRows >> m_numOfCols;
-
 	// set timer (if 0 - no timer) (if > 0 - timer)
-	m_totalTime = 0;
+	file >> m_numOfRows >> m_numOfCols >> m_totalTime;
 
-	setTileSize();	// change tile size to fit the screen.
-	setBoardSize();
+	// scaling board to window
+	scaleBoard();
+	float startX, startY;
+	float tileScale;
+	if (m_width == BOARD_WIDTH) {
+		startX = 0;
+		startY = (BOARD_HEIGHT - m_height) / 2;
+		tileScale = 18.75f / m_numOfCols;
+	}
+	else {
+		startY = 0;
+		startX = (BOARD_WIDTH - m_width) / 2;
+		tileScale = 10.9375f / m_numOfRows;
+	}
+
+	// background creation
+	m_background.setSize(sf::Vector2f(m_width, m_height));
+	m_background.setFillColor(sf::Color(50, 50, 50));
+	m_background.setPosition(sf::Vector2f(startX, startY));
 
 	auto line = std::string();
 	getline(file, line);
@@ -40,44 +50,44 @@ void Board::loadLevelFromFile(const std::string fileName)
 			switch (line.at(j)) {
 			case '#':
 				m_gameObjects.push_back(std::make_unique<Wall>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					tileScale,
 					m_graphicManager.getTexture("wall")));
 				break;
 			case '^':
 				m_enemies.push_back(std::make_unique<Cat>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					tileScale,
 					m_graphicManager.getTexture("cat")));
 				break;
 			case '%':
 				m_player = (std::make_unique<Mouse>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					tileScale,
 					m_graphicManager.getTexture("mouse")));
 				break;
 			case '*':
 				m_gameObjects.push_back(std::make_unique<Cheese>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					tileScale,
 					m_graphicManager.getTexture("cheese")));
 				break;
 			case 'D':
 				m_gameObjects.push_back(std::make_unique<Door>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					tileScale,
 					m_graphicManager.getTexture("door")));
 				break;
 			case 'F':
 				m_gameObjects.push_back(std::make_unique<Key>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					tileScale,
 					m_graphicManager.getTexture("key")));
 				break;
 			case '$':
 				m_gameObjects.push_back(std::make_unique<Gift>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					tileScale,
 					m_graphicManager.getTexture("gift")));
 				break;
 			default:
@@ -87,15 +97,21 @@ void Board::loadLevelFromFile(const std::string fileName)
 	}
 }
 
-void Board::setTileSize()
+void Board::scaleBoard()
 {
-	m_tileSize = sf::Vector2f((float)BOARD_HEIGHT / m_numOfRows, (float)BOARD_WIDTH / m_numOfCols);
-}
+	float boardRatio = m_numOfRows / m_numOfCols;
+	float windowRatio = BOARD_HEIGHT / BOARD_WIDTH;
 
-void Board::setBoardSize()
-{
-	m_width = m_numOfCols * m_tileSize.x;
-	m_height = m_numOfRows * m_tileSize.y;
+	if (boardRatio > windowRatio) {
+		m_height = BOARD_HEIGHT;
+		m_tileSize = m_height / m_numOfRows;
+		m_width = m_tileSize * m_numOfCols;
+	}
+	else {
+		m_width = BOARD_WIDTH;
+		m_tileSize = m_width / m_numOfCols;
+		m_height = m_tileSize * m_numOfRows;
+	}
 }
 void Board::draw(sf::RenderWindow& window)
 {

@@ -12,7 +12,7 @@ class Cat;
 
 class GameObject {
 public:
-	GameObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	GameObject(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~GameObject() = default;
 
 	// double dispatch collision handling

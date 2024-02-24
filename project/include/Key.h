@@ -4,7 +4,7 @@
 
 class Key : public StaticObject {
 public:
-	Key(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	Key(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~Key() = default;
 
 	// double dispatch handling collision

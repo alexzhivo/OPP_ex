@@ -4,7 +4,7 @@
 
 class Door : public StaticObject {
 public:
-	Door(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	Door(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~Door() = default;
 
 	// double dispatch handling collision

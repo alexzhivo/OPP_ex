@@ -4,7 +4,7 @@
 
 class MovingObject : public GameObject {
 public:
-	MovingObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	MovingObject(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~MovingObject() = default;
 
 	// set functions

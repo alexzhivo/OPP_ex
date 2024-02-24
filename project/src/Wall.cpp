@@ -1,7 +1,7 @@
 #include "Wall.h"
 #include "Mouse.h"
 
-Wall::Wall(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
+Wall::Wall(const sf::Vector2f position, const float size, sf::Texture* texture)
 	: StaticObject(position, size, texture)
 {}
 

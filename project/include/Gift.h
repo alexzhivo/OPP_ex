@@ -4,7 +4,7 @@
 
 class Gift : public StaticObject {
 public:
-	Gift(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+	Gift(const sf::Vector2f position, const float size, sf::Texture* texture);
 	virtual ~Gift() = default;
 
 	// double dispatch handling collision
