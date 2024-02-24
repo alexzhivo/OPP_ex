@@ -64,12 +64,12 @@ void Controller::startMenu()
 void Controller::startGame()
 {
 
-	sf::Vector2f tileSize = m_board.getTileSize();
+	//sf::Vector2f tileSize = m_board.getTileSize();
 
 	sf::Clock clock;
 
 	m_window.create(sf::VideoMode(1200, 800), "Cat and Mouse");
-
+	m_window.setFramerateLimit(60);
 	while (m_window.isOpen()) {
 		sf::Time deltaTime = clock.restart();
 		float dtSeconds = deltaTime.asSeconds();

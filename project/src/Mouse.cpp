@@ -4,7 +4,7 @@ Mouse::Mouse(const sf::Vector2f position, sf::Vector2f size, sf::Texture* textur
 	: MovingObject(position, size, texture), m_lives(3) , m_score(0), m_keys(0), m_startingPosition(position)
 {
 	this->setSpeed(MOUSE_SPEED);
-	m_sprite.setScale(0.75f, 0.75f);	// for fiting through wall openings
+	m_sprite.scale(0.85f, 0.85f);	// for fiting through wall openings
 }
 
 int Mouse::getLives() const
@@ -48,4 +48,34 @@ bool Mouse::useKey()
 void Mouse::handleCollision(GameObject& otherObject)
 {
 	otherObject.handleCollision(*this);
+}
+
+void Mouse::handleCollision(Wall&)
+{
+	this->setToLastPosition();
+}
+
+void Mouse::handleCollision(Cat&)
+{
+	this->reduceLifeCount();
+}
+
+void Mouse::handleCollision(Key&)
+{
+	this->increaseKeys();
+}
+
+void Mouse::handleCollision(Cheese&)
+{
+	//increase score;
+}
+
+void Mouse::handleCollision(Gift&)
+{
+	//increase score;
+}
+
+void Mouse::handleCollision(Door&)
+{
+	//this->setToLastPosition();
 }

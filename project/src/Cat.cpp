@@ -7,8 +7,14 @@ Cat::Cat(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
 	this->setSpeed(CAT_SPEED);
 }
 
+void Cat::handleCollision(GameObject& gameObject)
+{
+    // double dispatch
+    gameObject.handleCollision(*this);
+}
+
 void Cat::handleCollision(Mouse& otherObject)
 {
-	otherObject.reduceLifeCount();
+	// call the player so it can decrease its own live count
 	otherObject.handleCollision(*this);
 }

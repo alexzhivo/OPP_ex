@@ -10,9 +10,11 @@ class Cat;
 
 #include <SFML/Graphics.hpp>
 
+
 class GameObject {
 public:
 	GameObject(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture);
+
 	virtual ~GameObject() = default;
 
 	// double dispatch collision handling

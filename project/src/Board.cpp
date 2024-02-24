@@ -9,7 +9,7 @@ Board::Board(GraphicManager& graphicManager, std::string fileName , const int le
 	
 
 	// background creation
-	m_background.setSize(sf::Vector2f(BOARD_WIDTH,BOARD_HEIGHT));
+	m_background.setSize(sf::Vector2f(m_width,m_height));
 	m_background.setFillColor(sf::Color(50, 50, 50));
 	m_background.setPosition(sf::Vector2f(0.f, 0.f));
 }
@@ -37,44 +37,44 @@ void Board::loadLevelFromFile(const std::string fileName)
 			switch (line.at(j)) {
 			case '#':
 				m_gameObjects.push_back(std::make_unique<Wall>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize),
 					m_graphicManager.getTexture("wall")));
 				break;
 			case '^':
 				m_enemies.push_back(std::make_unique<Cat>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize* j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize),
 					m_graphicManager.getTexture("cat")));
 				break;
 			case '%':
 				m_player = (std::make_unique<Mouse>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize* j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize),
 					m_graphicManager.getTexture("mouse")));
 				break;
 			case '*':
 				m_gameObjects.push_back(std::make_unique<Cheese>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize),
 					m_graphicManager.getTexture("cheese")));
 				break;
 			case 'D':
 				m_gameObjects.push_back(std::make_unique<Door>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize),
 					m_graphicManager.getTexture("door")));
 				break;
 			case 'F':
 				m_gameObjects.push_back(std::make_unique<Key>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize),
 					m_graphicManager.getTexture("key")));
 				break;
 			case '$':
 				m_gameObjects.push_back(std::make_unique<Gift>(
-					sf::Vector2f(m_tileSize.y * j, m_tileSize.x * i),
-					m_tileSize,
+					sf::Vector2f(m_tileSize * j, m_tileSize * i),
+					sf::Vector2f(m_tileSize, m_tileSize),
 					m_graphicManager.getTexture("gift")));
 				break;
 			default:
@@ -86,13 +86,15 @@ void Board::loadLevelFromFile(const std::string fileName)
 
 void Board::setTileSize()
 {
-	m_tileSize = sf::Vector2f((float)BOARD_HEIGHT / m_numOfRows, (float)BOARD_WIDTH / m_numOfCols);
+	m_tileSize = float(BOARD_HEIGHT) / std::max(m_numOfRows, m_numOfCols);
+	std::cout << m_tileSize << std::endl;
 }
 
 void Board::setBoardSize()
 {
-	m_width = m_numOfCols * m_tileSize.x;
-	m_height = m_numOfRows * m_tileSize.y;
+	m_width = m_tileSize *m_numOfCols;
+	m_height = m_tileSize * m_numOfRows;
+	std::cout << m_width << " " << m_height <<std::endl;
 }
 void Board::draw(sf::RenderWindow& window)
 {
@@ -136,10 +138,10 @@ void Board::movePlayer(const Direction direction, const float dtSeconds)
 	}
 }
 
-sf::Vector2f Board::getTileSize() const // temporary for check
+/*sf::Vector2f Board::getTileSize() const // temporary for check
 {
 	return m_tileSize;
-}
+}*/
 
 int Board::getLevel() const
 {
@@ -159,7 +161,7 @@ void Board::updateObjects()
 
 void Board::checkCollisions()
 {
-	// check collisions with static objects
+	/*// check collisions with static objects
 	for (int i = 0 ; i < m_gameObjects.size() ; i++)
 	{
 		if (dynamic_cast<GameObject*>(m_gameObjects[i].get()) && m_player->collide_with(*m_gameObjects[i].get()))
@@ -170,6 +172,29 @@ void Board::checkCollisions()
 	for (int i = 0; i < m_enemies.size(); i++) {
 		if (dynamic_cast<GameObject*>(m_enemies[i].get()) && m_player->collide_with(*m_enemies[i].get()))
 			m_player->handleCollision(*m_enemies[i].get());
+	}*/
+
+
+	handleCollisions(*m_player);
+	
+}
+
+void Board::handleCollisions(GameObject& gameObject)
+{
+	for (auto& unmovable : m_gameObjects)
+	{
+		if (gameObject.collide_with(*unmovable))
+		{
+			gameObject.handleCollision(*unmovable);
+		}
+	}
+
+	for (auto& movable : m_enemies)
+	{
+		if (gameObject.collide_with(*movable))
+		{
+			gameObject.handleCollision(*movable);
+		}
 	}
 }
 
