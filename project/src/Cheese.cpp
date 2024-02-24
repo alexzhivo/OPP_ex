@@ -8,5 +8,6 @@ Cheese::Cheese(const sf::Vector2f position, sf::Vector2f size, sf::Texture* text
 void Cheese::handleCollision(Mouse& otherObject)
 {
 	this->remove();
+	otherObject.increaseScore(25);
 	otherObject.handleCollision(*this);
 }

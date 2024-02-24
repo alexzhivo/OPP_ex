@@ -1,9 +1,10 @@
 #include "GraphicManager.h"
 
 GraphicManager::GraphicManager()
-	: m_ingameTextures()
+    : m_ingameTextures(), m_font()
 {
-	loadInGameTextures();
+    m_font.loadFromFile("C:/Windows/Fonts/Arial.ttf");  // loading font
+	loadInGameTextures();                               // loading textures
 }
 
 sf::Texture* GraphicManager::getTexture(const std::string& name)
@@ -16,6 +17,11 @@ sf::Texture* GraphicManager::getTexture(const std::string& name)
 
     std::cout << "texture is not found.\n";
     return nullptr;
+}
+
+sf::Font* GraphicManager::getFont()
+{
+    return &m_font;
 }
 
 std::unique_ptr<TextureSlot> GraphicManager::loadTextureFromFile(const std::string& name, const std::string& filename)

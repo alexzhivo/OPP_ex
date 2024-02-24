@@ -13,7 +13,7 @@ public:
 private:
 	void startMenu();
 	void startGame();
-	
+
 	sf::RenderWindow m_window;
 	Menu m_menu;
 	GraphicManager m_graphicManager;

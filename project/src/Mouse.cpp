@@ -30,6 +30,10 @@ void Mouse::reduceLifeCount()
 		this->eliminate();
 	}
 }
+void Mouse::increaseScore(const int amount)
+{
+	m_score += amount;
+}
 
 void Mouse::increaseKeys()
 {

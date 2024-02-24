@@ -7,7 +7,9 @@ Key::Key(const sf::Vector2f position, sf::Vector2f size, sf::Texture* texture)
 
 void Key::handleCollision(Mouse& otherObject)
 {
-	this->remove();
-	otherObject.increaseKeys();
-	otherObject.handleCollision(*this);
+	if (otherObject.getKeys() < 3) {
+		this->remove();
+		otherObject.increaseKeys();
+		otherObject.handleCollision(*this);
+	}
 }

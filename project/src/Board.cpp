@@ -3,10 +3,10 @@
 #include "iostream" // for debuging
 
 Board::Board(GraphicManager& graphicManager, std::string fileName , const int level)
-	: m_graphicManager(graphicManager), m_gameHUD(graphicManager), m_background(), m_gameObjects(), m_player(), m_level(level)
+	: m_graphicManager(graphicManager), m_gameHUD(graphicManager),
+	m_background(), m_gameObjects(), m_player(), m_level(level)
 {
 	loadLevelFromFile(fileName);
-	
 
 	// background creation
 	m_background.setSize(sf::Vector2f(BOARD_WIDTH,BOARD_HEIGHT));
@@ -24,6 +24,9 @@ void Board::loadLevelFromFile(const std::string fileName)
 	}
 
 	file >> m_numOfRows >> m_numOfCols;
+
+	// set timer (if 0 - no timer) (if > 0 - timer)
+	m_totalTime = 0;
 
 	setTileSize();	// change tile size to fit the screen.
 	setBoardSize();
@@ -100,7 +103,7 @@ void Board::draw(sf::RenderWindow& window)
 
 	window.draw(m_background);
 	m_gameHUD.updateAndDraw(window, m_level,
-		player->getLives(), player->getKeys(), player->getScore());
+		player->getLives(), player->getKeys(), player->getScore() , getCurrentTime());
 
 	for (int i = 0; i < m_gameObjects.size(); i++) {
 		m_gameObjects[i]->draw(window);
@@ -114,6 +117,11 @@ void Board::draw(sf::RenderWindow& window)
 void Board::upLevel()
 {
 	m_level++;
+}
+
+void Board::restartClock()
+{
+	m_levelClock.restart();
 }
 
 void Board::movePlayer(const Direction direction, const float dtSeconds)
@@ -136,14 +144,17 @@ void Board::movePlayer(const Direction direction, const float dtSeconds)
 	}
 }
 
-sf::Vector2f Board::getTileSize() const // temporary for check
-{
-	return m_tileSize;
-}
-
 int Board::getLevel() const
 {
 	return m_level;
+}
+
+int Board::getCurrentTime() const
+{
+	if (m_totalTime > 0) {
+		return m_totalTime - (int)m_levelClock.getElapsedTime().asSeconds();
+	}
+	return m_levelClock.getElapsedTime().asSeconds();
 }
 
 void Board::updateObjects()

@@ -14,6 +14,7 @@ public:
 	int getKeys() const;
 	int getScore() const;
 
+	void increaseScore(const int amount);
 	void increaseKeys();
 	bool useKey();
 

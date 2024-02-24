@@ -16,10 +16,12 @@ public:
 	~GraphicManager() = default;
 
 	sf::Texture* getTexture(const std::string& name);
+	sf::Font* getFont();
 
 private:
 	void loadInGameTextures();
 	std::unique_ptr<TextureSlot> loadTextureFromFile(const std::string& name, const std::string& filename);
 
+	sf::Font m_font;
 	std::vector<std::unique_ptr<TextureSlot>> m_ingameTextures;
 };

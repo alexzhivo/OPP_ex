@@ -35,10 +35,11 @@ public:
 	void setTileSize();
 	void setBoardSize();
 	void upLevel();
+	void restartClock();
 
 	// get
-	sf::Vector2f getTileSize() const;
 	int getLevel() const;
+	int getCurrentTime() const;
 	
 	// for debugging
 	void removeObject();
@@ -61,6 +62,8 @@ private:
 	GraphicManager& m_graphicManager;
 	sf::RectangleShape m_background;
 	HUD m_gameHUD;
+	sf::Clock m_levelClock;
+	int m_totalTime;
 
 	int m_numOfCols;
 	int m_numOfRows;;

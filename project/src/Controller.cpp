@@ -16,6 +16,7 @@ void Controller::run()
 
 void Controller::startMenu()
 {
+	m_window.setFramerateLimit(60);
 	m_window.create(sf::VideoMode(1200, 800), "Cat and Mouse");
 
 	while (m_window.isOpen())
@@ -63,15 +64,15 @@ void Controller::startMenu()
 
 void Controller::startGame()
 {
-
-	sf::Vector2f tileSize = m_board.getTileSize();
-
-	sf::Clock clock;
-
 	m_window.create(sf::VideoMode(1200, 800), "Cat and Mouse");
 
+	sf::Clock gameClock;
+
+	m_board.restartClock();
+
 	while (m_window.isOpen()) {
-		sf::Time deltaTime = clock.restart();
+
+		sf::Time deltaTime = gameClock.restart();
 		float dtSeconds = deltaTime.asSeconds();
 
 		for (auto event = sf::Event{}; m_window.pollEvent(event);)
