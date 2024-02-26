@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller()
-	: m_window(), m_menu(), m_graphicManager(), m_board(m_graphicManager, "Board.txt", 1)
+	: m_window(), m_menu(), m_graphicManager(), m_board(m_graphicManager, "Board1.txt", 1)
 {}
 
 void Controller::run()
@@ -88,6 +88,12 @@ void Controller::startGame()
 			default:
 				break;
 			}
+		}
+
+		if (Cheese::getNumOfCheese() == 0)
+		{
+			m_board.upLevel();
+			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt");
 		}
 
 		// Handle player input

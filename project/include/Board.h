@@ -39,6 +39,7 @@ public:
 	int getLevel() const;
 	int getCurrentTime() const;
 
+	void loadLevelFromFile(const std::string fileName);
 	// movement control
 	void movePlayer(const Direction direction, const float dtSeconds);
 	void moveEnemies(const float dtSeconds);
@@ -48,7 +49,7 @@ public:
 	void handleCollisions(GameObject& gameObject);
 	void draw(sf::RenderWindow& window);
 private:
-	void loadLevelFromFile(const std::string fileName);
+	
 	void scaleBoard();
 
 	std::unique_ptr<MovingObject> m_player;
