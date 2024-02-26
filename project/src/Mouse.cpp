@@ -66,20 +66,20 @@ void Mouse::handleCollision(Cat&)
 
 void Mouse::handleCollision(Key&)
 {
-	this->increaseKeys();
+	// increase keys
 }
 
 void Mouse::handleCollision(Cheese&)
 {
-	//increase score;
+	// increase score
 }
 
 void Mouse::handleCollision(Gift&)
 {
-	//increase score;
+	// activate gift
 }
 
 void Mouse::handleCollision(Door&)
 {
-	//this->setToLastPosition();
+	// door 
 }
