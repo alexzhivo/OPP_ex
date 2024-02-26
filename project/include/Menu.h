@@ -16,6 +16,7 @@ public:
 private:
 	GraphicManager& m_graphicManager;
 
+	sf::Sprite m_logo;
 	sf::Sprite m_background;
 	sf::Font m_font;
 	sf::RectangleShape m_newGame;

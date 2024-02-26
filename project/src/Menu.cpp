@@ -2,10 +2,14 @@
 #include <iostream>
 
 Menu::Menu(GraphicManager& graphicManager)
-	: m_graphicManager(graphicManager), m_font(), m_newGame(), m_help(), m_exit(), m_background()
+	: m_graphicManager(graphicManager), m_font(), m_newGame(), m_help(), m_exit(), m_background() , m_logo()
 {
 	m_background.setTexture(*m_graphicManager.getTexture("menu-background"));
 	m_background.setScale(sf::Vector2f(0.8f, 0.8f));
+
+	m_logo.setTexture(*m_graphicManager.getTexture("game-logo"));
+	m_logo.setPosition(sf::Vector2f(190, 100));
+
 	m_font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
 
 	m_newGameTxt.setFont(m_font);
@@ -42,6 +46,7 @@ Menu::Menu(GraphicManager& graphicManager)
 void Menu::drawMenu(sf::RenderWindow& window) const
 {
 	window.draw(m_background);
+	window.draw(m_logo);
 	window.draw(m_newGame);
 	window.draw(m_newGameTxt);
 	window.draw(m_help);
