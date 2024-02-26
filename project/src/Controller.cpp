@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller()
-	: m_window(), m_menu(), m_graphicManager(), m_board(m_graphicManager, "Board1.txt", 1)
+	: m_graphicManager(), m_window(), m_board(m_graphicManager, "Board1.txt", 1), m_menu(m_graphicManager)
 {}
 
 void Controller::run()

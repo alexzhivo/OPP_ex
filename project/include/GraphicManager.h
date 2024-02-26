@@ -15,6 +15,9 @@ public:
 	GraphicManager();
 	~GraphicManager() = default;
 
+	// for debug
+	int getSize() const;
+
 	sf::Texture* getTexture(const std::string& name);
 	sf::Font* getFont();
 

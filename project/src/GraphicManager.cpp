@@ -7,6 +7,12 @@ GraphicManager::GraphicManager()
 	loadInGameTextures();                               // loading textures
 }
 
+// for debug
+int GraphicManager::getSize() const
+{
+    return (int)m_ingameTextures.size();
+}
+
 sf::Texture* GraphicManager::getTexture(const std::string& name)
 {
     for (int i = 0; i < m_ingameTextures.size(); i++) {
@@ -52,5 +58,4 @@ void GraphicManager::loadInGameTextures()
     m_ingameTextures.push_back(loadTextureFromFile("HUD-background", "HUDimage.png"));
     m_ingameTextures.push_back(loadTextureFromFile("heart", "heart.png"));
     m_ingameTextures.push_back(loadTextureFromFile("menu-background", "menu-background.png"));
-
 }
