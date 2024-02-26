@@ -89,12 +89,9 @@ void Controller::startGame()
 				break;
 			}
 		}
-		std::cout << "Number of cheese "
-			<< Cheese::getNumOfCheese() << std::endl;
 
 		if (Cheese::getNumOfCheese() == 0)
 		{
-			
 			m_board.upLevel();
 			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt");
 		}
