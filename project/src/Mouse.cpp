@@ -64,12 +64,9 @@ void Mouse::handleCollision(Cat&)
 	this->reduceLifeCount();
 }
 
-void Mouse::handleCollision(Key& otherObject)
+void Mouse::handleCollision(Key&)
 {
-	if (this->getKeys() < 3) {
-		this->increaseKeys();
-	}
-	this->handleCollision(*this);
+	this->increaseKeys();
 }
 
 void Mouse::handleCollision(Cheese&)
