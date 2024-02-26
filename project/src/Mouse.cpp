@@ -3,7 +3,8 @@
 Mouse::Mouse(const sf::Vector2f position, const float size, sf::Texture* texture)
 	: MovingObject(position, size, texture), m_lives(3) , m_score(0), m_keys(0), m_startingPosition(position)
 {
-	this->setSpeed(MOUSE_SPEED);
+	//this->setSpeed(MOUSE_SPEED);
+	this->setSpeed(250.0f);
 	m_sprite.scale(0.85f, 0.85f);	// for fiting through wall openings
 }
 

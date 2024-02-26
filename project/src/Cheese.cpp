@@ -3,7 +3,21 @@
 
 Cheese::Cheese(const sf::Vector2f position, const float size, sf::Texture* texture)
 	: StaticObject(position, size, texture)
-{}
+{
+	++m_numOfChesse;
+}
+
+Cheese::~Cheese()
+{
+	--m_numOfChesse;
+}
+
+int Cheese::m_numOfChesse = 0;
+
+int Cheese::getNumOfCheese()
+{
+	return m_numOfChesse;
+}
 
 void Cheese::handleCollision(Mouse& otherObject)
 {

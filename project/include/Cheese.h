@@ -5,7 +5,7 @@
 class Cheese : public StaticObject {
 public:
 	Cheese(const sf::Vector2f position, const float size, sf::Texture* texture);
-	virtual ~Cheese() = default;
+	virtual ~Cheese();
 
 	// double dispatch handling collision
 	//void handleCollision(GameObject& otherObject) override { ; };
@@ -16,6 +16,7 @@ public:
 	//void handleCollision(Gift& otherObject) override { ; };
 	//void handleCollision(Key& otherObject) override { ; };
 	//void handleCollision(Door& otherObject) override { ; };
-
+	static int getNumOfCheese();
 private:
+	static int m_numOfChesse;
 };

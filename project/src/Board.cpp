@@ -133,6 +133,8 @@ void Board::draw(sf::RenderWindow& window)
 void Board::upLevel()
 {
 	m_level++;
+	m_gameObjects.clear();
+	m_enemies.clear();
 }
 
 void Board::restartClock()

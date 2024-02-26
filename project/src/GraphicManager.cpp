@@ -48,4 +48,5 @@ void GraphicManager::loadInGameTextures()
     m_ingameTextures.push_back(loadTextureFromFile("gift", "gift.png"));
     m_ingameTextures.push_back(loadTextureFromFile("HUD-background", "HUDimage.png"));
     m_ingameTextures.push_back(loadTextureFromFile("heart", "heart.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("background", "background.png"));
 }

@@ -41,13 +41,13 @@ public:
 
 	// movement control
 	void movePlayer(const Direction direction, const float dtSeconds);
-
+	void loadLevelFromFile(const std::string fileName);
 	void updateObjects();	// removes deleted objects
 	void checkCollisions();	// check for collisions
 	void handleCollisions(GameObject& gameObject);
 	void draw(sf::RenderWindow& window);
 private:
-	void loadLevelFromFile(const std::string fileName);
+	
 	void scaleBoard();
 
 	std::unique_ptr<MovingObject> m_player;
