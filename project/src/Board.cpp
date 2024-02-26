@@ -99,8 +99,8 @@ void Board::loadLevelFromFile(const std::string fileName)
 
 void Board::scaleBoard()
 {
-	float boardRatio = m_numOfRows / m_numOfCols;
-	float windowRatio = BOARD_HEIGHT / BOARD_WIDTH;
+	float boardRatio = (float)m_numOfRows / m_numOfCols;
+	float windowRatio = (float)BOARD_HEIGHT / BOARD_WIDTH;
 
 	if (boardRatio > windowRatio) {
 		m_height = BOARD_HEIGHT;
@@ -160,6 +160,14 @@ void Board::movePlayer(const Direction direction, const float dtSeconds)
 	}
 }
 
+void Board::moveEnemies(const float dtSeconds)
+{
+	for (int i = 0; i < m_enemies.size(); i++) {
+		Cat* enemy = static_cast<Cat*>(m_enemies[i].get());
+		enemy->moveToRandomLocation(dtSeconds);
+	}
+}
+
 int Board::getLevel() const
 {
 	return m_level;
@@ -170,7 +178,7 @@ int Board::getCurrentTime() const
 	if (m_totalTime > 0) {
 		return m_totalTime - (int)m_levelClock.getElapsedTime().asSeconds();
 	}
-	return m_levelClock.getElapsedTime().asSeconds();
+	return (int)m_levelClock.getElapsedTime().asSeconds();
 }
 
 void Board::updateObjects()
@@ -185,11 +193,11 @@ void Board::updateObjects()
 }
 
 void Board::checkCollisions()
-
-
-
 {
 	handleCollisions(*m_player);	
+	for (int i = 0; i < m_enemies.size(); i++) {
+		handleCollisions(*m_enemies[i]);
+	}
 }
 
 void Board::handleCollisions(GameObject& gameObject)

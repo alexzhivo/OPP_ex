@@ -10,7 +10,7 @@ public:
 	// double dispatch handling collision
 	//void handleCollision(GameObject& otherObject) override { ; };
 	void handleCollision(Mouse& otherObject) override;
-	void handleCollision(Cat&) override { ; }
+	void handleCollision(Cat& otherObject) override;
 	//void handleCollision(Cheese& otherObject) override { ; };
 	//void handleCollision(Wall& otherObject) override { ; };
 	//void handleCollision(Gift& otherObject) override { ; };

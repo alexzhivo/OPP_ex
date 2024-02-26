@@ -2,7 +2,9 @@
 
 #include "MovingObject.h"
 
-const float CAT_SPEED = 100.f;
+enum state { IDLE , PATROL , SEARCH };
+
+const float CAT_SPEED = 80.f;
 
 class Cat : public MovingObject {
 public:
@@ -14,10 +16,22 @@ public:
 	void handleCollision(Mouse& otherObject) override;
 	void handleCollision(Cat&) override {};
 	void handleCollision(Cheese&) override {};
-	void handleCollision(Wall&) override {};
+	void handleCollision(Wall& otherObject) override;
 	void handleCollision(Gift&) override {};
 	void handleCollision(Key&) override {};
-	void handleCollision(Door&) override {};
+	void handleCollision(Door& otherObject) override;
+
+	// cats algorithm
+	
+		// search for mouse in range.
+
+		// find a random location in range.
+	sf::Vector2i findRandomLocation();
+		// move until get to x location.
+		// move until get to y location.
+	void moveToRandomLocation(const float dtSeconds);
+		// if collision with wall stop.
 
 private:
+	sf::Vector2i m_nextLocation;
 };

@@ -41,6 +41,7 @@ public:
 
 	// movement control
 	void movePlayer(const Direction direction, const float dtSeconds);
+	void moveEnemies(const float dtSeconds);
 
 	void updateObjects();	// removes deleted objects
 	void checkCollisions();	// check for collisions

@@ -9,6 +9,10 @@ class Door;
 class Cat;
 
 #include <SFML/Graphics.hpp>
+#include <iostream> // for debug
+#include <cstdlib>	// for rand()
+#include <ctime>   // for time()
+#include <math.h>
 
 class GameObject {
 public:

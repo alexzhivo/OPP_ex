@@ -103,6 +103,9 @@ void Controller::startGame()
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 			m_board.movePlayer(DOWN, dtSeconds);
 		}
+
+		// trigger enemies movement
+		m_board.moveEnemies(dtSeconds);
 		
 		// check and handle collisions
 		m_board.checkCollisions();
