@@ -8,7 +8,11 @@ const float CAT_SPEED = 80.f;
 
 class Cat : public MovingObject {
 public:
-	Cat(const sf::Vector2f position, const float size, sf::Texture* texture);
+	Cat(const sf::Vector2f position, const float size,
+		sf::Texture* frontTexture,
+		sf::Texture* leftTexture,
+		sf::Texture* backTexture,
+		sf::Texture* rightTexture);
 	virtual ~Cat() = default;
 
 	// double dispatch handling collision

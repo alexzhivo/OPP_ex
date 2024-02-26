@@ -1,8 +1,13 @@
 #include "Cat.h"
 #include "Mouse.h"
 
-Cat::Cat(const sf::Vector2f position, const float size, sf::Texture* texture)
-	: MovingObject(position, size, texture) , m_nextLocation(0,0)
+Cat::Cat(const sf::Vector2f position, const float size,
+	sf::Texture* frontTexture,
+	sf::Texture* leftTexture,
+	sf::Texture* backTexture,
+	sf::Texture* rightTexture)
+	: MovingObject(position, size,
+		frontTexture, leftTexture, backTexture, rightTexture), m_nextLocation(0,0)
 {
 	this->setSpeed(CAT_SPEED);
 	findRandomLocation();

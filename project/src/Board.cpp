@@ -58,13 +58,19 @@ void Board::loadLevelFromFile(const std::string fileName)
 				m_enemies.push_back(std::make_unique<Cat>(
 					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
 					tileScale,
+					m_graphicManager.getTexture("cat"),
+					m_graphicManager.getTexture("cat"),
+					m_graphicManager.getTexture("cat"),
 					m_graphicManager.getTexture("cat")));
 				break;
 			case '%':
 				m_player = (std::make_unique<Mouse>(
 					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
 					tileScale,
-					m_graphicManager.getTexture("mouse")));
+					m_graphicManager.getTexture("mouse-front"),
+					m_graphicManager.getTexture("mouse-right"),
+					m_graphicManager.getTexture("mouse-back"),
+					m_graphicManager.getTexture("mouse-left")));
 				break;
 			case '*':
 				m_gameObjects.push_back(std::make_unique<Cheese>(
@@ -149,15 +155,19 @@ void Board::movePlayer(const Direction direction, const float dtSeconds)
 	switch (direction) {
 	case LEFT:
 		player->move(-1, 0, dtSeconds);
+		player->switchTexture(LEFT);
 		break;
 	case RIGHT:
 		player->move(1, 0, dtSeconds);
+		player->switchTexture(RIGHT);
 		break;
 	case UP:
 		player->move(0, -1, dtSeconds);
+		player->switchTexture(DOWN);
 		break;
 	case DOWN:
 		player->move(0, 1, dtSeconds);
+		player->switchTexture(UP);
 		break;
 	}
 }
@@ -220,4 +230,3 @@ void Board::handleCollisions(GameObject& gameObject)
 		}
 	}
 }
-

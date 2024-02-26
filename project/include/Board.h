@@ -24,7 +24,7 @@ const int HUD_HEIGHT = 100;
 const int WINDOW_WIDTH = 1200;
 const int WINDOW_HEIGHT = 800;
 
-enum Direction { LEFT , RIGHT , UP , DOWN };
+enum Direction { UP , RIGHT , DOWN , LEFT };
 
 class Board {
 public:
