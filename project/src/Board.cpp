@@ -141,11 +141,18 @@ void Board::upLevel()
 	m_level++;
 	m_gameObjects.clear();
 	m_enemies.clear();
+
 }
 
 void Board::restartClock()
 {
 	m_levelClock.restart();
+}
+
+void Board::restartLevel()
+{
+	m_gameObjects.clear();
+	m_enemies.clear();	
 }
 
 void Board::movePlayer(const Direction direction, const float dtSeconds)

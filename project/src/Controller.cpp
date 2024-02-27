@@ -69,7 +69,7 @@ void Controller::startGame()
 	sf::Clock gameClock;
 
 	m_board.restartClock();
-
+	m_window.setFramerateLimit(60);
 	while (m_window.isOpen()) {
 
 		sf::Time deltaTime = gameClock.restart();
@@ -90,11 +90,21 @@ void Controller::startGame()
 			}
 		}
 
-		if (Cheese::getNumOfCheese() == 0)
+		if (Cheese::getNumOfCheese() == 0 && m_board.getCurrentTime() > 0)
 		{
+			std::cout << "cheese = 0" << std::endl;
+			
 			m_board.upLevel();
 			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt");
+			m_board.restartClock();
 			m_soundManager.playSound("levelup");
+		}
+			
+		if (m_board.getCurrentTime() < 0 )
+		{
+			m_board.restartLevel();
+			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt");
+			m_board.restartClock();
 		}
 
 		// Handle player input
@@ -122,5 +132,6 @@ void Controller::startGame()
 		m_window.clear();
 		m_board.draw(m_window);
 		m_window.display();
+		
 	}
 }

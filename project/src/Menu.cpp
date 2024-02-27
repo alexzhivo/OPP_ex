@@ -8,7 +8,7 @@ Menu::Menu(GraphicManager& graphicManager)
 	m_background.setScale(sf::Vector2f(0.8f, 0.8f));
 
 	m_logo.setTexture(*m_graphicManager.getTexture("game-logo"));
-	m_logo.setPosition(sf::Vector2f(190, 100));
+	m_logo.setPosition(sf::Vector2f(140, 70));
 
 	m_font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
 
