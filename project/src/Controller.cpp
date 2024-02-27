@@ -1,7 +1,7 @@
 #include "Controller.h"
 
 Controller::Controller()
-	: m_graphicManager(), m_window(), m_board(m_graphicManager, "Board1.txt", 1), m_menu(m_graphicManager)
+	: m_graphicManager() , m_soundManager(), m_window(), m_board(m_graphicManager, "Board1.txt", 1), m_menu(m_graphicManager)
 {}
 
 void Controller::run()
@@ -94,6 +94,7 @@ void Controller::startGame()
 		{
 			m_board.upLevel();
 			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt");
+			m_soundManager.playSound("levelup");
 		}
 
 		// Handle player input
