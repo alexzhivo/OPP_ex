@@ -18,5 +18,5 @@ public:
 	//void handleCollision(Door& otherObject) override { ; };
 	static int getNumOfCheese();
 private:
-	static int m_numOfChesse;
+	static int m_numOfCheese;
 };
