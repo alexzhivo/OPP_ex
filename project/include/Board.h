@@ -34,18 +34,19 @@ public:
 	// set
 	void upLevel();
 	void restartClock();
+	void resetBoard();
 
 	// get
 	int getLevel() const;
 	int getCurrentTime() const;
 
-	void loadLevelFromFile(const std::string fileName);
+	bool loadLevelFromFile(const std::string fileName);
 	// movement control
 	void movePlayer(const Direction direction, const float dtSeconds);
 	void moveEnemies(const float dtSeconds);
 	void restartLevel();
 	void updateObjects();	// removes deleted objects
-	void checkCollisions();	// check for collisions
+	CollisionType checkCollisions();	// check for collisions
 	void handleCollisions(GameObject& gameObject);
 	void draw(sf::RenderWindow& window);
 private:

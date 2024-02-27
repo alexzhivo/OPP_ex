@@ -7,7 +7,8 @@ Mouse::Mouse(const sf::Vector2f position, const float size,
 	sf::Texture* rightTexture)
 	: MovingObject(position, size, 
 		frontTexture, leftTexture, backTexture, rightTexture), 
-	m_lives(3) ,m_score(0), m_keys(0), m_startingPosition(position)
+	m_lives(3) ,m_score(0), m_keys(0), m_startingPosition(position), m_collision(NoCollision),
+	m_startingLives(m_lives), m_startingScore(m_score), m_startingKeys(m_keys)
 {
 	this->setSpeed(250.0f);
 	m_sprite.scale(0.85f, 0.85f);	// for fiting through wall openings
@@ -55,6 +56,37 @@ bool Mouse::useKey()
 	return false;
 }
 
+void Mouse::reload(sf::Vector2f position, float size)
+{
+	m_startingPosition = position;
+	m_sprite.setPosition(position);
+	m_sprite.setScale(size, size);
+	m_sprite.scale(0.85f, 0.85f);
+	this->switchTexture(0);
+}
+
+void Mouse::setReset()
+{
+	m_startingLives = m_lives;
+	m_startingKeys  = m_keys;
+	m_startingScore = m_score;
+}
+
+void Mouse::reset()
+{
+	m_sprite.setPosition(m_startingPosition);
+	m_lives = m_startingLives;
+	m_keys  = m_startingKeys;
+	m_score = m_startingScore;
+}
+
+CollisionType Mouse::getCollisionType()
+{
+	CollisionType temp = m_collision;
+	m_collision = NoCollision;
+	return temp;
+}
+
 void Mouse::handleCollision(GameObject& otherObject)
 {
 	otherObject.handleCollision(*this);
@@ -67,25 +99,28 @@ void Mouse::handleCollision(Wall&)
 
 void Mouse::handleCollision(Cat&)
 {
-	this->reduceLifeCount();
+	if (m_lives > 0) {
+		this->reduceLifeCount();
+		m_collision = LoseLife;
+	}
 }
 
 void Mouse::handleCollision(Key&)
 {
-	// increase keys
+	m_collision = PickUpKey;
 }
 
 void Mouse::handleCollision(Cheese&)
 {
-	// increase score
+	m_collision = PickUpCheese;
 }
 
 void Mouse::handleCollision(Gift&)
 {
-	// activate gift
+	m_collision = PickUpGift;
 }
 
 void Mouse::handleCollision(Door&)
 {
-	// door 
+	m_collision = OpenDoor;
 }

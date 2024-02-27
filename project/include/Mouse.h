@@ -4,6 +4,9 @@
 
 const float MOUSE_SPEED = 300.f;
 
+enum CollisionType { NoCollision , PickUpKey , PickUpCheese ,
+	OpenDoor , LoseLife , PickUpGift };
+
 class Mouse : public MovingObject {
 public:
 	Mouse(const sf::Vector2f position, const float size,
@@ -17,10 +20,12 @@ public:
 	int getLives() const;
 	int getKeys() const;
 	int getScore() const;
+	CollisionType getCollisionType();
 
 	void increaseScore(const int amount);
 	void increaseKeys();
 	bool useKey();
+	void reduceLifeCount();
 
 	// double dispatch handling collision
 	void handleCollision(GameObject& otherObject) override;
@@ -32,10 +37,18 @@ public:
 	void handleCollision(Key& otherObject) override;
 	void handleCollision(Door& otherObject) override;
 
-	void reduceLifeCount();
+	void reload(sf::Vector2f position, float size);
+	void reset();
+	void setReset();
 private:
-	sf::Vector2f m_startingPosition;
+
+	CollisionType m_collision;
 	int m_lives;
 	int m_keys;
 	int m_score;
+
+	sf::Vector2f m_startingPosition;
+	int m_startingLives;
+	int m_startingScore;
+	int m_startingKeys;
 };

@@ -16,11 +16,11 @@ public:
 	SoundManager();
 	~SoundManager() = default;
 
-	void playSound(const std::string& name) const;
-
+	void playSound(const std::string& name, const bool loop) const;
+	void stopSound(const std::string& name) const;
 private:
 	void loadSounds();
-	std::unique_ptr<SoundSlot> loadSoundFromFile(const std::string& name, const std::string& filename);
+	std::unique_ptr<SoundSlot> loadSoundFromFile(const std::string& name, const std::string& filename, const float volume);
 
 	std::vector<std::unique_ptr<SoundSlot>> m_sounds;
 };

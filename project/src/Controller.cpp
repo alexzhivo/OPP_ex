@@ -18,6 +18,7 @@ void Controller::startMenu()
 {
 	m_window.setFramerateLimit(60);
 	m_window.create(sf::VideoMode(1200, 800), "Cat and Mouse");
+	m_soundManager.playSound("menumusic", true);
 
 	while (m_window.isOpen())
 	{
@@ -60,6 +61,8 @@ void Controller::startMenu()
 		m_menu.drawMenu(m_window);
 		m_window.display();
 	}
+
+	m_soundManager.stopSound("menumusic");
 }
 
 void Controller::startGame()
@@ -70,6 +73,8 @@ void Controller::startGame()
 
 	m_board.restartClock();
 	m_window.setFramerateLimit(60);
+	m_soundManager.playSound("levelup", false);
+	m_soundManager.playSound("levelmusic", true);
 	while (m_window.isOpen()) {
 
 		sf::Time deltaTime = gameClock.restart();
@@ -95,9 +100,12 @@ void Controller::startGame()
 			std::cout << "cheese = 0" << std::endl;
 			
 			m_board.upLevel();
-			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt");
+			if (!m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt")) {
+				m_board.resetBoard();
+				m_window.close();
+			}
 			m_board.restartClock();
-			m_soundManager.playSound("levelup");
+			m_soundManager.playSound("levelup", false);
 		}
 			
 		if (m_board.getCurrentTime() < 0 )
@@ -125,13 +133,32 @@ void Controller::startGame()
 		m_board.moveEnemies(dtSeconds);
 		
 		// check and handle collisions
-		m_board.checkCollisions();
+		switch (m_board.checkCollisions()) {
+		case PickUpKey:
+			m_soundManager.playSound("pickupkey", false);
+			break;
+		case PickUpCheese:
+			m_soundManager.playSound("pickupcheese", false);
+			break;
+		case PickUpGift:
+			m_soundManager.playSound("pickupgift", false);
+			break;
+		case OpenDoor:
+			m_soundManager.playSound("opendoor", false);
+			break;
+		case LoseLife:
+			m_soundManager.playSound("loselife", false);
+			break;
+		case NoCollision:
+			break;
+		}
 		m_board.updateObjects();
 
 		// display updated window
 		m_window.clear();
 		m_board.draw(m_window);
 		m_window.display();
-		
+
 	}
+	m_soundManager.stopSound("levelmusic");
 }

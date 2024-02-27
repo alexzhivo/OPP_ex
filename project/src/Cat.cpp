@@ -13,6 +13,50 @@ Cat::Cat(const sf::Vector2f position, const float size,
 	findRandomLocation();
 }
 
+sf::Vector2i Cat::findRandomLocation()
+{
+	// set size for range
+	float rangeMax = this->getSprite().getGlobalBounds().getSize().x * CAT_SPEED / 2;
+	float rangeMin = -rangeMax;
+
+	// Generate a random float between 0 and 1
+	float randomX = (float)rand() / RAND_MAX;
+	float randomY = (float)rand() / RAND_MAX;
+
+	// Scale and shift the random float to fit the desired range
+	m_nextLocation.x = (int)(randomX * (rangeMax - rangeMin) + rangeMin);
+	m_nextLocation.y = (int)(randomY * (rangeMax - rangeMin) + rangeMin);
+
+	return m_nextLocation;
+}
+
+void Cat::moveToRandomLocation(const float dtSeconds)
+{
+	if (m_nextLocation.x > 0) {
+		// move right
+		this->move(1, 0, dtSeconds);
+		m_nextLocation.x--;
+	}
+	else if (m_nextLocation.x < 0) {
+		// move left
+		this->move(-1, 0, dtSeconds);
+		m_nextLocation.x++;
+	}
+	else if (m_nextLocation.y > 0) {
+		// move down
+		this->move(0, 1, dtSeconds);
+		m_nextLocation.y--;
+	}
+	else if (m_nextLocation.y < 0) {
+		// move up
+		this->move(0, -1, dtSeconds);
+		m_nextLocation.y++;
+	}
+	else {
+		m_nextLocation = findRandomLocation();
+	}
+}
+
 void Cat::handleCollision(GameObject& gameObject)
 {
     // double dispatch
@@ -25,55 +69,14 @@ void Cat::handleCollision(Mouse& otherObject)
 	otherObject.handleCollision(*this);
 }
 
-sf::Vector2i Cat::findRandomLocation()
-{
-	// set size for range
-	float rangeMax = this->getSprite().getGlobalBounds().getSize().x * CAT_SPEED / 2;
-	float rangeMin = -rangeMax;
-
-	// Generate a random float between 0 and 1
-	float randomX = (float)rand() / RAND_MAX;
-	float randomY = (float)rand() / RAND_MAX;
-
-	// Scale and shift the random float to fit the desired range
-	m_nextLocation.x = randomX * (rangeMax - rangeMin) + rangeMin;
-	m_nextLocation.y = randomY * (rangeMax - rangeMin) + rangeMin;
-
-	return m_nextLocation;
-}
-
-void Cat::moveToRandomLocation(const float dtSeconds)
-{
-	if (m_nextLocation.x > 0) {
-		// move right
-		this->move(1, 0, dtSeconds);
-		m_nextLocation.x--;
-	} else if (m_nextLocation.x < 0) {
-		// move left
-		this->move(-1, 0, dtSeconds);
-		m_nextLocation.x++;
-	} else if (m_nextLocation.y > 0) {
-		// move down
-		this->move(0, 1, dtSeconds);
-		m_nextLocation.y--;
-	} else if (m_nextLocation.y < 0) {
-		// move up
-		this->move(0, -1, dtSeconds);
-		m_nextLocation.y++;
-	}
-	else {
-		m_nextLocation = findRandomLocation();
-	}
-}
-
-void Cat::handleCollision(Wall& otherObject)
+void Cat::handleCollision(Wall&)
 {
 	m_nextLocation.x = 0;
 	m_nextLocation.y = 0;
 	this->setToLastPosition();
 }
 
-void Cat::handleCollision(Door& otherObject)
+void Cat::handleCollision(Door&)
 {
 	m_nextLocation.x = 0;
 	m_nextLocation.y = 0;

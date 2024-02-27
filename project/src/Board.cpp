@@ -9,13 +9,13 @@ Board::Board(GraphicManager& graphicManager, std::string fileName , const int le
 	loadLevelFromFile(fileName);
 }
 
-void Board::loadLevelFromFile(const std::string fileName)
+bool Board::loadLevelFromFile(const std::string fileName)
 {
 	auto file = std::ifstream(fileName);
 
 	if (!file)
 	{
-		return;
+		return false;
 	}
 
 	// set timer (if 0 - no timer) (if > 0 - timer)
@@ -47,16 +47,17 @@ void Board::loadLevelFromFile(const std::string fileName)
 	{
 		getline(file, line);
 		for (int j = 0; j < line.length(); j++) {
+			auto position = sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY);
 			switch (line.at(j)) {
 			case '#':
 				m_gameObjects.push_back(std::make_unique<Wall>(
-					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					position,
 					tileScale,
 					m_graphicManager.getTexture("wall")));
 				break;
 			case '^':
 				m_enemies.push_back(std::make_unique<Cat>(
-					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					position,
 					tileScale,
 					m_graphicManager.getTexture("cat"),
 					m_graphicManager.getTexture("cat"),
@@ -64,35 +65,40 @@ void Board::loadLevelFromFile(const std::string fileName)
 					m_graphicManager.getTexture("cat")));
 				break;
 			case '%':
-				m_player = (std::make_unique<Mouse>(
-					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
-					tileScale,
-					m_graphicManager.getTexture("mouse-front"),
-					m_graphicManager.getTexture("mouse-right"),
-					m_graphicManager.getTexture("mouse-back"),
-					m_graphicManager.getTexture("mouse-left")));
+				if (!m_player) {
+					m_player = (std::make_unique<Mouse>(
+						position,
+						tileScale,
+						m_graphicManager.getTexture("mouse-front"),
+						m_graphicManager.getTexture("mouse-right"),
+						m_graphicManager.getTexture("mouse-back"),
+						m_graphicManager.getTexture("mouse-left")));
+				}
+				else {
+					static_cast<Mouse*>(m_player.get())->reload(position,tileScale);
+				}
 				break;
 			case '*':
 				m_gameObjects.push_back(std::make_unique<Cheese>(
-					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					position,
 					tileScale,
 					m_graphicManager.getTexture("cheese")));
 				break;
 			case 'D':
 				m_gameObjects.push_back(std::make_unique<Door>(
-					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					position,
 					tileScale,
 					m_graphicManager.getTexture("door")));
 				break;
 			case 'F':
 				m_gameObjects.push_back(std::make_unique<Key>(
-					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					position,
 					tileScale,
 					m_graphicManager.getTexture("key")));
 				break;
 			case '$':
 				m_gameObjects.push_back(std::make_unique<Gift>(
-					sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY),
+					position,
 					tileScale,
 					m_graphicManager.getTexture("gift")));
 				break;
@@ -101,6 +107,7 @@ void Board::loadLevelFromFile(const std::string fileName)
 			}
 		}
 	}
+	return true;
 }
 
 void Board::scaleBoard()
@@ -141,7 +148,14 @@ void Board::upLevel()
 	m_level++;
 	m_gameObjects.clear();
 	m_enemies.clear();
+	static_cast<Mouse*>(m_player.get())->setReset();
+}
 
+void Board::resetBoard()
+{
+	m_player.release();
+	loadLevelFromFile("Board1.txt");
+	m_level = 1;
 }
 
 void Board::restartClock()
@@ -151,8 +165,9 @@ void Board::restartClock()
 
 void Board::restartLevel()
 {
+	static_cast<Mouse*>(m_player.get())->reset();
 	m_gameObjects.clear();
-	m_enemies.clear();	
+	m_enemies.clear();
 }
 
 void Board::movePlayer(const Direction direction, const float dtSeconds)
@@ -211,12 +226,14 @@ void Board::updateObjects()
 	}
 }
 
-void Board::checkCollisions()
+CollisionType Board::checkCollisions()
 {
-	handleCollisions(*m_player);	
+	handleCollisions(*m_player);
 	for (int i = 0; i < m_enemies.size(); i++) {
 		handleCollisions(*m_enemies[i]);
 	}
+
+	return static_cast<Mouse*>(m_player.get())->getCollisionType();
 }
 
 void Board::handleCollisions(GameObject& gameObject)

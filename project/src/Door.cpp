@@ -10,12 +10,12 @@ void Door::handleCollision(Mouse& otherObject)
 {
 	if (otherObject.useKey()) {
 		this->remove();
+		otherObject.handleCollision(*this);
 	}
 	else {
 		otherObject.setToLastPosition();
 	}
 
-	otherObject.handleCollision(*this);
 }
 
 void Door::handleCollision(Cat& otherObject)
