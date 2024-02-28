@@ -27,9 +27,12 @@ void Controller::startMenu()
 		{
 			switch (event.type)
 			{
-			case sf::Event::MouseButtonPressed:
+				case sf::Event::MouseButtonPressed:
 			{
-				auto location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
+				sf::Vector2f location;
+	
+				if (!m_menu.isHelpActivated())
+					location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
 
 				// for debug //
 				std::cout << m_menu.getSelectedOption(location) << std::endl;
@@ -40,24 +43,24 @@ void Controller::startMenu()
 				case START_GAME:
 					m_window.close();
 					break;
+				case HELP:
+					m_menu.activateHelp();
+					break;
 				case EXIT:
 					m_window.close();
 					exit(EXIT_SUCCESS);
 				}
-
 				break;
 			}
 			case sf::Event::Closed:
 			{
 				m_window.close();
 				exit(EXIT_SUCCESS);
-				break;
 			}
 			default:
 				break;
 			}
 		}
-
 		m_window.clear();
 		m_menu.drawMenu(m_window);
 		m_window.display();

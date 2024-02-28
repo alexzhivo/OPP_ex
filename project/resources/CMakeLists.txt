@@ -15,6 +15,7 @@ configure_file ("HUDimage.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("heart.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("menu-background.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("game-logo.png" ${CMAKE_BINARY_DIR} COPYONLY)
+configure_file ("help-image.png" ${CMAKE_BINARY_DIR} COPYONLY)
 
 configure_file ("levelup.wav" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("levelmusic.wav" ${CMAKE_BINARY_DIR} COPYONLY)

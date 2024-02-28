@@ -59,4 +59,5 @@ void GraphicManager::loadInGameTextures()
     m_ingameTextures.push_back(loadTextureFromFile("heart", "heart.png"));
     m_ingameTextures.push_back(loadTextureFromFile("menu-background", "menu-background.png"));
     m_ingameTextures.push_back(loadTextureFromFile("game-logo", "game-logo.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("help-image", "help-image.png"));
 }
