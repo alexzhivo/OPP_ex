@@ -60,4 +60,7 @@ void GraphicManager::loadInGameTextures()
     m_ingameTextures.push_back(loadTextureFromFile("menu-background", "menu-background.png"));
     m_ingameTextures.push_back(loadTextureFromFile("game-logo", "game-logo.png"));
     m_ingameTextures.push_back(loadTextureFromFile("help-image", "help-image.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("helpbutton", "helpbutton.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("exitbutton", "exitbutton.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("startgamebutton", "startgamebutton.png"));
 }

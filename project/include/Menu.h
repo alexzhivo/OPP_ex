@@ -25,9 +25,7 @@ private:
 	sf::Sprite m_logo;
 	sf::Sprite m_background;
 	sf::Sprite m_helpScreen;
-	sf::Font m_font;
-	sf::RectangleShape m_newGame;
-	sf::RectangleShape m_help;
-	sf::RectangleShape m_exit;
-	sf::Text m_newGameTxt, m_helpTxt, m_exitTxt;
+	sf::Sprite m_startGameButton;
+	sf::Sprite m_helpButton;
+	sf::Sprite m_exitButton;
 };
