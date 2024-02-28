@@ -30,7 +30,7 @@ public:
 	void handleCollision(EnemyRemoveGift&) override {};
 
 	sf::Vector2i findRandomLocation();
-	void moveToRandomLocation(const float dtSeconds);
+	void moveToRandomLocation(const float dtSeconds, const sf::Vector2f boardSize, const sf::Vector2f start);
 
 private:
 	sf::Vector2i m_nextLocation;

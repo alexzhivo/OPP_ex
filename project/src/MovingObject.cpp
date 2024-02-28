@@ -43,5 +43,6 @@ void MovingObject::move(float offsetX, float offsetY, float deltaTime) {
 
 	float distanceX = offsetX * m_speed * deltaTime;
 	float distanceY = offsetY * m_speed * deltaTime;
+	
 	m_sprite.move(distanceX, distanceY);
 }

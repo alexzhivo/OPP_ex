@@ -23,23 +23,23 @@ bool Board::loadLevelFromFile(const std::string fileName)
 
 	// scaling board to window
 	scaleBoard();
-	float startX, startY;
+	//float startX, startY;
 	float tileScale;
 	if (m_width == BOARD_WIDTH) {
-		startX = 0;
-		startY = (BOARD_HEIGHT - m_height) / 2;
+		m_start.x = 0;
+		m_start.y = (BOARD_HEIGHT - m_height) / 2;
 		tileScale = 18.75f / m_numOfCols;
 	}
 	else {
-		startY = 0;
-		startX = (BOARD_WIDTH - m_width) / 2;
+		m_start.y = 0;
+		m_start.x = (BOARD_WIDTH - m_width) / 2;
 		tileScale = 10.9375f / m_numOfRows;
 	}
 
 	// background creation
 	m_background.setSize(sf::Vector2f(m_width, m_height));
 	m_background.setFillColor(sf::Color(50, 50, 50));
-	m_background.setPosition(sf::Vector2f(startX, startY));
+	m_background.setPosition(m_start);
 
 	auto line = std::string();
 	getline(file, line);
@@ -47,7 +47,7 @@ bool Board::loadLevelFromFile(const std::string fileName)
 	{
 		getline(file, line);
 		for (int j = 0; j < line.length(); j++) {
-			auto position = sf::Vector2f(m_tileSize * j + startX, m_tileSize * i + startY);
+			auto position = sf::Vector2f(m_tileSize * j + m_start.x, m_tileSize * i + m_start.y);
 			switch (line.at(j)) {
 			case '#':
 				m_gameObjects.push_back(std::make_unique<Wall>(
@@ -203,23 +203,31 @@ void Board::restartLevel()
 void Board::movePlayer(const Direction direction, const float dtSeconds)
 {
 	MovingObject* player = static_cast<MovingObject*>(m_player.get());
-
+	sf::Sprite playerSprite = player->getSprite();
 	switch (direction) {
 	case LEFT:
-		player->move(-1, 0, dtSeconds);
-		player->switchTexture(LEFT);
+		if (playerSprite.getPosition().x > m_start.x) {
+			player->move(-1, 0, dtSeconds);
+			player->switchTexture(LEFT);
+		}
 		break;
 	case RIGHT:
-		player->move(1, 0, dtSeconds);
-		player->switchTexture(RIGHT);
+		if (playerSprite.getPosition().x + playerSprite.getLocalBounds().width < m_start.x + m_width) {
+			player->move(1, 0, dtSeconds);
+			player->switchTexture(RIGHT);
+		}
 		break;
 	case UP:
-		player->move(0, -1, dtSeconds);
-		player->switchTexture(DOWN);
+		if (playerSprite.getPosition().y > m_start.y) {
+			player->move(0, -1, dtSeconds);
+			player->switchTexture(DOWN);
+		}
 		break;
 	case DOWN:
-		player->move(0, 1, dtSeconds);
-		player->switchTexture(UP);
+		if (playerSprite.getPosition().y + playerSprite.getLocalBounds().height < m_start.y + m_height) {
+			player->move(0, 1, dtSeconds);
+			player->switchTexture(UP);
+		}
 		break;
 	}
 }
@@ -228,7 +236,7 @@ void Board::moveEnemies(const float dtSeconds)
 {
 	for (int i = 0; i < m_enemies.size(); i++) {
 		Cat* enemy = static_cast<Cat*>(m_enemies[i].get());
-		enemy->moveToRandomLocation(dtSeconds);
+		enemy->moveToRandomLocation(dtSeconds, sf::Vector2f(m_width,m_height), m_start);
 	}
 }
 
