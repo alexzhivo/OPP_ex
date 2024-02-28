@@ -69,4 +69,5 @@ private:
 	float m_width;
 	float m_height;
 	int m_level;
+	sf::Vector2f m_start;
 };

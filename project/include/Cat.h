@@ -33,7 +33,7 @@ public:
 	sf::Vector2i findRandomLocation();
 		// move until get to x location.
 		// move until get to y location.
-	void moveToRandomLocation(const float dtSeconds);
+	void moveToRandomLocation(const float dtSeconds, const sf::Vector2f boardSize, const sf::Vector2f start);
 		// if collision with wall stop.
 
 private:

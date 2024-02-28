@@ -30,24 +30,28 @@ sf::Vector2i Cat::findRandomLocation()
 	return m_nextLocation;
 }
 
-void Cat::moveToRandomLocation(const float dtSeconds)
+void Cat::moveToRandomLocation(const float dtSeconds, const sf::Vector2f boardSize, const sf::Vector2f start)
 {
-	if (m_nextLocation.x > 0) {
+	if (m_nextLocation.x > 0 && 
+		m_sprite.getPosition().x + m_sprite.getLocalBounds().width < start.x + boardSize.x) {
 		// move right
 		this->move(1, 0, dtSeconds);
 		m_nextLocation.x--;
 	}
-	else if (m_nextLocation.x < 0) {
+	else if (m_nextLocation.x < 0 &&
+		m_sprite.getPosition().x > boardSize.x) {
 		// move left
 		this->move(-1, 0, dtSeconds);
 		m_nextLocation.x++;
 	}
-	else if (m_nextLocation.y > 0) {
+	else if (m_nextLocation.y > 0 &&
+		m_sprite.getPosition().y + m_sprite.getLocalBounds().height < start.y + boardSize.y) {
 		// move down
 		this->move(0, 1, dtSeconds);
 		m_nextLocation.y--;
 	}
-	else if (m_nextLocation.y < 0) {
+	else if (m_nextLocation.y < 0 && 
+		m_sprite.getPosition().y > start.y) {
 		// move up
 		this->move(0, -1, dtSeconds);
 		m_nextLocation.y++;
