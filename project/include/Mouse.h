@@ -5,7 +5,8 @@
 const float MOUSE_SPEED = 300.f;
 
 enum CollisionType { NoCollision , PickUpKey , PickUpCheese ,
-	OpenDoor , LoseLife , PickUpGift };
+	OpenDoor , LoseLife , PickUpLife , PickUpEnemyRemove ,
+	PickUpFreeze , PickUpTime };
 
 class Mouse : public MovingObject {
 public:
@@ -24,6 +25,7 @@ public:
 
 	void increaseScore(const int amount);
 	void increaseKeys();
+	void increaseLife();
 	bool useKey();
 	void reduceLifeCount();
 
@@ -33,9 +35,13 @@ public:
 	void handleCollision(Cat& otherObject) override;
 	void handleCollision(Cheese& otherObject) override;
 	void handleCollision(Wall& otherObject) override;
-	void handleCollision(Gift& otherObject) override;
 	void handleCollision(Key& otherObject) override;
 	void handleCollision(Door& otherObject) override;
+	void handleCollision(Gift&) override {};
+	void handleCollision(LifeGift&) override;
+	void handleCollision(TimeGift&) override;
+	void handleCollision(FreezeGift&) override;
+	void handleCollision(EnemyRemoveGift&) override;
 
 	void reload(sf::Vector2f position, float size);
 	void reset();

@@ -2,7 +2,8 @@
 
 Controller::Controller()
 	: m_graphicManager() , m_soundManager(), m_window(), m_board(m_graphicManager, "Board1.txt", 1), m_menu(m_graphicManager)
-{}
+{
+}
 
 void Controller::run()
 {
@@ -140,8 +141,17 @@ void Controller::startGame()
 		case PickUpCheese:
 			m_soundManager.playSound("pickupcheese", false);
 			break;
-		case PickUpGift:
-			m_soundManager.playSound("pickupgift", false);
+		case PickUpTime:
+			m_board.addTime(15.f);
+			m_soundManager.playSound("pickuptime", false);
+			break;
+		case PickUpEnemyRemove:
+			if (m_board.removeRandomEnemy())
+				m_soundManager.playSound("pickupenemyremove", false);
+			break;
+		case PickUpFreeze:
+			if (m_board.freezeEnemies(10))
+				m_soundManager.playSound("pickupfreeze", false);
 			break;
 		case OpenDoor:
 			m_soundManager.playSound("opendoor", false);
@@ -149,10 +159,13 @@ void Controller::startGame()
 		case LoseLife:
 			m_soundManager.playSound("loselife", false);
 			break;
+		case PickUpLife:
+			m_soundManager.playSound("pickuplife", false);
+			break;
 		case NoCollision:
 			break;
 		}
-		m_board.updateObjects();
+		m_board.updateObjects(dtSeconds);
 
 		// display updated window
 		m_window.clear();

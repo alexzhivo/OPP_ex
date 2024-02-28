@@ -5,13 +5,17 @@
 #include <memory>
 #include <fstream>
 #include <iostream>
+#include <ctime>
 #include "GraphicManager.h"
 #include "HUD.h"
 #include "Wall.h"
 #include "Cheese.h"
 #include "Door.h"
 #include "Key.h"
-#include "Gift.h"
+#include "FreezeGift.h"
+#include "LifeGift.h"
+#include "TimeGift.h"
+#include "EnemyRemoveGift.h"
 #include "Cat.h"
 #include "Mouse.h"
 
@@ -45,17 +49,27 @@ public:
 	void movePlayer(const Direction direction, const float dtSeconds);
 	void moveEnemies(const float dtSeconds);
 	void restartLevel();
-	void updateObjects();	// removes deleted objects
+	void updateObjects(const float dtSeconds);	// updates objects
 	CollisionType checkCollisions();	// check for collisions
 	void handleCollisions(GameObject& gameObject);
+
+	bool removeRandomEnemy();
+	bool freezeEnemies(const float seconds);
+	void addTime(const float seconds);
+
 	void draw(sf::RenderWindow& window);
 private:
-	
+	void addRandomGift(const sf::Vector2f position, const float tileScale);
 	void scaleBoard();
 
 	std::unique_ptr<MovingObject> m_player;
 	std::vector<std::unique_ptr<MovingObject>> m_enemies;
 	std::vector<std::unique_ptr<StaticObject>> m_gameObjects;
+
+	// for freezing enemies
+	bool m_isFreezingEnemies = false;
+	float m_freezeDuration = 0.0f;
+	float m_elapsedFreezeTime = 0.0f;
 
 	GraphicManager& m_graphicManager;
 	sf::RectangleShape m_background;

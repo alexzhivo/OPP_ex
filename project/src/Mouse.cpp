@@ -47,6 +47,12 @@ void Mouse::increaseKeys()
 	m_keys++;
 }
 
+void Mouse::increaseLife() {
+	if (getLives() < 3) {
+		m_lives++;
+	}
+}
+
 bool Mouse::useKey()
 {
 	if (m_keys > 0) {
@@ -115,9 +121,25 @@ void Mouse::handleCollision(Cheese&)
 	m_collision = PickUpCheese;
 }
 
-void Mouse::handleCollision(Gift&)
+void Mouse::handleCollision(LifeGift&)
 {
-	m_collision = PickUpGift;
+	increaseLife();
+	m_collision = PickUpLife;
+}
+
+void Mouse::handleCollision(TimeGift&)
+{
+	m_collision = PickUpTime;
+}
+
+void Mouse::handleCollision(FreezeGift&)
+{
+	m_collision = PickUpFreeze;
+}
+
+void Mouse::handleCollision(EnemyRemoveGift&)
+{
+	m_collision = PickUpEnemyRemove;
 }
 
 void Mouse::handleCollision(Door&)

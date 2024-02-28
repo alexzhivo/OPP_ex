@@ -9,7 +9,7 @@ Cat::Cat(const sf::Vector2f position, const float size,
 	: MovingObject(position, size,
 		frontTexture, leftTexture, backTexture, rightTexture), m_nextLocation(0,0)
 {
-	this->setSpeed(CAT_SPEED);
+	this->setSpeed(80.f);
 	findRandomLocation();
 }
 

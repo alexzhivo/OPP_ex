@@ -21,20 +21,16 @@ public:
 	void handleCollision(Cat&) override {};
 	void handleCollision(Cheese&) override {};
 	void handleCollision(Wall& otherObject) override;
-	void handleCollision(Gift&) override {};
 	void handleCollision(Key&) override {};
 	void handleCollision(Door& otherObject) override;
+	void handleCollision(Gift&) override {};
+	void handleCollision(LifeGift&) override {};
+	void handleCollision(TimeGift&) override {};
+	void handleCollision(FreezeGift&) override {};
+	void handleCollision(EnemyRemoveGift&) override {};
 
-	// cats algorithm
-	
-		// search for mouse in range.
-
-		// find a random location in range.
 	sf::Vector2i findRandomLocation();
-		// move until get to x location.
-		// move until get to y location.
 	void moveToRandomLocation(const float dtSeconds);
-		// if collision with wall stop.
 
 private:
 	sf::Vector2i m_nextLocation;

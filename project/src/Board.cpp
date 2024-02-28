@@ -97,10 +97,7 @@ bool Board::loadLevelFromFile(const std::string fileName)
 					m_graphicManager.getTexture("key")));
 				break;
 			case '$':
-				m_gameObjects.push_back(std::make_unique<Gift>(
-					position,
-					tileScale,
-					m_graphicManager.getTexture("gift")));
+				addRandomGift(position, tileScale);
 				break;
 			default:
 				break;
@@ -126,6 +123,7 @@ void Board::scaleBoard()
 		m_height = m_tileSize * m_numOfRows;
 	}
 }
+
 void Board::draw(sf::RenderWindow& window)
 {
 	Mouse* player = static_cast<Mouse*>(m_player.get());
@@ -141,6 +139,38 @@ void Board::draw(sf::RenderWindow& window)
 		m_enemies[i]->draw(window);
 	}
 	m_player->draw(window);
+}
+
+bool Board::removeRandomEnemy()
+{
+	auto numberOfEnemies = m_enemies.size();
+	if (numberOfEnemies != 0) {
+		auto index = (rand() % numberOfEnemies);
+		m_enemies.erase(m_enemies.begin() + index);
+		return true;
+	}
+	return false;
+}
+
+bool Board::freezeEnemies(const float seconds)
+{
+	auto numberOfEnemies = m_enemies.size();
+	if (numberOfEnemies != 0) {
+		m_isFreezingEnemies = true;
+		m_freezeDuration = seconds;
+		m_elapsedFreezeTime = 0.0f;
+
+		for (int i = 0; i < numberOfEnemies; i++) {
+			m_enemies[i]->setSpeed(0);
+		}
+		return true;
+	}
+	return false;
+}
+
+void Board::addTime(const float seconds)
+{
+	m_totalTime += (int)sf::seconds(seconds).asSeconds();
 }
 
 void Board::upLevel()
@@ -215,13 +245,22 @@ int Board::getCurrentTime() const
 	return (int)m_levelClock.getElapsedTime().asSeconds();
 }
 
-void Board::updateObjects()
+void Board::updateObjects(const float dtSeconds)
 {
 	for (int i = 0; i >= 0 && i < m_gameObjects.size(); i++) {
 		if (dynamic_cast<StaticObject*>(m_gameObjects[i].get())->isExisting() == false)
 		{
 			m_gameObjects.erase(m_gameObjects.begin() + i);
 			i--;
+		}
+	}
+
+	if (m_isFreezingEnemies) {
+		m_elapsedFreezeTime += dtSeconds;
+		if (m_elapsedFreezeTime >= m_freezeDuration) {
+			for (int i = 0; i < m_enemies.size(); i++) {
+				m_enemies[i]->setSpeed(80);
+			}
 		}
 	}
 }
@@ -252,5 +291,47 @@ void Board::handleCollisions(GameObject& gameObject)
 		{
 			gameObject.handleCollision(*movable);
 		}
+	}
+}
+
+void Board::addRandomGift(const sf::Vector2f position, const float tileScale)
+{
+	static int lastRandomNum = 0;
+	int seed = ((int)time(nullptr) + lastRandomNum) % 10000;
+	srand(seed);
+	lastRandomNum = seed;
+
+	// prevent from getting time gift when no there is no time limit
+	int gifts = 4;
+	if (m_totalTime == 0)
+		gifts--;
+
+	auto num = (rand() % gifts) + 1;
+
+	switch (num) {
+	case 1:
+		m_gameObjects.push_back(std::make_unique<EnemyRemoveGift>(
+			position,
+			tileScale,
+			m_graphicManager.getTexture("gift")));
+		break;
+	case 2:
+		m_gameObjects.push_back(std::make_unique<FreezeGift>(
+			position,
+			tileScale,
+			m_graphicManager.getTexture("gift")));
+		break;
+	case 3:
+		m_gameObjects.push_back(std::make_unique<LifeGift>(
+			position,
+			tileScale,
+			m_graphicManager.getTexture("gift")));
+		break;
+	case 4:
+		m_gameObjects.push_back(std::make_unique<TimeGift>(
+			position,
+			tileScale,
+			m_graphicManager.getTexture("gift")));
+		break;
 	}
 }
