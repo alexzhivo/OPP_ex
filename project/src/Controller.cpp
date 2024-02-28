@@ -21,22 +21,18 @@ void Controller::startMenu()
 	m_window.create(sf::VideoMode(1200, 800), "Cat and Mouse");
 	m_soundManager.playSound("menumusic", true);
 
-	while (m_window.isOpen())
-	{
-		for (auto event = sf::Event{}; m_window.pollEvent(event);)
-		{
-			switch (event.type)
-			{
-				case sf::Event::MouseButtonPressed:
+	while (m_window.isOpen()) {
+		for (auto event = sf::Event{}; m_window.pollEvent(event);) {
+			switch (event.type) {
+			case sf::Event::MouseButtonPressed: 
 			{
 				sf::Vector2f location;
 	
-				if (!m_menu.isHelpActivated())
+				if (!m_menu.isHelpActivated()) {
 					location = m_window.mapPixelToCoords({ event.mouseButton.x, event.mouseButton.y });
-
-				// for debug //
-				std::cout << m_menu.getSelectedOption(location) << std::endl;
-				// --------- //
+				} else {
+					m_soundManager.playSound("clicksound", false);
+				}
 
 				switch (m_menu.getSelectedOption(location))
 				{
@@ -44,6 +40,7 @@ void Controller::startMenu()
 					m_window.close();
 					break;
 				case HELP:
+					m_soundManager.playSound("clicksound", false);
 					m_menu.activateHelp();
 					break;
 				case EXIT:
@@ -52,8 +49,7 @@ void Controller::startMenu()
 				}
 				break;
 			}
-			case sf::Event::Closed:
-			{
+			case sf::Event::Closed: {
 				m_window.close();
 				exit(EXIT_SUCCESS);
 			}
@@ -65,7 +61,6 @@ void Controller::startMenu()
 		m_menu.drawMenu(m_window);
 		m_window.display();
 	}
-
 	m_soundManager.stopSound("menumusic");
 }
 

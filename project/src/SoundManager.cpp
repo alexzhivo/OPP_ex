@@ -31,9 +31,10 @@ void SoundManager::loadSounds()
     m_sounds.push_back(loadSoundFromFile("pickupkey", "pickupkey.wav", 2.0f));
     m_sounds.push_back(loadSoundFromFile("loselife", "loselife.wav", 3.0f));
     m_sounds.push_back(loadSoundFromFile("pickuptime", "pickuptime.wav", 5.0f));
-    m_sounds.push_back(loadSoundFromFile("pickupfreeze", "pickupfreeze.wav", 2.0f));
-    m_sounds.push_back(loadSoundFromFile("pickuplife", "pickuplife.wav", 2.0f));
-    m_sounds.push_back(loadSoundFromFile("pickupenemyremove", "pickupenemyremove.wav", 5.0f));
+    m_sounds.push_back(loadSoundFromFile("pickupfreeze", "pickupfreeze.wav", 1.0f));
+    m_sounds.push_back(loadSoundFromFile("pickuplife", "pickuplife.wav", 0.5f));
+    m_sounds.push_back(loadSoundFromFile("pickupenemyremove", "pickupenemyremove.wav", 6.0f));
+    m_sounds.push_back(loadSoundFromFile("clicksound", "clicksound.wav", 2.0f));
 }
 
 void SoundManager::playSound(const std::string& name, const bool loop) const
