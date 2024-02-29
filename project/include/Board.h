@@ -37,6 +37,7 @@ public:
 	void upLevel();
 	void restartClock();
 	void resetBoard();
+	void resetPlayer();
 
 	// get
 	int getLevel() const;
@@ -44,7 +45,7 @@ public:
 	int getScore() const;
 	bool isPlayerDead() const;
 
-	bool loadLevelFromFile(const std::string fileName);
+	bool loadLevelFromFile(const std::string fileName, const int lvl);
 	// movement control
 	void movePlayer(const Direction direction, const float dtSeconds);
 	void moveEnemies(const float dtSeconds);

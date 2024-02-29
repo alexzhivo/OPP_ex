@@ -2,8 +2,6 @@
 
 #include "MovingObject.h"
 
-enum state { IDLE , PATROL , SEARCH };
-
 const float CAT_SPEED = 80.f;
 
 class Cat : public MovingObject {

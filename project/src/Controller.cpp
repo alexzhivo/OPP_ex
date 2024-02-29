@@ -101,7 +101,7 @@ void Controller::startGame()
 		if (Cheese::getNumOfCheese() == 0 && m_board.getCurrentTime() > 0)
 		{
 			m_board.upLevel();
-			if (!m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt")) {
+			if (!m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt", m_board.getLevel())) {
 				m_soundManager.stopSound("levelmusic");
 				m_soundManager.playSound("winsound",false);
 				showWin();
@@ -115,7 +115,7 @@ void Controller::startGame()
 		if (m_board.getCurrentTime() < 0 )
 		{
 			m_board.restartLevel();
-			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt");
+			m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt", m_board.getLevel());
 			m_board.restartClock();
 		}
 

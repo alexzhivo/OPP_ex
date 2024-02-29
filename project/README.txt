@@ -148,14 +148,15 @@ the files added inside src directory:
                             Known bugs
 =====================================================================
 
-	The movement of the cats is problematic.
-
 =====================================================================
                              Comments
 =====================================================================
 
-	THINGS WE WANTED TO CHANGE:
-	When the phase resets because time is up, life does not return 
+	THINGS WE CHANGED:
+
+	- When the phase resets because time is up, life does not return 
 	to the initial state of the phase.
 	The number of keys resets, the time and points return to the 
 	initial state.
+
+	- you can only get up to 3 keys.

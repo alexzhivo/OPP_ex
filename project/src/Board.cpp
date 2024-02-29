@@ -6,11 +6,12 @@ Board::Board(GraphicManager& graphicManager, std::string fileName , const int le
 	: m_graphicManager(graphicManager), m_gameHUD(graphicManager),
 	m_background(), m_gameObjects(), m_player(), m_level(level)
 {
-	loadLevelFromFile(fileName);
+	loadLevelFromFile(fileName,1);
 }
 
-bool Board::loadLevelFromFile(const std::string fileName)
+bool Board::loadLevelFromFile(const std::string fileName,const int lvl)
 {
+
 	auto file = std::ifstream(fileName);
 
 	if (!file)
@@ -18,12 +19,15 @@ bool Board::loadLevelFromFile(const std::string fileName)
 		return false;
 	}
 
+	if (lvl > 1) {
+		resetPlayer();
+	}
+
 	// set timer (if 0 - no timer) (if > 0 - timer)
 	file >> m_numOfRows >> m_numOfCols >> m_totalTime;
 
 	// scaling board to window
 	scaleBoard();
-	//float startX, startY;
 	float tileScale;
 	if (m_width == BOARD_WIDTH) {
 		m_start.x = 0;
@@ -177,17 +181,21 @@ void Board::upLevel()
 {
 	m_level++;
 	static_cast<Mouse*>(m_player.get())->increaseScore(25 + (int)m_enemies.size());
-
 	m_gameObjects.clear();
 	m_enemies.clear();
-	static_cast<Mouse*>(m_player.get())->setReset();
+}
+
+void Board::resetPlayer()
+{
+	m_player.reset();
 }
 
 void Board::resetBoard()
 {
-	m_player.release();
+	m_player.reset();
 	m_enemies.clear();
-	loadLevelFromFile("Board1.txt");
+	m_gameObjects.clear();
+	loadLevelFromFile("Board1.txt",1);
 	m_level = 1;
 }
 
