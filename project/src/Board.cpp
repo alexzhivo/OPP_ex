@@ -177,6 +177,8 @@ void Board::addTime(const float seconds)
 void Board::upLevel()
 {
 	m_level++;
+	static_cast<Mouse*>(m_player.get())->increaseScore(25 + m_enemies.size());
+
 	m_gameObjects.clear();
 	m_enemies.clear();
 	static_cast<Mouse*>(m_player.get())->setReset();
@@ -253,6 +255,11 @@ int Board::getCurrentTime() const
 		return m_totalTime - (int)m_levelClock.getElapsedTime().asSeconds();
 	}
 	return (int)m_levelClock.getElapsedTime().asSeconds();
+}
+
+int Board::getScore() const
+{
+	return static_cast<Mouse*>(m_player.get())->getScore();
 }
 
 void Board::updateObjects(const float dtSeconds)

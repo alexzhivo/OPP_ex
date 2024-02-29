@@ -10,6 +10,7 @@ void Door::handleCollision(Mouse& otherObject)
 {
 	if (otherObject.useKey()) {
 		this->remove();
+		otherObject.increaseScore(2);
 		otherObject.handleCollision(*this);
 	}
 	else {

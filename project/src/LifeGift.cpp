@@ -8,5 +8,6 @@ LifeGift::LifeGift(const sf::Vector2f position, const float size, sf::Texture* t
 void LifeGift::handleCollision(Mouse& otherObject)
 {
 	this->remove();
+	otherObject.increaseScore(5);
 	otherObject.handleCollision(*this);
 }

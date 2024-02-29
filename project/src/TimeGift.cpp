@@ -8,5 +8,6 @@ TimeGift::TimeGift(const sf::Vector2f position, const float size, sf::Texture* t
 void TimeGift::handleCollision(Mouse& otherObject)
 {
 	this->remove();
+	otherObject.increaseScore(5);
 	otherObject.handleCollision(*this);
 }

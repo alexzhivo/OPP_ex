@@ -8,5 +8,6 @@ EnemyRemoveGift::EnemyRemoveGift(const sf::Vector2f position, const float size, 
 void EnemyRemoveGift::handleCollision(Mouse& otherObject)
 {
 	this->remove();
+	otherObject.increaseScore(5);
 	otherObject.handleCollision(*this);
 }

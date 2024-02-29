@@ -8,5 +8,6 @@ FreezeGift::FreezeGift(const sf::Vector2f position, const float size, sf::Textur
 void FreezeGift::handleCollision(Mouse& otherObject)
 {
 	this->remove();
+	otherObject.increaseScore(5);
 	otherObject.handleCollision(*this);
 }

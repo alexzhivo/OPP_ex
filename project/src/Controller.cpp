@@ -3,6 +3,8 @@
 Controller::Controller()
 	: m_graphicManager() , m_soundManager(), m_window(), m_board(m_graphicManager, "Board1.txt", 1), m_menu(m_graphicManager)
 {
+	m_window.setFramerateLimit(60);
+	m_window.create(sf::VideoMode(1200, 800), "Mouse Maze");
 }
 
 void Controller::run()
@@ -17,9 +19,7 @@ void Controller::run()
 
 void Controller::startMenu()
 {
-	m_window.setFramerateLimit(60);
-	m_window.create(sf::VideoMode(1200, 800), "Cat and Mouse");
-	m_soundManager.playSound("menumusic", true);
+	m_soundManager.playSound("menumusic", true);	// play music
 
 	while (m_window.isOpen()) {
 		for (auto event = sf::Event{}; m_window.pollEvent(event);) {
@@ -37,8 +37,8 @@ void Controller::startMenu()
 				switch (m_menu.getSelectedOption(location))
 				{
 				case START_GAME:
-					m_window.close();
-					break;
+					m_soundManager.stopSound("menumusic");
+					return;
 				case HELP:
 					m_soundManager.playSound("clicksound", false);
 					m_menu.activateHelp();
@@ -61,17 +61,13 @@ void Controller::startMenu()
 		m_menu.drawMenu(m_window);
 		m_window.display();
 	}
-	m_soundManager.stopSound("menumusic");
 }
 
 void Controller::startGame()
 {
-	m_window.create(sf::VideoMode(1200, 800), "Cat and Mouse");
-
 	sf::Clock gameClock;
 
 	m_board.restartClock();
-	m_window.setFramerateLimit(60);
 	m_soundManager.playSound("levelup", false);
 	m_soundManager.playSound("levelmusic", true);
 	while (m_window.isOpen()) {
@@ -98,8 +94,11 @@ void Controller::startGame()
 		{
 			m_board.upLevel();
 			if (!m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt")) {
+				m_soundManager.stopSound("levelmusic");
+				m_soundManager.playSound("winsound",false);
+				showWin();
 				m_board.resetBoard();
-				m_window.close();
+				return;
 			}
 			m_board.restartClock();
 			m_soundManager.playSound("levelup", false);
@@ -169,4 +168,43 @@ void Controller::startGame()
 		m_window.display();
 	}
 	m_soundManager.stopSound("levelmusic");
+}
+
+void Controller::showWin()
+{
+	sf::Text scoreText;
+	scoreText.setFont(*m_graphicManager.getFont());
+	scoreText.setStyle(sf::Text::Bold);
+	scoreText.setCharacterSize(55);
+	scoreText.setFillColor(sf::Color(100,100,100));
+	scoreText.setString(std::to_string(m_board.getScore()));
+	// position the text in the middle
+	sf::FloatRect textBounds = scoreText.getLocalBounds();
+	float xPos = (m_window.getSize().x - textBounds.width) / 2.0f;
+	scoreText.setPosition(xPos, 420);
+
+	sf::Sprite winscreen;
+	winscreen.setTexture(*m_graphicManager.getTexture("winscreen"));
+
+
+	while (m_window.isOpen()) {
+		for (auto event = sf::Event{}; m_window.pollEvent(event);) {
+			switch (event.type) {
+			case sf::Event::MouseButtonPressed:
+			{
+				return;
+			}
+			case sf::Event::Closed: {
+				m_window.close();
+				exit(EXIT_SUCCESS);
+			}
+			default:
+				break;
+			}
+		}
+		m_window.clear();
+		m_window.draw(winscreen);
+		m_window.draw(scoreText);
+		m_window.display();
+	}
 }

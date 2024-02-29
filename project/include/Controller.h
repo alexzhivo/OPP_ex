@@ -14,6 +14,8 @@ public:
 private:
 	void startMenu();
 	void startGame();
+	void showWin();
+	//void showLose();
 
 	SoundManager m_soundManager;
 	GraphicManager m_graphicManager;

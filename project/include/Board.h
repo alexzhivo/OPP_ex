@@ -43,6 +43,7 @@ public:
 	// get
 	int getLevel() const;
 	int getCurrentTime() const;
+	int getScore() const;
 
 	bool loadLevelFromFile(const std::string fileName);
 	// movement control

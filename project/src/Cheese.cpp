@@ -22,6 +22,6 @@ int Cheese::getNumOfCheese()
 void Cheese::handleCollision(Mouse& otherObject)
 {
 	this->remove();
-	otherObject.increaseScore(25);
+	otherObject.increaseScore(10);
 	otherObject.handleCollision(*this);
 }
