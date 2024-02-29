@@ -64,4 +64,5 @@ void GraphicManager::loadInGameTextures()
     m_ingameTextures.push_back(loadTextureFromFile("exitbutton", "exitbutton.png"));
     m_ingameTextures.push_back(loadTextureFromFile("startgamebutton", "startgamebutton.png"));
     m_ingameTextures.push_back(loadTextureFromFile("winscreen", "winscreen.png"));
+    m_ingameTextures.push_back(loadTextureFromFile("losescreen", "losescreen.png"));
 }

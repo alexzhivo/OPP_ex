@@ -35,6 +35,7 @@ void SoundManager::loadSounds()
     m_sounds.push_back(loadSoundFromFile("pickuplife", "pickuplife.wav", 0.5f));
     m_sounds.push_back(loadSoundFromFile("pickupenemyremove", "pickupenemyremove.wav", 6.0f));
     m_sounds.push_back(loadSoundFromFile("clicksound", "clicksound.wav", 2.0f));
+    m_sounds.push_back(loadSoundFromFile("losesound", "losesound.wav", 2.0f));
     m_sounds.push_back(loadSoundFromFile("winsound", "winsound.wav", 2.0f));
 }
 

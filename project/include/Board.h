@@ -44,6 +44,7 @@ public:
 	int getLevel() const;
 	int getCurrentTime() const;
 	int getScore() const;
+	bool isPlayerDead() const;
 
 	bool loadLevelFromFile(const std::string fileName);
 	// movement control

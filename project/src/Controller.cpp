@@ -90,6 +90,14 @@ void Controller::startGame()
 			}
 		}
 
+		if (m_board.isPlayerDead()) {
+			m_soundManager.stopSound("levelmusic");
+			m_soundManager.playSound("losesound", false);
+			showLose();
+			m_board.resetBoard();
+			return;
+		}
+
 		if (Cheese::getNumOfCheese() == 0 && m_board.getCurrentTime() > 0)
 		{
 			m_board.upLevel();
@@ -172,12 +180,9 @@ void Controller::startGame()
 
 void Controller::showWin()
 {
-	sf::Text scoreText;
-	scoreText.setFont(*m_graphicManager.getFont());
+	sf::Text scoreText(std::to_string(m_board.getScore()), *m_graphicManager.getFont(),55);
 	scoreText.setStyle(sf::Text::Bold);
-	scoreText.setCharacterSize(55);
 	scoreText.setFillColor(sf::Color(100,100,100));
-	scoreText.setString(std::to_string(m_board.getScore()));
 	// position the text in the middle
 	sf::FloatRect textBounds = scoreText.getLocalBounds();
 	float xPos = (m_window.getSize().x - textBounds.width) / 2.0f;
@@ -185,7 +190,6 @@ void Controller::showWin()
 
 	sf::Sprite winscreen;
 	winscreen.setTexture(*m_graphicManager.getTexture("winscreen"));
-
 
 	while (m_window.isOpen()) {
 		for (auto event = sf::Event{}; m_window.pollEvent(event);) {
@@ -205,6 +209,32 @@ void Controller::showWin()
 		m_window.clear();
 		m_window.draw(winscreen);
 		m_window.draw(scoreText);
+		m_window.display();
+	}
+}
+
+void Controller::showLose()
+{
+	sf::Sprite losescreen;
+	losescreen.setTexture(*m_graphicManager.getTexture("losescreen"));
+
+	while (m_window.isOpen()) {
+		for (auto event = sf::Event{}; m_window.pollEvent(event);) {
+			switch (event.type) {
+			case sf::Event::MouseButtonPressed:
+			{
+				return;
+			}
+			case sf::Event::Closed: {
+				m_window.close();
+				exit(EXIT_SUCCESS);
+			}
+			default:
+				break;
+			}
+		}
+		m_window.clear();
+		m_window.draw(losescreen);
 		m_window.display();
 	}
 }

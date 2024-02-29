@@ -177,7 +177,7 @@ void Board::addTime(const float seconds)
 void Board::upLevel()
 {
 	m_level++;
-	static_cast<Mouse*>(m_player.get())->increaseScore(25 + m_enemies.size());
+	static_cast<Mouse*>(m_player.get())->increaseScore(25 + (int)m_enemies.size());
 
 	m_gameObjects.clear();
 	m_enemies.clear();
@@ -187,6 +187,7 @@ void Board::upLevel()
 void Board::resetBoard()
 {
 	m_player.release();
+	m_enemies.clear();
 	loadLevelFromFile("Board1.txt");
 	m_level = 1;
 }
@@ -260,6 +261,11 @@ int Board::getCurrentTime() const
 int Board::getScore() const
 {
 	return static_cast<Mouse*>(m_player.get())->getScore();
+}
+
+bool Board::isPlayerDead() const
+{
+	return !m_player->isAlive();
 }
 
 void Board::updateObjects(const float dtSeconds)
