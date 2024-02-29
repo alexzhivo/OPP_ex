@@ -8,10 +8,10 @@ Mouse::Mouse(const sf::Vector2f position, const float size,
 	: MovingObject(position, size, 
 		frontTexture, leftTexture, backTexture, rightTexture), 
 	m_lives(3) ,m_score(0), m_keys(0), m_startingPosition(position), m_collision(NoCollision),
-	m_startingLives(m_lives), m_startingScore(m_score), m_startingKeys(m_keys)
+	m_startingLives(m_lives), m_startingScore(m_score), m_startingKeys(0)
 {
 	this->setSpeed(250.0f);
-	m_sprite.scale(0.85f, 0.85f);	// for fiting through wall openings
+	m_sprite.setScale(0.85f, 0.85f);	// for fiting through wall openings
 }
 
 int Mouse::getLives() const
@@ -66,22 +66,23 @@ void Mouse::reload(sf::Vector2f position, float size)
 {
 	m_startingPosition = position;
 	m_sprite.setPosition(position);
-	m_sprite.setScale(size, size);
-	m_sprite.scale(0.85f, 0.85f);
+	//m_sprite.setScale(size, size);
+	//m_sprite.scale(0.85f, 0.85f);
 	this->switchTexture(0);
 }
 
 void Mouse::setReset()
 {
 	m_startingLives = m_lives;
-	m_startingKeys  = m_keys;
+	//m_startingKeys = m_keys;
+	m_keys = 0;
 	m_startingScore = m_score;
 }
 
 void Mouse::reset()
 {
 	m_sprite.setPosition(m_startingPosition);
-	m_lives = m_startingLives;
+	//m_lives = m_startingLives;
 	m_keys  = m_startingKeys;
 	m_score = m_startingScore;
 }

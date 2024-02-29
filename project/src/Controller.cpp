@@ -96,7 +96,6 @@ void Controller::startGame()
 
 		if (Cheese::getNumOfCheese() == 0 && m_board.getCurrentTime() > 0)
 		{
-			//std::cout << "cheese = 0" << std::endl;	
 			m_board.upLevel();
 			if (!m_board.loadLevelFromFile("Board" + std::to_string(m_board.getLevel()) + ".txt")) {
 				m_board.resetBoard();

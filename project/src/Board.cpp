@@ -122,6 +122,7 @@ void Board::scaleBoard()
 		m_tileSize = m_width / m_numOfCols;
 		m_height = m_tileSize * m_numOfRows;
 	}
+	std::cout << m_width << " " << m_height << std::endl;
 }
 
 void Board::draw(sf::RenderWindow& window)
@@ -212,7 +213,7 @@ void Board::movePlayer(const Direction direction, const float dtSeconds)
 		}
 		break;
 	case RIGHT:
-		if (playerSprite.getPosition().x + playerSprite.getLocalBounds().width < m_start.x + m_width) {
+		if (playerSprite.getPosition().x + playerSprite.getGlobalBounds().width < m_start.x + m_width) {
 			player->move(1, 0, dtSeconds);
 			player->switchTexture(RIGHT);
 		}
@@ -224,7 +225,8 @@ void Board::movePlayer(const Direction direction, const float dtSeconds)
 		}
 		break;
 	case DOWN:
-		if (playerSprite.getPosition().y + playerSprite.getLocalBounds().height < m_start.y + m_height) {
+		if (playerSprite.getPosition().y + playerSprite.getGlobalBounds().height <= m_start.y + m_height) {
+			std::cout << playerSprite.getPosition().y+playerSprite.getLocalBounds().height << " <= " << m_start.y + m_height<< std::endl;
 			player->move(0, 1, dtSeconds);
 			player->switchTexture(UP);
 		}
