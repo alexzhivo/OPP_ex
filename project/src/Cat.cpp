@@ -39,7 +39,7 @@ void Cat::moveToRandomLocation(const float dtSeconds, const sf::Vector2f boardSi
 		m_nextLocation.y++;
 	} 
 	else if (m_nextLocation.x < 0 &&
-		m_sprite.getPosition().x > boardSize.x) {
+		m_sprite.getPosition().x > start.x) {
 		// move left
 		this->move(-1, 0, dtSeconds);
 		m_nextLocation.x++;

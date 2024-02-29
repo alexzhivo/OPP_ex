@@ -11,7 +11,7 @@ Mouse::Mouse(const sf::Vector2f position, const float size,
 	m_startingLives(m_lives), m_startingScore(m_score), m_startingKeys(0)
 {
 	this->setSpeed(250.0f);
-	m_sprite.setScale(0.85f, 0.85f);	// for fiting through wall openings
+	m_sprite.scale(0.85f, 0.85f);	// for fiting through wall openings
 }
 
 int Mouse::getLives() const
@@ -66,7 +66,6 @@ void Mouse::reload(sf::Vector2f position, float size)
 {
 	m_startingPosition = position;
 	m_sprite.setPosition(position);
-	m_sprite.scale(size, size);
 	this->switchTexture(0);
 }
 
