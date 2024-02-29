@@ -11,8 +11,6 @@ public:
 	void remove();
 
 	virtual void handleCollision(GameObject&) {};
-	//virtual void handleCollision(Mouse& otherObject) = 0;
-	//virtual void handleCollision(Cat& otherObject) = 0;
 	virtual void handleCollision(Cheese&) {};
 	virtual void handleCollision(Wall&) {};
 	virtual void handleCollision(Key&) {};

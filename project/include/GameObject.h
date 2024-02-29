@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <iostream> // for debug
 #include <cstdlib>
 #include <ctime>
 #include <math.h>
@@ -25,8 +24,8 @@ public:
 	virtual ~GameObject() = default;
 
 	// double dispatch collision handling
-	sf::Sprite getSprite() const { return m_sprite; }; //copy
-	sf::Sprite& getSprite() { return m_sprite; }; // ref
+	sf::Sprite getSprite() const { return m_sprite; };	// for copy
+	sf::Sprite& getSprite() { return m_sprite; };	    // for ref
 
 	bool collide_with(const GameObject& otherObject);
 

@@ -1,16 +1,19 @@
 ﻿configure_file ("Board1.txt" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Board2.txt" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("Board3.txt" ${CMAKE_BINARY_DIR} COPYONLY)
+
 configure_file ("wall.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("cheese.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("door.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("key.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("gift.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 configure_file ("cat.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("mouse-front.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("mouse-back.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("mouse-left.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("mouse-right.png" ${CMAKE_BINARY_DIR} COPYONLY)
+
 configure_file ("HUDimage.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("heart.png" ${CMAKE_BINARY_DIR} COPYONLY)
 configure_file ("menu-background.png" ${CMAKE_BINARY_DIR} COPYONLY)

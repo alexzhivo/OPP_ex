@@ -67,14 +67,12 @@ void Mouse::reload(sf::Vector2f position, float size)
 	m_startingPosition = position;
 	m_sprite.setPosition(position);
 	m_sprite.scale(size, size);
-	//m_sprite.setScale(0.85f, 0.85f);
 	this->switchTexture(0);
 }
 
 void Mouse::setReset()
 {
 	m_startingLives = m_lives;
-	//m_startingKeys = m_keys;
 	m_keys = 0;
 	m_startingScore = m_score;
 }
@@ -82,7 +80,6 @@ void Mouse::setReset()
 void Mouse::reset()
 {
 	m_sprite.setPosition(m_startingPosition);
-	//m_lives = m_startingLives;
 	m_keys  = m_startingKeys;
 	m_score = m_startingScore;
 }

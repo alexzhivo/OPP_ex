@@ -6,15 +6,17 @@ HUD::HUD(GraphicManager& graphicManager)
 	m_background.setTexture(*m_graphicManager.getTexture("HUD-background"));
 	m_background.setPosition(sf::Vector2f(0, 700));
 
+	auto textColor = sf::Color(150, 130, 90);
+
 	m_level.setFont(*graphicManager.getFont());
 	m_score.setFont(*graphicManager.getFont());
 	m_time.setFont(*graphicManager.getFont());
 	m_level.setCharacterSize(32);
 	m_score.setCharacterSize(32);
 	m_time.setCharacterSize(32);
-	m_level.setFillColor(sf::Color(150,130,90));
-	m_score.setFillColor(sf::Color(150, 130, 90));
-	m_time.setFillColor(sf::Color(150, 130, 90));
+	m_level.setFillColor(textColor);
+	m_score.setFillColor(textColor);
+	m_time.setFillColor(textColor);
 	m_level.setPosition(sf::Vector2f(110, 730));
 	m_score.setPosition(sf::Vector2f(880, 730));
 	m_time.setPosition(sf::Vector2f(1091, 730));

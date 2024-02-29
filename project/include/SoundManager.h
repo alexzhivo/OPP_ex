@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Audio.hpp>
-#include <iostream> // for debug
 #include <string>
 #include <memory>
 

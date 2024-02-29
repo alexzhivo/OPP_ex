@@ -1,6 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "GraphicManager.h"
 
 class HUD {
@@ -16,11 +15,6 @@ private:
 
 	GraphicManager& m_graphicManager;
 
-	// textures
-	sf::Sprite m_background;
-	sf::Sprite m_key;
-	sf::Sprite m_heart;
-
-	// text
+	sf::Sprite m_heart, m_key, m_background;
 	sf::Text m_level, m_score, m_time;
 };

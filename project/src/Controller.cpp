@@ -19,7 +19,7 @@ void Controller::run()
 
 void Controller::startMenu()
 {
-	m_soundManager.playSound("menumusic", true);	// play music
+	m_soundManager.playSound("menumusic", true);
 
 	while (m_window.isOpen()) {
 		for (auto event = sf::Event{}; m_window.pollEvent(event);) {

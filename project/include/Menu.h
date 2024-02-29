@@ -1,6 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
 #include "GraphicManager.h"
 
 enum menu_button { DEFAULT , START_GAME , HELP , EXIT };

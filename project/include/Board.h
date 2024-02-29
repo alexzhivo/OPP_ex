@@ -4,9 +4,7 @@
 #include <string>
 #include <memory>
 #include <fstream>
-#include <iostream>
 #include <ctime>
-#include "GraphicManager.h"
 #include "HUD.h"
 #include "Wall.h"
 #include "Cheese.h"

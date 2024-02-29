@@ -11,7 +11,7 @@ std::unique_ptr<SoundSlot> SoundManager::loadSoundFromFile(const std::string& na
     std::unique_ptr<SoundSlot> slot = std::make_unique<SoundSlot>();
 
     if (!slot->buffer.loadFromFile(filename)) {
-        // Failed to load texture
+        // failed to load sound
         return nullptr;
     }
     slot->name = name;
