@@ -19,9 +19,9 @@ bool Board::loadLevelFromFile(const std::string fileName,const int lvl)
 		return false;
 	}
 
-	if (lvl > 1) {
-		resetPlayer();
-	}
+	//if (lvl > 1) {
+		//resetPlayer();
+	//}
 
 	// set timer (if 0 - no timer) (if > 0 - timer)
 	file >> m_numOfRows >> m_numOfCols >> m_totalTime;
@@ -107,7 +107,12 @@ bool Board::loadLevelFromFile(const std::string fileName,const int lvl)
 				break;
 			}
 		}
+
+		
 	}
+	std::cout << "Tile size: " << m_tileSize << std::endl;
+	sf::Vector2f spriteSize = m_player->getSprite().getGlobalBounds().getSize();
+	std::cout << "Sprite size: " << spriteSize.x << " x " << spriteSize.y << std::endl;
 	return true;
 }
 
@@ -179,10 +184,12 @@ void Board::addTime(const float seconds)
 
 void Board::upLevel()
 {
+	static_cast<Mouse*>(m_player.get())->setReset();
 	m_level++;
 	static_cast<Mouse*>(m_player.get())->increaseScore(25 + (int)m_enemies.size());
 	m_gameObjects.clear();
 	m_enemies.clear();
+	
 }
 
 void Board::resetPlayer()

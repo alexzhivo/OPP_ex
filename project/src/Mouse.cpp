@@ -67,6 +67,8 @@ void Mouse::reload(sf::Vector2f position, float size)
 	m_startingPosition = position;
 	m_sprite.setPosition(position);
 	this->switchTexture(0);
+	m_sprite.setScale(sf::Vector2f(size, size));
+	m_sprite.scale(sf::Vector2f(0.85f, 0.85f));
 }
 
 void Mouse::setReset()
