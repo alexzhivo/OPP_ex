@@ -11,17 +11,12 @@ Board::Board(GraphicManager& graphicManager, std::string fileName , const int le
 
 bool Board::loadLevelFromFile(const std::string fileName,const int lvl)
 {
-
 	auto file = std::ifstream(fileName);
 
 	if (!file)
 	{
 		return false;
 	}
-
-	//if (lvl > 1) {
-		//resetPlayer();
-	//}
 
 	// set timer (if 0 - no timer) (if > 0 - timer)
 	file >> m_numOfRows >> m_numOfCols >> m_totalTime;
@@ -79,7 +74,7 @@ bool Board::loadLevelFromFile(const std::string fileName,const int lvl)
 						m_graphicManager.getTexture("mouse-left")));
 				}
 				else {
-					static_cast<Mouse*>(m_player.get())->reload(position,tileScale);
+					static_cast<Mouse*>(m_player.get())->reload(position, tileScale);
 				}
 				break;
 			case '*':
@@ -106,13 +101,8 @@ bool Board::loadLevelFromFile(const std::string fileName,const int lvl)
 			default:
 				break;
 			}
-		}
-
-		
+		}	
 	}
-	std::cout << "Tile size: " << m_tileSize << std::endl;
-	sf::Vector2f spriteSize = m_player->getSprite().getGlobalBounds().getSize();
-	std::cout << "Sprite size: " << spriteSize.x << " x " << spriteSize.y << std::endl;
 	return true;
 }
 
